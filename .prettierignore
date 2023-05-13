@@ -1,0 +1,10 @@
+# Deep Directories
+**/dist
+**/node_modules
+
+# Directories
+.github
+
+# Files
+README.md
+pnpm-lock.yaml

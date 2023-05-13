@@ -1,0 +1,29 @@
+{
+  "name": "@moons/config",
+  "version": "0.1.0",
+  "description": "Moons config",
+  "author": "withmoons",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.20.0"
+  },
+  "bugs": "https://github.com/withmoons/moons/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/withmoons/moons.git",
+    "directory": "packages/config"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc build \"src/**/*.ts\" && tsc",
+    "build:ci": "tsc build \"src/**/*.ts\""
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "keywords": [
+    "astro",
+    "moons"
+  ]
+}
