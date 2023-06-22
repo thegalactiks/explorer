@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# generated types
+.astro/
+
 # dependencies
 node_modules/
 
@@ -16,12 +19,3 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
-
-# eslint
-.eslintcache
-
-# Pnpm
-.pnpm-store
-
-# Turbo
-.turbo/

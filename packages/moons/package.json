@@ -1,9 +1,9 @@
 {
-  "name": "@withmoons/config",
+  "name": "@withmoons/explorer",
   "version": "0.1.0",
-  "description": "Moons config",
+  "description": "Moons Explorer",
   "author": "withmoons",
-  "types": "./dist/index.d.mts",
+  "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=16.20.0"
@@ -12,15 +12,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/withmoons/moons.git",
-    "directory": "packages/config"
+    "directory": "packages/moons"
   },
-  "main": "dist/index.mjs",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "build:ci": "tsc -p ./tsconfig.json"
   },
   "exports": {
-    ".": "./dist/index.mjs"
+    ".": "./dist/index.js"
+  },
+  "bin": {
+    "moons": "bin/moons.mjs"
   },
   "files": [
     "dist"
@@ -33,6 +35,10 @@
     "astro": "2.6.6"
   },
   "dependencies": {
+    "@astrojs/rss": "2.4.0",
+    "@withmoons/config": "0.1.0",
+    "ci-info": "3.8.0",
+    "commander": "10.0.1",
     "zod": "3.21.4"
   }
 }

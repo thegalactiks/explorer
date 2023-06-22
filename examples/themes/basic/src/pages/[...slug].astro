@@ -1,0 +1,67 @@
+---
+import Container from "@components/Container.astro";
+import {
+  HydratedContent,
+  getContentPages,
+} from "../framework/content";
+import PageLayout from "../layouts/PageLayout.astro";
+import Article from "@components/Article.astro";
+
+export async function getStaticPaths() {
+  return (await getContentPages()).map((entry) => ({
+    params: { slug: entry.data.identifier },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: HydratedContent };
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<PageLayout frontmatter={entry}>
+  <main>
+    <Container>
+      <div class="mx-auto max-w-3xl mt-14">
+        <h1
+          class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight"
+        >
+          {entry.data.name}
+        </h1>
+        <div class="flex gap-2 mt-3 items-center flex-wrap md:flex-nowrap">
+          {
+            entry.data.author && (
+              <span class="text-gray-400">{entry.data.author}</span>
+            )
+          }
+          <span class="text-gray-400">•</span>
+          {
+            entry.data.datePublished && (
+              <time
+                class="text-gray-400"
+                datetime={entry.data.datePublished.toISOString()}
+              >
+                {entry.data.datePublished.toDateString()}
+              </time>
+            )
+          }
+          <span class="text-gray-400 hidden md:block">•</span>
+          {
+            Array.isArray(entry.data.tags) && (
+              <div class="w-full md:w-auto flex flex-wrap gap-3">
+                {entry.data.tags.map((tag) => (
+                  <span class="text-sm text-gray-500">#{tag}</span>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+
+      <Article class="mx-auto mt-6 max-w-3xl">
+        <Content />
+      </Article>
+    </Container>
+  </main>
+</PageLayout>
