@@ -38,5 +38,5 @@ export function action(templatePath: string, path = '.', options: Options) {
   const webManifest = readWebManifestFromPath(webmanifestPath);
 
   execSync(`npx astro build --root ${rootPath} --site ${webManifest.start_url}`);
-  // clean(newContentPath);
+  clean(newContentPath);
 }

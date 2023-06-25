@@ -1,8 +1,15 @@
 ---
 import Container from '@components/Container.astro';
 import { type HydratedContent, getContentPages } from '@withmoons/explorer';
-import PageLayout from '@layouts/PageLayout.astro';
 import Article from '@components/Article.astro';
+
+import PageLayout from '@layouts/PageLayout.astro';
+import ListPageLayout from '@layouts/ListPageLayout.astro';
+
+const layouts: Record<string, typeof PageLayout> = {
+  'PageLayout.astro': PageLayout,
+  'ListPageLayout.astro': ListPageLayout,
+}
 
 export async function getStaticPaths() {
   return (await getContentPages()).map((entry) => ({
@@ -17,9 +24,7 @@ const { entry } = Astro.props;
 const { Content } =
   'render' in entry && typeof entry.render === 'function' ? await entry.render() : { Content: null };
 
-const Layout: typeof PageLayout = entry.data.layout
-  ? (await import(/* @vite-ignore */entry.data.layout)).default
-  : PageLayout;
+const Layout = (entry.data.layout && layouts[entry.data.layout]) || PageLayout;
 ---
 
 <Layout frontmatter={entry}>
