@@ -1,0 +1,57 @@
+---
+import { getContentPagesPartOf } from '@withmoons/explorer';
+// import { Picture } from '@astrojs/image/components';
+import PageLayout from '@layouts/PageLayout.astro';
+import Container from '@components/Container.astro';
+
+const { frontmatter } = Astro.props;
+
+const pages = await getContentPagesPartOf(frontmatter.path);
+---
+
+<PageLayout frontmatter={frontmatter}>
+  <Container>
+    <!-- <Sectionhead>
+      <Fragment slot="title">Our Blog</Fragment>
+      <Fragment slot="desc">
+        We write about building startups and thoughts going on our mind.
+      </Fragment>
+    </Sectionhead> -->
+    <main class="mt-16">
+      <ul class="grid gap-16 max-w-4xl mx-auto">
+        {
+          pages.map((entry, index) => (
+            <li>
+              <a href={entry.slug}>
+                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
+                  <div>
+                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
+                      {entry.data.name}
+                    </h2>
+
+                    <div class="flex gap-2 mt-3">
+                      {entry.data.author && (
+                        <>
+                          <span class="text-gray-400">{entry.data.author}</span>
+                          <span class="text-gray-400">•</span>
+                        </>
+                      )}
+                      {entry.data.datePublished && (
+                        <time
+                          class="text-gray-400"
+                          datetime={entry.data.datePublished.toISOString()}
+                        >
+                          {entry.data.datePublished.toDateString()}
+                        </time>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </Container>
+</PageLayout>

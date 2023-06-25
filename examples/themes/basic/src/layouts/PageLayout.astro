@@ -1,13 +1,11 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
-
 import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
-import type { HydratedContentFrontmatter } from "framework/content";
+import type { HydratedContent } from "@withmoons/explorer";
 
 import BaseLayout from "./BaseLayout.astro";
 
-type Props = { frontmatter: HydratedContentFrontmatter };
+type Props = { frontmatter: HydratedContent["frontmatter"] };
 
 const { frontmatter } = Astro.props;
 ---

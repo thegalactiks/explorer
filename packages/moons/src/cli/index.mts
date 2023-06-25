@@ -13,7 +13,7 @@ program.command('build [path]')
   .argument('[templatePath]', 'Template path')
   .argument('[path]', 'Project root path', '.')
   .option('-m, --manifest <path>')
-  .action(async (templatePath: string, path: string = '.', options: Options) => {
+  .action(async (templatePath: string, path = '.', options: Options) => {
     try {
       await buildAction(templatePath, path, options);
     } catch (err) {

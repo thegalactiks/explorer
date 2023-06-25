@@ -1,35 +1,43 @@
 ---
+import { getRootPages } from "@withmoons/explorer";
+
 import Container from "@components/Container.astro";
 import Logo from "@components/Logo.astro";
 
-const menuitems = [
-  {
-    title: "Features",
-    path: "#",
-    children: [
-      { title: "Action", path: "/" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-      { title: "404 Page", path: "/404" },
-    ],
-  },
-  {
-    title: "Pricing",
-    path: "/pricing",
-  },
-  {
-    title: "About",
-    path: "/about",
-  },
-  {
-    title: "Blog",
-    path: "/blog",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
-];
+const rootPages = await getRootPages();
+const menuitems = rootPages.map(page => ({
+  title: page.data.name,
+  path: page.slug
+}));
+
+// const menuitems = [
+//   {
+//     title: "Features",
+//     path: "#",
+//     children: [
+//       { title: "Action", path: "/" },
+//       { title: "Another action", path: "#" },
+//       { title: "Dropdown Submenu", path: "#" },
+//       { title: "404 Page", path: "/404" },
+//     ],
+//   },
+//   {
+//     title: "Pricing",
+//     path: "/pricing",
+//   },
+//   {
+//     title: "About",
+//     path: "/about",
+//   },
+//   {
+//     title: "Blog",
+//     path: "/blog",
+//   },
+//   {
+//     title: "Contact",
+//     path: "/contact",
+//   },
+// ];
 ---
 
 <Container>

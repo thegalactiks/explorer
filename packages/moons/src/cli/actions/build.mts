@@ -9,7 +9,7 @@ export type Options = {
 
 const defaultWebManifestFileName = 'webmanifest.json'
 
-const configPath = process.env.MOONS_CONFIG_PATH || resolve('./assets/content');
+const configPath = process.env.MOONS_CONFIG_PATH || resolve('./src/assets/content');
 const files = ['_schemas.ts', 'config.ts'];
 
 function clean(contentPath: string) {
@@ -20,7 +20,7 @@ function clean(contentPath: string) {
   rmSync(contentPath, { recursive: true, force: true });
 }
 
-export function action(templatePath: string, path: string = '.', options: Options) {
+export function action(templatePath: string, path = '.', options: Options) {
   const rootPath = resolve(templatePath);
   const contentPath = resolve(path, 'content');
   const newContentPath = join(rootPath, 'src/content');
@@ -38,5 +38,5 @@ export function action(templatePath: string, path: string = '.', options: Option
   const webManifest = readWebManifestFromPath(webmanifestPath);
 
   execSync(`npx astro build --root ${rootPath} --site ${webManifest.start_url}`);
-  clean(newContentPath);
+  // clean(newContentPath);
 }
