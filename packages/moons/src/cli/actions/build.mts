@@ -25,14 +25,14 @@ export function action(templatePath: string, path = '.', options: Options) {
   const contentPath = resolve(path, 'content');
   const newContentPath = join(rootPath, 'src/content');
 
-  files.forEach(file => {
-    cpSync(join(configPath, file), join(contentPath, file));
-  })
-
   if (existsSync(newContentPath)) {
     rmSync(newContentPath, { recursive: true, force: true });
   }
   cpSync(contentPath, newContentPath, { recursive: true });
+
+  files.forEach(file => {
+    cpSync(join(configPath, file), join(newContentPath, file));
+  })
 
   const webmanifestPath = options.manifest ? resolve(options.manifest) : join(path, defaultWebManifestFileName);
   const webManifest = readWebManifestFromPath(webmanifestPath);
