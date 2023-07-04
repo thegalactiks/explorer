@@ -1,10 +1,15 @@
+import markdoc from '@astrojs/markdoc';
+import mdx from '@astrojs/mdx';
+import partytown from '@astrojs/partytown';
+import prefetch from '@astrojs/prefetch';
+import sitemap from '@astrojs/sitemap';
 import type { AstroUserConfig } from 'astro/config';
+import deepmerge from './utils/deepmerge.mjs';
+
 import type { WebManifest } from './webmanifest.mjs';
 
-export type MoonsConfig = {
+export type MoonsConfig = AstroUserConfig & {
   webManifest: WebManifest;
-
-  astro: AstroUserConfig;
 };
 
 const defaultConfig: MoonsConfig = {
@@ -15,11 +20,16 @@ const defaultConfig: MoonsConfig = {
     icons: [],
   },
 
-  astro: {
-    experimental: {
-      assets: true,
-    },
+  experimental: {
+    assets: true,
   },
+  integrations: [
+    markdoc(),
+    mdx(),
+    partytown(),
+    prefetch(),
+    sitemap(),
+  ],
 };
 
 let _config: MoonsConfig = defaultConfig;
@@ -31,15 +41,10 @@ export function defineConfig(config: Partial<MoonsConfig>): MoonsConfig {
 }
 
 export function extendsConfig(config: Partial<MoonsConfig>): MoonsConfig {
-  _config = {
+  _config = deepmerge({
+    site: config.webManifest?.start_url || _config.site,
     ..._config,
-    ...config,
-  };
-
-  _config.astro = {
-    site: config.webManifest?.start_url || _config.astro.site,
-    ..._config.astro,
-  };
+  }, config);
 
   return _config;
 }
