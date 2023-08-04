@@ -1,11 +1,26 @@
-import { reference, z } from "astro:content";
+import { z } from 'zod'
 
-const markdownPageSchema = z
-  .object({
-    layout: z.string().optional().default("../layouts/PageLayout.astro"),
-    tags: z.array(z.string()).optional(),
-  })
-  .strict();
+const metadataHeaders = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  canonical: z.string().optional(),
+  alternates: z.array(z.object({
+    href: z.string(),
+    hreflang: z.string(),
+  })).optional(),
+  robots: z.string().optional(),
+  openGraph: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    url: z.string().optional(),
+  }).optional(),
+}).strict();
+const moonsSchema = z.object({
+  collection: z.enum(['pages', 'articles']).or(z.string()),
+  tags: z.array(z.string()).optional(),
+  slug: z.string(),
+  headers: metadataHeaders.optional(),
+}).strict()
 
 // Schema: https://schema.org/Thing
 const thingSchema = z
@@ -47,7 +62,7 @@ export const personSchema = thingSchema.extend({
 
 // Schema: https://schema.org/CreativeWork
 const creativeWorkSchema = thingSchema.extend({
-  author: reference('persons').or(personSchema).optional(),
+  author: z.string().or(personSchema).optional(),
   headline: z.string().optional(),
   dateCreated: z.date(),
   dateModified: z.date().optional(),
@@ -57,7 +72,7 @@ const creativeWorkSchema = thingSchema.extend({
   keywords: z.array(z.string()).optional(),
   license: z.string().optional(),
   position: z.number().optional(),
-  translationOfWork: reference('articles').or(reference('pages')).or(z.array(z.object({
+  translationOfWork: z.string().or(z.array(z.object({
     inLanguage: z.string(),
     url: z.string(),
   }))).optional(),
@@ -130,9 +145,9 @@ export const questionSchema = creativeWorkSchema.extend({
   suggestedAnswer: answerSchema,
 });
 
-export const articlePageSchema = markdownPageSchema.merge(articleSchema);
-export const pageSchema = markdownPageSchema.merge(webPageSchema);
+export const articlePageSchema = moonsSchema.merge(articleSchema);
+export const pageSchema = moonsSchema.merge(webPageSchema);
 
-export type ArticleFrontmatter = z.infer<typeof articlePageSchema>;
-export type PageFrontmatter = z.infer<typeof pageSchema>;
-export type QuestionFrontmatter = z.infer<typeof questionSchema>;
+export type MetadataHeaders = z.infer<typeof metadataHeaders>;
+export type Article = z.infer<typeof articlePageSchema>;
+export type Page = z.infer<typeof pageSchema>;

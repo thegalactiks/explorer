@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "build:ci": "tsc -p ./tsconfig.json"
+    "build:ci": "tsc -p ./tsconfig.json",
+    "contentlayer:build": "contentlayer build"
   },
   "types": "./dist/index.d.ts",
   "exports": {
@@ -29,19 +30,21 @@
     "dist"
   ],
   "keywords": [
-    "astro",
     "moons"
   ],
-  "devDependencies": {
-    "@types/cytoscape": "3.19.10",
-    "astro": "2.8.0"
-  },
   "dependencies": {
-    "@astrojs/rss": "2.4.3",
-    "@withmoons/config": "0.1.0",
-    "ci-info": "3.8.0",
-    "commander": "10.0.1",
-    "cytoscape": "3.25.0",
+    "@withmoons/config": "*",
+    "esbuild": "0.18.17",
+    "mdx-bundler": "9.2.1",
+    "react": "18.2.0",
     "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.18",
+    "content": "./example/.contentlayer",
+    "contentlayer": "0.3.4"
+  },
+  "peerDependencies": {
+    "contentlayer": "0.3.4"
   }
 }

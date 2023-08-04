@@ -1,1 +1,2 @@
-export { getPagesPartOf, getPages, getRootPages } from './content';
+export { getPagesPartOf, getPages, getRootPages, getHomePage } from './content';
+export * from './types'

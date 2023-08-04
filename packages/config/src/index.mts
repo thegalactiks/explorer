@@ -1,2 +1,2 @@
 export * from './config.mjs';
-export * from './webmanifest.mjs';
+export * from './webmanifest.config.mjs';

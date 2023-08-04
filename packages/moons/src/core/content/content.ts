@@ -1,54 +1,29 @@
-import { getCollection } from 'astro:content';
+import type { Content } from './types'
+import { getHeadersFromEntry, getOpenGraphFromEntry } from './metadata'
+import { getPathFromEntry, getUrlFromEntry } from './urls'
+import { getAllDocuments, getDocumentByIdentifier, getDocumentWithoutPartOf, getDocumentsPartOf } from './repository'
 
-import { getHeadersFromEntry, getOpenGraphFromEntry } from '../metadata';
-import type { CollectionName, ContentEntry, HydratedContent } from '../types';
-import { getPathFromEntry, getUrlFromEntry } from './urls';
-
-const _hydrateEntry = async (collection: CollectionName, entry: ContentEntry): Promise<HydratedContent> => {
+const computeFields = async (entry: Content): Promise<Content> => {
   const path = await getPathFromEntry(entry);
-  const hydratedContent: Omit<HydratedContent, 'metadata'> = {
+  const contentWithoutHeaders: Omit<Content, 'headers'> = {
     ...entry,
-    collection,
     slug: path,
-    path,
-    data: {
-      ...entry.data,
-      url: getUrlFromEntry({ ...entry, path }),
-      dateModified: entry.data.dateModified || entry.data.dateCreated,
-    }
-  };
+    url: getUrlFromEntry(entry),
+    dateCreated: new Date(entry.dateCreated),
+    dateModified: new Date(entry.dateModified || entry.dateCreated),
+    datePublished: entry.datePublished ? new Date(entry.datePublished) : undefined,
+  }
 
   return {
-    ...hydratedContent,
-    metadata: {
-      headers: getHeadersFromEntry(hydratedContent),
-      openGraph: getOpenGraphFromEntry(hydratedContent),
+    ...contentWithoutHeaders,
+    headers: {
+      ...getHeadersFromEntry(contentWithoutHeaders),
+      openGraph: getOpenGraphFromEntry(contentWithoutHeaders),
     },
   }
-};
-
-const _hydraEntries = (collection: CollectionName, entries: ContentEntry[]) => Promise.all(entries.map(entry => _hydrateEntry(collection, entry)))
-
-const getEntryWithoutParent = async (): Promise<HydratedContent[]> => {
-  const entries = await getContentEntries();
-  return entries.filter(entry => !entry.data.isPartOf);
 }
 
-const getContentEntriesPartOf = async (slug: string): Promise<HydratedContent[]> => {
-  const entries = await getContentEntries();
-  return entries.filter(entry => entry.data.isPartOf === slug);
-}
-
-const getContentEntriesByCollection = async (collection: CollectionName): Promise<HydratedContent[]> => _hydraEntries(collection, await getCollection(collection));
-
-const getContentEntries = async (): Promise<HydratedContent[]> => {
-  const [articleEntries, pageEntries] = await Promise.all([
-    getContentEntriesByCollection('articles'),
-    getContentEntriesByCollection('pages'),
-  ]);
-
-  return articleEntries.concat(pageEntries);
-}
+const computePagesFields = (entries: Content[]) => Promise.all(entries.map(entry => computeFields(entry)))
 
 // const getListingEntriesFromContentEntries = async (contentEntries: HydratedContent[]): Promise<HydratedContent[]> =>
 //   Promise.all(
@@ -72,10 +47,8 @@ const getContentEntries = async (): Promise<HydratedContent[]> => {
 //       .map(({ dateCreated, inLanguage, path }) => _hydrateEntry('pages', {
 //         id: path,
 //         slug: path,
-//         path,
 //         body: '',
 //         data: {
-//           layout: '@layouts/PageLayout.astro',
 //           url: '',
 //           name: path,
 //           description: path,
@@ -86,6 +59,14 @@ const getContentEntries = async (): Promise<HydratedContent[]> => {
 //       }))
 //   );
 
-export const getPages = () => getContentEntries();
-export const getRootPages = () => getEntryWithoutParent();
-export const getPagesPartOf = (slug: string) => getContentEntriesPartOf(slug);
+export const getPages = async (): Promise<Content[]> => computePagesFields(await getAllDocuments())
+export const getRootPages = async (): Promise<Content[]> => computePagesFields(await getDocumentWithoutPartOf())
+export const getPagesPartOf = async (slug: string): Promise<Content[]> => computePagesFields(await getDocumentsPartOf(slug))
+export const getHomePage = async (): Promise<Content> => {
+  const homepageContent = await getDocumentByIdentifier('index')
+  if (!homepageContent) {
+    throw new Error('no content for homepage')
+  }
+
+  return computeFields(homepageContent)
+}

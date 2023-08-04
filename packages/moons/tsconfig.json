@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*", "global.d.ts"],
+  "include": ["src/**/*", "./contentlayer/generated/index.d.ts"],
   "compilerOptions": {
     "baseUrl": "./src",
     "allowJs": true,

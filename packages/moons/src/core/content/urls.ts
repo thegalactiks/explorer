@@ -1,38 +1,38 @@
-import { getConfig } from '@withmoons/config';
-import { join } from 'path';
+import { getConfig } from '@withmoons/config'
+import { join } from 'path'
 
-import { getContentPageBySlug } from './repository';
-import type { ContentEntry, } from '../types';
+import { getDocumentBySlug } from './repository'
+import type { Content, } from './types'
 
-const _getPathFromEntry = (entry: ContentEntry): string => {
-  if (entry.data.identifier) {
-    return entry.data.identifier === 'index' ? '' : entry.data.identifier;
+const _getPathFromEntry = (entry: Content): string => {
+  if (entry.identifier) {
+    return entry.identifier === 'index' ? '/' : entry.identifier
   }
 
-  return entry.slug;
-};
+  return entry.slug
+}
 
-export const getPathFromEntry = async (entry: ContentEntry): Promise<string> => {
-  // TODO: take language into account
-  // if (entry.data.inLanguage) {
+export const getPathFromEntry = async (entry: Content): Promise<string> => {
+  // TODO: take language into account with a path pattern in the moons config
+  // if (entry.inLanguage) {
   // }
 
   const path = _getPathFromEntry(entry);
-  if (!entry.data.isPartOf) {
+  if (!entry.isPartOf) {
     return path;
   }
 
-  const parent = await getContentPageBySlug(entry.data.isPartOf)
-  const base = parent ? (await getPathFromEntry(parent)) : entry.data.isPartOf;
-  return join(base, path);
+  const parent = await getDocumentBySlug(entry.isPartOf)
+  const base = parent ? (await getPathFromEntry(parent)) : entry.isPartOf
+  return join(base, path)
 }
 
-export const getUrlFromEntry = (entry: ContentEntry): string => {
-  if (entry.data.url) {
-    return entry.data.url;
+export const getUrlFromEntry = (entry: Content): string => {
+  if (entry.url) {
+    return entry.url
   }
 
-  const { webManifest: { start_url: url = '/' } } = getConfig();
+  const { webManifest: { start_url: url = '/' } } = getConfig()
 
-  return new URL(entry.path, url).toString()
+  return new URL(entry.slug, url).toString()
 }
