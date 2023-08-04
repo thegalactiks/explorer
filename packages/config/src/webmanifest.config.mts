@@ -1,5 +1,8 @@
-import { readFileSync, existsSync } from 'fs';
-import { z } from 'zod';
+import { readFileSync, existsSync } from 'fs'
+import { join } from 'path'
+import { z } from 'zod'
+
+const defaultWebManifestFileName = 'webmanifest.json'
 
 const iconSchema = z.object({
   src: z.string(),
@@ -26,16 +29,16 @@ const webManifestSchema = z.object({
   theme_color: z.string().optional(),
   icons: z.array(iconSchema),
   shortcuts: z.array(shortcutSchema).optional(),
-});
+})
 
-export type WebManifest = z.infer<typeof webManifestSchema>;
+export type WebManifest = z.infer<typeof webManifestSchema>
 
 export function readWebManifestFromPath(path: string): WebManifest {
-  if (!existsSync(path)) {
-    throw new Error(`The WebManifest file "${path}" does not exist.`);
+  const webmanifestPath = join(path, defaultWebManifestFileName)
+  if (!existsSync(webmanifestPath)) {
+    throw new Error(`The WebManifest file "${webmanifestPath}" does not exist.`)
   }
 
-  const webManifestFileContents = readFileSync(path, 'utf8');
-
-  return webManifestSchema.parse(JSON.parse(webManifestFileContents));
+  const webManifestFileContent = readFileSync(webmanifestPath, 'utf8')
+  return webManifestSchema.parse(JSON.parse(webManifestFileContent))
 }

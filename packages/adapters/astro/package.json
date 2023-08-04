@@ -1,0 +1,56 @@
+{
+  "name": "@withmoons/astro-integration",
+  "version": "0.1.0",
+  "description": "Moons Astro integration",
+  "author": "withmoons",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.20.0"
+  },
+  "bugs": "https://github.com/withmoons/moons/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/withmoons/moons.git",
+    "directory": "packages/adapters/astro"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "build:ci": "tsc -p ./tsconfig.json"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "astro",
+    "moons"
+  ],
+  "dependencies": {
+    "@withmoons/config": "*",
+    "astro": "2.7.3"
+  },
+  "peerDependencies": {
+    "@astrojs/partytown": "1.2.3",
+    "@astrojs/prefetch": "0.2.3",
+    "@astrojs/react": "2.2.1",
+    "@astrojs/rss": "^2.4.3",
+    "@astrojs/sitemap": "1.3.3",
+    "astro": "2.7.3"
+  },
+  "devDependencies": {
+    "@astrojs/partytown": "1.2.3",
+    "@astrojs/prefetch": "0.2.3",
+    "@astrojs/react": "2.2.1",
+    "@astrojs/rss": "^2.4.3",
+    "@astrojs/sitemap": "1.3.3",
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.2.7",
+    "react": "18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

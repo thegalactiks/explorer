@@ -1,54 +1,63 @@
-import markdoc from '@astrojs/markdoc';
-import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
-import prefetch from '@astrojs/prefetch';
-import sitemap from '@astrojs/sitemap';
-import type { AstroUserConfig } from 'astro/config';
-import deepmerge from './utils/deepmerge.mjs';
+import { existsSync, readFileSync } from 'fs'
+import { z } from 'zod'
 
-import type { WebManifest } from './webmanifest.mjs';
+import deepmerge from './utils/deepmerge.mjs'
+import { readWebManifestFromPath, type WebManifest } from './webmanifest.config.mjs'
+import { join } from 'path'
 
-export type MoonsConfig = AstroUserConfig & {
-  webManifest: WebManifest;
-};
+const moonsConfigFileSchema = z.object({
+  name: z.string().optional(),
+  template: z.string(),
+})
 
-const defaultConfig: MoonsConfig = {
-  webManifest: {
-    name: 'Moons',
-    description: 'Website Launcher',
-    start_url: 'io.moons.com',
-    icons: [],
-  },
+const defaultConfigFileName = 'moons.config.json'
 
-  experimental: {
-    assets: true,
-  },
-  integrations: [
-    markdoc(),
-    mdx(),
-    partytown(),
-    prefetch(),
-    sitemap(),
-  ],
-};
-
-let _config: MoonsConfig = defaultConfig;
-
-export function defineConfig(config: Partial<MoonsConfig>): MoonsConfig {
-  _config = defaultConfig;
-
-  return extendsConfig(config);
+type ContentConfig = {
+  root: string
+  generated: string
+}
+export type MoonsConfig = {
+  name?: string
+  template: string
+  content: ContentConfig
+  webManifest: WebManifest
 }
 
-export function extendsConfig(config: Partial<MoonsConfig>): MoonsConfig {
-  _config = deepmerge({
-    site: config.webManifest?.start_url || _config.site,
-    ..._config,
-  }, config);
+let _config: MoonsConfig
 
-  return _config;
+const readConfigFile = (path: string): MoonsConfig => {
+  const configPath = join(path, defaultConfigFileName)
+  if (!existsSync(configPath)) {
+    throw new Error(`The moons config file "${configPath}" does not exist.`)
+  }
+
+  const configFileContent = readFileSync(configPath, 'utf8')
+  const configFile = moonsConfigFileSchema.parse(JSON.parse(configFileContent))
+
+  const config: MoonsConfig = {
+    name: configFile.name,
+    template: configFile.template,
+    content: {
+      root: path,
+      generated: join(path, '.contentlayer/generated/index.mjs'),
+    },
+    webManifest: readWebManifestFromPath(path),
+  }
+
+  return config
 }
 
-export function getConfig(): MoonsConfig {
-  return _config;
+export function getConfig(path?: string): MoonsConfig {
+  if (_config) {
+    return _config
+  }
+
+  if (!path && process.env.CONTENT_PATH) {
+    path = process.env.CONTENT_PATH
+  } else if (!path) {
+    path = process.cwd()
+  }
+  _config = readConfigFile(path)
+
+  return _config
 }
