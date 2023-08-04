@@ -32,22 +32,22 @@
   ],
   "dependencies": {
     "@withmoons/config": "*",
-    "astro": "2.7.3"
+    "astro": "2.10.1"
   },
   "peerDependencies": {
     "@astrojs/partytown": "1.2.3",
-    "@astrojs/prefetch": "0.2.3",
+    "@astrojs/prefetch": "0.3.0",
     "@astrojs/react": "2.2.1",
     "@astrojs/rss": "^2.4.3",
-    "@astrojs/sitemap": "1.3.3",
-    "astro": "2.7.3"
+    "@astrojs/sitemap": "1.4.0",
+    "astro": "2.10.1"
   },
   "devDependencies": {
     "@astrojs/partytown": "1.2.3",
-    "@astrojs/prefetch": "0.2.3",
+    "@astrojs/prefetch": "0.3.0",
     "@astrojs/react": "2.2.1",
     "@astrojs/rss": "^2.4.3",
-    "@astrojs/sitemap": "1.3.3",
+    "@astrojs/sitemap": "1.4.0",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "react": "18.2.0",
