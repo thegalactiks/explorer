@@ -32,6 +32,7 @@
   ],
   "dependencies": {
     "@withmoons/config": "*",
+    "@withmoons/explorer": "*",
     "astro": "2.10.1"
   },
   "peerDependencies": {

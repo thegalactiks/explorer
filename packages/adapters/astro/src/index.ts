@@ -1,6 +1,7 @@
 import type { AstroIntegration } from 'astro'
 import { getConfig } from '@withmoons/config'
 
+export { getStaticPaths } from './pages'
 export { integrationsPreset } from './preset'
 
 type MoonsOptions = {
