@@ -19,12 +19,9 @@
     "build:ci": "tsc -p ./tsconfig.json",
     "contentlayer:build": "contentlayer build"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "exports": {
-    ".": "./dist/index.js"
-  },
-  "bin": {
-    "moons": "bin/moons.mjs"
+    ".": "./dist/index.mjs"
   },
   "files": [
     "dist"

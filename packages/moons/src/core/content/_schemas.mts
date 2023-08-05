@@ -14,11 +14,13 @@ const metadataHeaders = z.object({
     description: z.string().optional(),
     url: z.string().optional(),
   }).optional(),
-}).strict();
+}).strict()
 const moonsSchema = z.object({
   collection: z.enum(['pages', 'articles']).or(z.string()),
   tags: z.array(z.string()).optional(),
-  slug: z.string(),
+  listingPage: z.boolean().default(false),
+  path: z.string(),
+  slug: z.string().optional(),
   headers: metadataHeaders.optional(),
 }).strict()
 
@@ -39,7 +41,7 @@ const thingSchema = z
     }).optional(),
     sameAs: z.string().optional(),
   })
-  .strict();
+  .strict()
 
 // Schema: https://schema.org/ItemList
 const itemListSchema = thingSchema.extend({
@@ -48,7 +50,7 @@ const itemListSchema = thingSchema.extend({
     name: z.string(),
     item: z.string(),
   })),
-});
+})
 
 // Schema: https://schema.org/Person
 export const personSchema = thingSchema.extend({
@@ -58,7 +60,7 @@ export const personSchema = thingSchema.extend({
   givenName: z.string().optional(),
   jobTitle: z.string().optional(),
   telephone: z.string().optional(),
-});
+})
 
 // Schema: https://schema.org/CreativeWork
 const creativeWorkSchema = thingSchema.extend({
@@ -76,7 +78,7 @@ const creativeWorkSchema = thingSchema.extend({
     inLanguage: z.string(),
     url: z.string(),
   }))).optional(),
-});
+})
 
 // Schema: https://schema.org/Event
 export const eventSchema = thingSchema.extend({
@@ -84,31 +86,31 @@ export const eventSchema = thingSchema.extend({
   inLanguage: z.string().optional(),
   startDate: z.date().optional(),
   keywords: z.array(z.string()).optional(),
-});
+})
 
 // Schema: https://schema.org/QuantitativeValue
 const quantitativeValueSchema = thingSchema.extend({
   maxValue: z.number().optional(),
   minValue: z.number().optional(),
   value: z.number(),
-});
+})
 
 // Schema: https://schema.org/MediaObject
 const mediaObjectSchema = creativeWorkSchema.extend({
   height: quantitativeValueSchema.optional(),
   uploadDate: z.date().optional(),
   width: quantitativeValueSchema.optional(),
-});
+})
 
 const propertyValueSchema = thingSchema.extend({
   value: z.string(),
-});
+})
 
 // Schema: https://schema.org/ImageObject
 const imageObjectSchema = mediaObjectSchema.extend({
   caption: mediaObjectSchema.or(z.string()).optional(),
   exifData: z.array(propertyValueSchema).optional(),
-});
+})
 
 // Schema: https://schema.org/Organization
 export const organizationSchema = thingSchema.extend({
@@ -120,22 +122,22 @@ export const organizationSchema = thingSchema.extend({
   taxID: z.string().optional(),
   telephone: z.string().optional(),
   vatID: z.string().optional(),
-});
+})
 
 // Schema: https://schema.org/Article
 const articleSchema = creativeWorkSchema.extend({
   articleBody: z.string().optional(),
   wordCount: z.number().optional(),
-}).strict();
+}).strict()
 
 // Schema: https://schema.org/WebPage
 const webPageSchema = creativeWorkSchema.extend({
   breadcrumb: itemListSchema.optional(),
   relatedLink: z.string().optional()
-}).strict();
+}).strict()
 
 // Schema:
-const answerSchema = thingSchema.extend({});
+const answerSchema = thingSchema.extend({})
 
 // Schema: https://schema.org/Question
 export const questionSchema = creativeWorkSchema.extend({
@@ -143,11 +145,11 @@ export const questionSchema = creativeWorkSchema.extend({
   answerCount: z.number().optional(),
   acceptedAnswer: answerSchema,
   suggestedAnswer: answerSchema,
-});
+})
 
-export const articlePageSchema = moonsSchema.merge(articleSchema);
-export const pageSchema = moonsSchema.merge(webPageSchema);
+export const articlePageSchema = moonsSchema.merge(articleSchema)
+export const pageSchema = moonsSchema.merge(webPageSchema)
 
-export type MetadataHeaders = z.infer<typeof metadataHeaders>;
-export type Article = z.infer<typeof articlePageSchema>;
-export type Page = z.infer<typeof pageSchema>;
+export type MetadataHeaders = z.infer<typeof metadataHeaders>
+export type Article = z.infer<typeof articlePageSchema>
+export type Page = z.infer<typeof pageSchema>

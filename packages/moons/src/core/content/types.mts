@@ -1,11 +1,8 @@
 import type { IsoDateTimeString, MDX } from 'contentlayer/core'
-import type *  as React from 'react'
-import type { MDXContentProps } from 'mdx-bundler/client'
+import type { Article, MetadataHeaders, Page } from './_schemas.mjs'
+import type { Render } from './render.mjs'
+export type { MetadataHeaders } from './_schemas.mjs'
 
-import type { Article, MetadataHeaders, Page } from './_schemas'
-export type { MetadataHeaders }
-
-type Render = () => { Content: React.FunctionComponent<MDXContentProps> }
 export type Content = (Article | Page) & {
   body: MDX & { render: Render }
 } & MetadataHeaders
@@ -13,6 +10,9 @@ export type Content = (Article | Page) & {
 export type ContentlayerArticle = {
   _id: string
   type: 'Article'
+  listingPage: boolean
+  slug?: string | undefined
+  path?: string | undefined
   name: string
   description: string
   url?: string | undefined
@@ -27,14 +27,17 @@ export type ContentlayerArticle = {
   isPartOf?: string | undefined
   inLanguage?: string | undefined
   keywords?: string[] | undefined
+  /** MDX file body */
   body: MDX
   collection: string
-  slug: string
 }
 
 export type ContentlayerPage = {
   _id: string
   type: 'Page'
+  listingPage: boolean
+  slug?: string | undefined
+  path?: string | undefined
   name: string
   description: string
   url?: string | undefined
@@ -49,8 +52,8 @@ export type ContentlayerPage = {
   isPartOf?: string | undefined
   inLanguage?: string | undefined
   keywords?: string[] | undefined
+  /** MDX file body */
   body: MDX
   collection: string
-  slug: string
 }
 export type ContentlayerDocument = ContentlayerArticle | ContentlayerPage
