@@ -3,31 +3,42 @@ import { getHeadersFromEntry, getOpenGraphFromEntry } from './metadata/index.mjs
 import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
 import { addRender, emptyRender, type ContentlayerDocumentWithRender } from './render.mjs'
 
+const createListingPage = (identifier: string, path: string, document: Partial<ContentlayerDocument> = {}) => ({
+  _id: identifier,
+  identifier,
+  path,
+  slug: identifier,
+  listingPage: true,
+  description: '',
+  body: {
+    raw: '',
+    code: '',
+    render: emptyRender
+  },
+  type: 'Page',
+  collection: 'pages',
+  name: identifier,
+  ...document
+} as ContentlayerDocumentWithRender)
+
 const computeRemainingListingPages = async (documents: ContentlayerDocumentWithRender[]) => {
-  return documents.reduce((acc, { dateCreated, datePublished, dateModified, isPartOf }) => {
-    if (!isPartOf || acc.some(_a => _a.identifier === isPartOf)) {
-      return acc
+  return documents.reduce((acc, { keywords, dateCreated, datePublished, dateModified, isPartOf }) => {
+    const templateDocument = { dateCreated, datePublished, dateModified }
+
+    // If parent page does not exist, create it
+    if (isPartOf && acc.some(_a => _a.identifier === isPartOf) === false) {
+      acc = acc.concat(createListingPage(isPartOf, `/${isPartOf}`, templateDocument))
     }
 
-    return acc.concat({
-      _id: isPartOf,
-      identifier: isPartOf,
-      path: `/${isPartOf}`,
-      slug: isPartOf,
-      listingPage: true,
-      description: '',
-      body: {
-        raw: '',
-        code: '',
-        render: emptyRender
-      },
-      type: 'Page',
-      collection: 'pages',
-      name: isPartOf,
-      dateCreated,
-      dateModified,
-      datePublished
-    })
+    // Create all keywords pages not existing yet
+    if (Array.isArray(keywords)) {
+      acc = acc.concat(keywords
+        .filter(_k => acc.some(_a => _a.identifier === `tags/${_k}`) === false)
+        .map(_k => createListingPage(_k, `/tags/${_k}`, templateDocument))
+      )
+    }
+
+    return acc
   }, documents)
 }
 
