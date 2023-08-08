@@ -1,32 +1,48 @@
 import { getConfig } from '@withmoons/config'
 
-import type { Content, ContentlayerDocument } from './types.mjs'
+import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument } from './types/index.mjs'
 import { computeDocuments } from './compute.mjs'
 
+let _generated: ContentlayerDataExports
 let _documents: Content[]
 
-const getAllDocuments = async (): Promise<Content[]> => {
-  if (Array.isArray(_documents)) {
-    return _documents
+const getGenerated = async (): Promise<ContentlayerDataExports> => {
+  if (!_generated) {
+    const { content } = getConfig()
+    _generated = await import(content.generated)
   }
 
-  const { content } = getConfig()
-
-  const documents = (await import(content.generated)).allDocuments as ContentlayerDocument[]
-  return computeDocuments(documents)
+  return _generated
 }
 
-export const getPages = async (): Promise<Content[]> => getAllDocuments()
+const getWebPageDocuments = async (): Promise<Content[]> => {
+  if (!Array.isArray(_documents)) {
+    const generated = await getGenerated()
+    _documents = await computeDocuments({
+      documents: new Array<ContentlayerWebPageDocument>()
+        .concat(generated.allPages)
+        .concat(generated.allArticles),
+      persons: await getPersons(),
+    })
+  }
 
-export const getRootPages = async (): Promise<Content[]> => (await getAllDocuments()).filter(doc => !doc.isPartOf)
+  return _documents
+}
 
-export const getPagesPartOf = async (slug: string): Promise<Content[]> => (await getAllDocuments()).filter(doc => doc.isPartOf === slug)
+export const getPages = async (): Promise<Content[]> => getWebPageDocuments()
+
+export const getRootPages = async (): Promise<Content[]> => (await getPages()).filter(doc => !doc.isPartOf)
+
+export const getPagesPartOf = async (slug: string): Promise<Content[]> => (await getPages()).filter(doc => doc.isPartOf === slug)
 
 export const getPageByIdentifier = async (identifier: string) =>
-  (await getAllDocuments()).find(doc => doc.identifier === identifier)
+  (await getPages()).find(doc => doc.identifier === identifier)
 
 export const getPageBySlug = async (slug: string) =>
-  (await getAllDocuments()).find(doc => doc.slug === slug)
+  (await getPages()).find(doc => doc.slug === slug)
+
+export const getPersons = async () => (await getGenerated()).allPeople
+export const getPersonByIdentifier = async (identifier: string) => (await getPersons()).find(doc => doc.identifier === identifier)
 
 export const getAllPagesExceptHome = async (): Promise<Content[]> =>
   (await getPages()).filter(({ identifier }) => identifier !== 'index')

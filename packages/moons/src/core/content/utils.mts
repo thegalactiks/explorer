@@ -1,6 +1,6 @@
-import type { ContentlayerDocument } from './types.mjs'
+import type { ContentlayerWebPageDocument } from './types/index.mjs'
 
-export const computePageDepth = (documents: ContentlayerDocument[], document: ContentlayerDocument, depth = 0): number => {
+export const computePageDepth = (documents: ContentlayerWebPageDocument[], document: ContentlayerWebPageDocument, depth = 0): number => {
   if (!document.isPartOf) {
     return depth
   }

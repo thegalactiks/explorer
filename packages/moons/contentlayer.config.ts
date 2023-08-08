@@ -1,15 +1,13 @@
 import {
-  ComputedFields,
   FieldDefs,
   defineDocumentType,
   makeSource,
 } from 'contentlayer/source-files'
 
-const computedFields: ComputedFields = {
-  slug: {
-    type: 'string',
-    resolve: doc => doc._raw.flattenedPath
-  }
+const moonsFields: FieldDefs = {
+  listingPage: { type: 'boolean', required: false, default: false },
+  slug: { type: 'string', required: false },
+  path: { type: 'string', required: false }
 }
 
 const thingsFields: FieldDefs = {
@@ -35,34 +33,54 @@ const creativeWorkFields: FieldDefs = {
 
 const Article = defineDocumentType(() => ({
   name: 'Article',
-  filePathPattern: `articles/**/*.mdx`,
+  filePathPattern: 'articles/**/*.mdx',
   contentType: 'mdx',
   fields: {
+    ...moonsFields,
     ...creativeWorkFields
   },
   computedFields: {
-    collection: { type: 'string', resolve: () => 'article' },
-    ...computedFields,
+    collection: { type: 'string', resolve: () => 'articles' },
   }
 }))
 
 const Page = defineDocumentType(() => ({
   name: 'Page',
-  filePathPattern: `pages/**/*.mdx`,
+  filePathPattern: 'pages/**/*.mdx',
   contentType: 'mdx',
   fields: {
+    ...moonsFields,
     ...creativeWorkFields
   },
   computedFields: {
     collection: { type: 'string', resolve: () => 'pages' },
-    ...computedFields
+  }
+}))
+
+const Person = defineDocumentType(() => ({
+  name: 'Person',
+  filePathPattern: 'persons/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    ...moonsFields,
+    ...thingsFields,
+    additionalName: { type: 'string', required: false },
+    email: { type: 'string', required: false },
+    familyName: { type: 'string', required: false },
+    givenName: { type: 'string', required: false },
+    jobTitle: { type: 'string', required: false },
+    telephone: { type: 'string', required: false },
+  },
+  computedFields: {
+    collection: { type: 'string', resolve: () => 'persons' },
   }
 }))
 
 const contentLayerConfig = makeSource({
   contentDirPath: 'example/content',
-  documentTypes: [Article, Page],
+  documentTypes: [Article, Page, Person],
   mdx: {},
+  disableImportAliasWarning: true,
 })
 
 export default contentLayerConfig

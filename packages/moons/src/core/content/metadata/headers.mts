@@ -1,4 +1,4 @@
-import type { Content, MetadataHeaders } from '../types.mjs';
+import type { Content, MetadataHeaders } from '../types/index.mjs';
 
 export const getHeadersFromEntry = (entry: Content): MetadataHeaders => ({
   title: entry.name,

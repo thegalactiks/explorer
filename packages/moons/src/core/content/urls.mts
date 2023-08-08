@@ -1,14 +1,14 @@
 import { getConfig } from '@withmoons/config'
 import { join } from 'path'
-import type { ContentlayerDocument, } from './types.mjs'
+import type { ContentlayerWebPageDocument } from './types/index.mjs'
 import { computePageDepth } from './utils.mjs'
-import type { ContentlayerDocumentWithRender } from './render.mjs'
+import type { ContentlayerWebPageDocumentWithRender } from './render.mjs'
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
-type ContentlayerDocumentWithPath = WithRequired<ContentlayerDocument, 'path'>
+type ContentlayerDocumentWithPath = WithRequired<ContentlayerWebPageDocument, 'path'>
 export type ContentlayerDocumentWithURL = WithRequired<ContentlayerDocumentWithPath, 'url'>
 
-const _getPath = (document: ContentlayerDocument): string => {
+const _getPath = (document: ContentlayerWebPageDocument): string => {
   if (document.path) {
     return join('/', document.path)
   }
@@ -26,10 +26,10 @@ const _getDocumentUrl = (document: ContentlayerDocumentWithPath): string => {
   return new URL(_getPath(document), url).toString()
 }
 
-export const computeDocumentsUrl = async (documents: ContentlayerDocumentWithRender[]) => {
+export const computeDocumentsUrl = async (documents: ContentlayerWebPageDocumentWithRender[]) => {
   const getDocumentByIdentifier = (isPartOf: string) => documents.find(_d => _d.identifier === isPartOf)
 
-  const computePath = (document: ContentlayerDocument): string => {
+  const computePath = (document: ContentlayerWebPageDocument): string => {
     const path = _getPath(document);
     if (!document.isPartOf) {
       return path
@@ -50,6 +50,6 @@ export const computeDocumentsUrl = async (documents: ContentlayerDocumentWithRen
       document.path = computePath(document)
       document.url = _getDocumentUrl(document as ContentlayerDocumentWithPath)
 
-      return document as ContentlayerDocumentWithRender & ContentlayerDocumentWithURL
+      return document as ContentlayerWebPageDocumentWithRender & ContentlayerDocumentWithURL
     })
 }

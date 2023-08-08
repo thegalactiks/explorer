@@ -1,21 +1,19 @@
 import type { MDX } from 'contentlayer/core'
 import { getMDXComponent } from 'mdx-bundler/client/index.js'
 import * as React from 'react'
-import type { ContentlayerDocument } from './types.mjs'
+import type { ContentlayerDocumentTypes, ContentlayerWebPageDocument } from './types/index.mjs'
 
 export type Render = () => { Content: React.FC }
-export type ContentlayerDocumentWithRender = ContentlayerDocument & { body: MDX & { render: Render } }
+export type ContentlayerDocumentWithRender<T> = T & { body: MDX & { render: Render } }
+export type ContentlayerWebPageDocumentWithRender = ContentlayerDocumentWithRender<ContentlayerWebPageDocument>
 
 export const emptyRender: Render = () => ({ Content: () => null })
 
-export const addRender = (documents: ContentlayerDocument[]) => documents.map(_d => ({
-  ..._d,
-  body: {
-    ..._d.body,
-    render: () => {
-      const Content: React.FC = () => React.createElement(getMDXComponent(_d.body.code))
+export const addBodyRender = (body: ContentlayerDocumentTypes['body']) => ({
+  ...body,
+  render: () => {
+    const Content: React.FC = () => React.createElement(getMDXComponent(body.code))
 
-      return { Content }
-    }
+    return { Content }
   }
-}) as ContentlayerDocumentWithRender)
+})
