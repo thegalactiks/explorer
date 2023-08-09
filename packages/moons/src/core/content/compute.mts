@@ -1,5 +1,5 @@
-import type { Content, ContentlayerDocumentTypes, ContentlayerPerson, ContentlayerWebPageDocument } from './types/index.mjs'
-import { getHeadersFromEntry, getOpenGraphFromEntry } from './metadata/index.mjs'
+import type { Content, ContentlayerPerson, ContentlayerWebPageDocument } from './types/index.mjs'
+import { breadcrumbBuilder, getHeadersFromEntry, getOpenGraphFromEntry } from './metadata/index.mjs'
 import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
 import { addBodyRender, emptyRender, type ContentlayerDocumentWithRender, type ContentlayerWebPageDocumentWithRender } from './render.mjs'
 
@@ -76,6 +76,8 @@ const computePersonPages = (persons: ContentlayerPerson[]) => async (documents: 
 }
 
 const computeMissingFields = async (documents: Array<ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender>): Promise<Content[]> => {
+  const buildBreadcrumb = breadcrumbBuilder(documents)
+
   return documents.map(document => {
     const contentWithoutHeaders: Omit<Content, 'headers'> = {
       ...document,
@@ -86,6 +88,7 @@ const computeMissingFields = async (documents: Array<ContentlayerDocumentWithURL
 
     return {
       ...contentWithoutHeaders,
+      breadcrumb: buildBreadcrumb(contentWithoutHeaders),
       headers: {
         ...getHeadersFromEntry(contentWithoutHeaders),
         openGraph: getOpenGraphFromEntry(contentWithoutHeaders),

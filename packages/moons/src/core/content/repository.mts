@@ -2,6 +2,8 @@ import { getConfig } from '@withmoons/config'
 
 import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument } from './types/index.mjs'
 import { computeDocuments } from './compute.mjs'
+import { homeIdentifier } from './consts.mjs'
+import { pageByIdentifierSelector } from './selectors.mjs'
 
 let _generated: ContentlayerDataExports
 let _documents: Content[]
@@ -35,20 +37,19 @@ export const getRootPages = async (): Promise<Content[]> => (await getPages()).f
 
 export const getPagesPartOf = async (slug: string): Promise<Content[]> => (await getPages()).filter(doc => doc.isPartOf === slug)
 
-export const getPageByIdentifier = async (identifier: string) =>
-  (await getPages()).find(doc => doc.identifier === identifier)
+export const getPageByIdentifier = async (identifier: string) => pageByIdentifierSelector(await getPages())(identifier)
 
 export const getPageBySlug = async (slug: string) =>
   (await getPages()).find(doc => doc.slug === slug)
 
 export const getPersons = async () => (await getGenerated()).allPeople
-export const getPersonByIdentifier = async (identifier: string) => (await getPersons()).find(doc => doc.identifier === identifier)
+export const getPersonByIdentifier = async (identifier: string) => pageByIdentifierSelector(await getPersons())(identifier)
 
 export const getAllPagesExceptHome = async (): Promise<Content[]> =>
-  (await getPages()).filter(({ identifier }) => identifier !== 'index')
+  (await getPages()).filter(({ identifier }) => identifier !== homeIdentifier)
 
 export const getHomePage = async (): Promise<Content> => {
-  const homepageContent = await getPageByIdentifier('index')
+  const homepageContent = await getPageByIdentifier(homeIdentifier)
   if (!homepageContent) {
     throw new Error('no content for homepage')
   }

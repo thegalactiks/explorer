@@ -1,8 +1,9 @@
 import { getConfig } from '@withmoons/config'
 import { join } from 'path'
 import type { ContentlayerWebPageDocument } from './types/index.mjs'
-import { computePageDepth } from './utils.mjs'
+import { pageDepthSelector } from './selectors.mjs'
 import type { ContentlayerWebPageDocumentWithRender } from './render.mjs'
+import { pageByIdentifierSelector } from './selectors.mjs'
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
 type ContentlayerDocumentWithPath = WithRequired<ContentlayerWebPageDocument, 'path'>
@@ -27,7 +28,7 @@ const _getDocumentUrl = (document: ContentlayerDocumentWithPath): string => {
 }
 
 export const computeDocumentsUrl = async (documents: ContentlayerWebPageDocumentWithRender[]) => {
-  const getDocumentByIdentifier = (isPartOf: string) => documents.find(_d => _d.identifier === isPartOf)
+  const getDocumentByIdentifier = pageByIdentifierSelector(documents)
 
   const computePath = (document: ContentlayerWebPageDocument): string => {
     const path = _getPath(document);
@@ -40,8 +41,9 @@ export const computeDocumentsUrl = async (documents: ContentlayerWebPageDocument
     return join(_getPath(parent), path)
   }
 
+  const selectPageDepth = pageDepthSelector(documents)
   return documents
-    .sort(_d => computePageDepth(documents, _d))
+    .sort(_d => selectPageDepth(_d))
     .map(document => {
       // TODO: take language into account with a path pattern in the moons config
       // if (entry.inLanguage) {

@@ -151,5 +151,6 @@ export const articlePageSchema = moonsSchema.merge(articleSchema)
 export const pageSchema = moonsSchema.merge(webPageSchema)
 
 export type MetadataHeaders = z.infer<typeof metadataHeaders>
+export type ItemList = z.infer<typeof itemListSchema>
 export type Article = z.infer<typeof articlePageSchema>
 export type Page = z.infer<typeof pageSchema>

@@ -16,5 +16,5 @@ export type {
   DataExports as ContentlayerDataExports,
   Person as ContentlayerPerson
 } from './contentlayer.mjs'
-export type { MetadataHeaders } from './_schemas.mjs'
+export type * from './_schemas.mjs'
 export type ContentlayerWebPageDocument = ContentlayerArticle | ContentlayerPage
