@@ -3,7 +3,7 @@ import { join } from 'path'
 import type { ContentlayerWebPageDocument } from './types/index.mjs'
 import { pageDepthSelector } from './selectors.mjs'
 import type { ContentlayerWebPageDocumentWithRender } from './render.mjs'
-import { pageByIdentifierSelector } from './selectors.mjs'
+import { documentByIdentifierSelector } from './selectors.mjs'
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
 type ContentlayerDocumentWithPath = WithRequired<ContentlayerWebPageDocument, 'path'>
@@ -28,7 +28,7 @@ const _getDocumentUrl = (document: ContentlayerDocumentWithPath): string => {
 }
 
 export const computeDocumentsUrl = async (documents: ContentlayerWebPageDocumentWithRender[]) => {
-  const getDocumentByIdentifier = pageByIdentifierSelector(documents)
+  const getDocumentByIdentifier = documentByIdentifierSelector(documents)
 
   const computePath = (document: ContentlayerWebPageDocument): string => {
     const path = _getPath(document);

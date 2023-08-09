@@ -39,7 +39,8 @@
   "devDependencies": {
     "@types/react": "^18.2.18",
     "content": "./example/.contentlayer",
-    "contentlayer": "0.3.4"
+    "contentlayer": "0.3.4",
+    "schema-dts": "^1.1.2"
   },
   "peerDependencies": {
     "contentlayer": "0.3.4"

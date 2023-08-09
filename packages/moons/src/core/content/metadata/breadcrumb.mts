@@ -1,7 +1,7 @@
-import type { Content, ItemList } from '../types/index.mjs'
+import type { ItemList } from '../types/index.mjs'
 import { homeIdentifier, pageDepthLimit } from '../consts.mjs'
 import type { ContentlayerDocumentWithURL } from '../urls.mjs'
-import { pageByIdentifierSelector } from '../selectors.mjs'
+import { documentByIdentifierSelector } from '../selectors.mjs'
 import { MaxDepthLimitReachedError } from '../../exceptions/index.mjs'
 
 const addPosition = (itemList: ItemList['itemListElement']): ItemList['itemListElement'] => itemList.map((item, index, arr) => ({
@@ -9,8 +9,8 @@ const addPosition = (itemList: ItemList['itemListElement']): ItemList['itemListE
   position: arr.length - index
 })).sort((a, b) => b.position - a.position)
 
-export const breadcrumbBuilder = (documents: ContentlayerDocumentWithURL[]) => (document: Content): ItemList => {
-  const selectPageByIdentifier = pageByIdentifierSelector(documents)
+export const breadcrumbBuilder = (documents: ContentlayerDocumentWithURL[]) => (document: ContentlayerDocumentWithURL): ItemList => {
+  const selectPageByIdentifier = documentByIdentifierSelector(documents)
 
   const recursiveBreadcrumbExploration = (documentIdentifier: string, itemList: ItemList['itemListElement'] = []): ItemList['itemListElement'] => {
     if (itemList.length > pageDepthLimit) {

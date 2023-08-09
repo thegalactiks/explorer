@@ -14,6 +14,7 @@ const metadataHeaders = z.object({
     description: z.string().optional(),
     url: z.string().optional(),
   }).optional(),
+  structuredDataSchemas: z.array(z.object({})).optional()
 }).strict()
 const moonsSchema = z.object({
   collection: z.enum(['pages', 'articles']).or(z.string()),
@@ -64,7 +65,7 @@ export const personSchema = thingSchema.extend({
 
 // Schema: https://schema.org/CreativeWork
 const creativeWorkSchema = thingSchema.extend({
-  author: z.string().or(personSchema).optional(),
+  author: personSchema.optional(),
   headline: z.string().optional(),
   dateCreated: z.date(),
   dateModified: z.date().optional(),
@@ -152,5 +153,7 @@ export const pageSchema = moonsSchema.merge(webPageSchema)
 
 export type MetadataHeaders = z.infer<typeof metadataHeaders>
 export type ItemList = z.infer<typeof itemListSchema>
+export type Person = z.infer<typeof personSchema>
+export type Organization = z.infer<typeof organizationSchema>
 export type Article = z.infer<typeof articlePageSchema>
 export type Page = z.infer<typeof pageSchema>
