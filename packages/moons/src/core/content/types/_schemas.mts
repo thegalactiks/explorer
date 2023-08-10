@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { collectionName } from '../consts.mjs'
 
 const metadataHeaders = z.object({
   title: z.string().optional(),
@@ -17,7 +18,7 @@ const metadataHeaders = z.object({
   structuredDataSchemas: z.array(z.object({})).optional()
 }).strict()
 const moonsSchema = z.object({
-  collection: z.enum(['pages', 'articles']).or(z.string()),
+  collection: z.enum(Object.values(collectionName) as [string, ...string[]]).or(z.string()),
   tags: z.array(z.string()).optional(),
   listingPage: z.boolean().default(false),
   path: z.string(),
