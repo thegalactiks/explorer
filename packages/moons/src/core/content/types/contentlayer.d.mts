@@ -35,6 +35,32 @@ export type Article = {
   collection: string
 }
 
+export type Organization = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'Organization'
+  listingPage: boolean
+  slug?: string | undefined
+  path?: string | undefined
+  name: string
+  description: string
+  url?: string | undefined
+  identifier: string
+  image?: any | undefined
+  sameAs?: string | undefined
+  email?: string | undefined
+  keywords?: string[] | undefined
+  legalName?: string | undefined
+  slogan?: string | undefined
+  taxID?: string | undefined
+  telephone?: string | undefined
+  vatID?: string | undefined
+  /** MDX file body */
+  body: MDX
+  collection: string
+}
+
 export type Page = {
   /** File path relative to `contentDirPath` */
   _id: string
@@ -95,8 +121,8 @@ export type Person = {
 export type AllTypes = DocumentTypes | NestedTypes
 export type AllTypeNames = DocumentTypeNames | NestedTypeNames
 
-export type DocumentTypes = Article | Page | Person
-export type DocumentTypeNames = 'Article' | 'Page' | 'Person'
+export type DocumentTypes = Article | Organization | Page | Person
+export type DocumentTypeNames = 'Article' | 'Organization' | 'Page' | 'Person'
 
 export type NestedTypes = never
 export type NestedTypeNames = never
@@ -104,6 +130,7 @@ export type NestedTypeNames = never
 export type DataExports = {
   allDocuments: DocumentTypes[]
   allArticles: Article[]
+  allOrganizations: Organization[]
   allPages: Page[]
   allPeople: Person[]
 }

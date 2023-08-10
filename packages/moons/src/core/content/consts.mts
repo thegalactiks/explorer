@@ -6,4 +6,5 @@ export const enum collectionName {
   article = 'articles',
   page = 'pages',
   person = 'persons',
+  organization = 'organizations',
 }

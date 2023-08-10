@@ -66,3 +66,21 @@ export const ContentLayerPersonFields = {
     collection: { type: 'string', resolve: () => collectionName.person },
   }
 }
+
+export const ContentLayerOrganizationFields = {
+  name: 'Organization',
+  fields: {
+    ...moonsFields,
+    ...thingsFields,
+    email: { type: 'string', required: false },
+    keywords: { type: 'list', required: false, of: { type: 'string' } },
+    legalName: { type: 'string', required: false },
+    slogan: { type: 'string', required: false },
+    taxID: { type: 'string', required: false },
+    telephone: { type: 'string', required: false },
+    vatID: { type: 'string', required: false },
+  },
+  computedFields: {
+    collection: { type: 'string', resolve: () => collectionName.organization },
+  }
+}

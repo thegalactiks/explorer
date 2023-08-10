@@ -45,6 +45,9 @@ export const getPageBySlug = async (slug: string) =>
 export const getPersons = async () => (await getGenerated()).allPeople
 export const getPersonByIdentifier = async (identifier: string) => documentByIdentifierSelector(await getPersons())(identifier)
 
+export const getOrganizations = async () => (await getGenerated()).allOrganizations
+export const getOrganizationByIdentifier = async (identifier: string) => documentByIdentifierSelector(await getOrganizations())(identifier)
+
 export const getAllPagesExceptHome = async (): Promise<Content[]> =>
   (await getPages()).filter(({ identifier }) => identifier !== homeIdentifier)
 
