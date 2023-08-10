@@ -1,8 +1,5 @@
-import {
-  FieldDefs,
-  defineDocumentType,
-  makeSource,
-} from 'contentlayer/source-files'
+import type { FieldDefs } from 'contentlayer/source-files'
+import { collectionName } from './content/index.mjs'
 
 const moonsFields: FieldDefs = {
   listingPage: { type: 'boolean', required: false, default: false },
@@ -31,36 +28,30 @@ const creativeWorkFields: FieldDefs = {
   keywords: { type: 'list', required: false, of: { type: 'string' } },
 }
 
-const Article = defineDocumentType(() => ({
+export const ContentLayerArticleFields = {
   name: 'Article',
-  filePathPattern: 'articles/**/*.mdx',
-  contentType: 'mdx',
   fields: {
     ...moonsFields,
     ...creativeWorkFields
   },
   computedFields: {
-    collection: { type: 'string', resolve: () => 'articles' },
+    collection: { type: 'string', resolve: () => collectionName.article },
   }
-}))
+}
 
-const Page = defineDocumentType(() => ({
+export const ContentLayerPageFields = {
   name: 'Page',
-  filePathPattern: 'pages/**/*.mdx',
-  contentType: 'mdx',
   fields: {
     ...moonsFields,
     ...creativeWorkFields
   },
   computedFields: {
-    collection: { type: 'string', resolve: () => 'pages' },
+    collection: { type: 'string', resolve: () => collectionName.page },
   }
-}))
+}
 
-const Person = defineDocumentType(() => ({
+export const ContentLayerPersonFields = {
   name: 'Person',
-  filePathPattern: 'persons/**/*.mdx',
-  contentType: 'mdx',
   fields: {
     ...moonsFields,
     ...thingsFields,
@@ -72,15 +63,6 @@ const Person = defineDocumentType(() => ({
     telephone: { type: 'string', required: false },
   },
   computedFields: {
-    collection: { type: 'string', resolve: () => 'persons' },
+    collection: { type: 'string', resolve: () => collectionName.person },
   }
-}))
-
-const contentLayerConfig = makeSource({
-  contentDirPath: 'example/content',
-  documentTypes: [Article, Page, Person],
-  mdx: {},
-  disableImportAliasWarning: true,
-})
-
-export default contentLayerConfig
+}
