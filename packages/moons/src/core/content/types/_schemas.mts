@@ -10,11 +10,11 @@ const metadataHeaders = z.object({
     hreflang: z.string(),
   })).optional(),
   robots: z.string().optional(),
-  openGraph: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    url: z.string().optional(),
-  }).optional(),
+  openGraph: z.array(z.object({
+    prefix: z.string().optional(),
+    property: z.string(),
+    content: z.string(),
+  })).optional(),
   structuredDataSchemas: z.array(z.object({})).optional()
 }).strict()
 const moonsSchema = z.object({
@@ -66,6 +66,7 @@ export const personSchema = thingSchema.extend({
 
 // Schema: https://schema.org/CreativeWork
 const creativeWorkSchema = thingSchema.extend({
+  url: z.string(),
   author: personSchema.optional(),
   headline: z.string().optional(),
   dateCreated: z.date(),
