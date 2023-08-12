@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@withmoons/config": "*",
-    "esbuild": "0.18.17",
+    "esbuild": "0.19.1",
     "mdx-bundler": "9.2.1",
     "react": "18.2.0",
     "zod": "3.21.4"

@@ -33,7 +33,7 @@
   "dependencies": {
     "@withmoons/config": "*",
     "@withmoons/explorer": "*",
-    "astro": "2.10.1"
+    "astro": "2.10.7"
   },
   "peerDependencies": {
     "@astrojs/partytown": "1.2.3",
@@ -41,7 +41,7 @@
     "@astrojs/react": "2.2.1",
     "@astrojs/rss": "^2.4.3",
     "@astrojs/sitemap": "1.4.0",
-    "astro": "2.10.1"
+    "astro": "2.10.7"
   },
   "devDependencies": {
     "@astrojs/partytown": "1.2.3",
