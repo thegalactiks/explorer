@@ -16,42 +16,51 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
-    "build:ci": "tsc -p ./tsconfig.json"
+    "build": "run-s build:tsc build:copy-astro",
+    "build:tsc": "tsc -p ./tsconfig.json",
+    "build:copy-astro": "copyfiles -f src/components/*.astro dist/components"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./package.json": "./package.json"
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json",
+    "./components/Head.astro": "./dist/components/Head.astro",
+    "./components/BaseLayout.astro": "./dist/components/BaseLayout.astro"
   },
   "files": [
     "dist"
   ],
   "keywords": [
     "astro",
+    "astro-integration",
+    "astro-component",
+    "seo",
     "moons"
   ],
   "dependencies": {
     "@withmoons/config": "*",
-    "@withmoons/explorer": "*",
-    "astro": "2.10.7"
+    "@withmoons/explorer": "*"
   },
   "peerDependencies": {
     "@astrojs/partytown": "1.2.3",
     "@astrojs/prefetch": "0.3.0",
     "@astrojs/react": "2.2.1",
-    "@astrojs/rss": "^2.4.3",
-    "@astrojs/sitemap": "1.4.0",
+    "@astrojs/rss": "2.4.3",
+    "@astrojs/sitemap": "2.0.1",
     "astro": "2.10.7"
   },
   "devDependencies": {
     "@astrojs/partytown": "1.2.3",
     "@astrojs/prefetch": "0.3.0",
     "@astrojs/react": "2.2.1",
-    "@astrojs/rss": "^2.4.3",
-    "@astrojs/sitemap": "1.4.0",
-    "@types/react": "^18.2.18",
-    "@types/react-dom": "^18.2.7",
+    "@astrojs/rss": "2.4.3",
+    "@astrojs/sitemap": "2.0.1",
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
+    "astro": "2.10.7",
+    "copyfiles": "2.4.1",
+    "npm-run-all": "4.1.5",
     "react": "18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6"
   }
 }
