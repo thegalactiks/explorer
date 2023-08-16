@@ -35,5 +35,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Lint Packages
+        run: pnpm run lint
+
       - name: Build Packages
         run: pnpm run build
