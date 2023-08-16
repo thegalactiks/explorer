@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from 'fs'
 import { z } from 'zod'
 
-import deepmerge from './utils/deepmerge.mjs'
 import { readWebManifestFromPath, type WebManifest } from './webmanifest.config.mjs'
 import { join } from 'path'
 
