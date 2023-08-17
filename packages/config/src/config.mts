@@ -5,7 +5,6 @@ import { readWebManifestFromPath, type WebManifest } from './webmanifest.config.
 import { join } from 'path'
 
 const moonsConfigFileSchema = z.object({
-  name: z.string().optional(),
   template: z.string(),
 })
 
@@ -34,7 +33,6 @@ const readConfigFile = (path: string): MoonsConfig => {
   const configFile = moonsConfigFileSchema.parse(JSON.parse(configFileContent))
 
   const config: MoonsConfig = {
-    name: configFile.name,
     template: configFile.template,
     content: {
       root: path,
