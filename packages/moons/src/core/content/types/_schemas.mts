@@ -15,8 +15,13 @@ const metadataHeaders = z.object({
     property: z.string(),
     content: z.string(),
   })).optional(),
+  twitterCard: z.array(z.object({
+    name: z.string(),
+    content: z.string(),
+  })).optional(),
   structuredDataSchemas: z.array(z.object({})).optional()
 }).strict()
+
 const moonsSchema = z.object({
   collection: z.enum(Object.values(collectionName) as [string, ...string[]]).or(z.string()),
   tags: z.array(z.string()).optional(),

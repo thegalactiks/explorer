@@ -1,5 +1,5 @@
 import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, Person } from './types/index.mjs'
-import { breadcrumbBuilder, getHeadersFromEntry, getOpenGraphObjects, getStructuredDataSchemas } from './metadata/index.mjs'
+import { breadcrumbBuilder, getHeadersFromEntry, getOpenGraphObjects, getStructuredDataSchemas, getTwitterCard } from './metadata/index.mjs'
 import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
 import { addBodyRender, emptyRender, type ContentlayerDocumentWithRender, type ContentlayerWebPageDocumentWithRender } from './render.mjs'
 import { documentByIdentifierSelector } from './selectors.mjs'
@@ -116,6 +116,7 @@ const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents
         ...getHeadersFromEntry(contentWithoutHeaders),
         structuredDataSchemas: getStructuredDataSchemas(contentWithoutHeaders),
         openGraph: getOpenGraphObjects(contentWithoutHeaders),
+        twitterCard: getTwitterCard(contentWithoutHeaders),
       },
     }
   })
