@@ -1,8 +1,8 @@
-import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, Person } from './types/index.mjs'
-import { breadcrumbBuilder, getHeadersFromEntry, getOpenGraphObjects, getStructuredDataSchemas, getTwitterCard } from './metadata/index.mjs'
-import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
+import { alternatesHeaderBuilder, breadcrumbBuilder, getBasicHeaders, getOpenGraphObjects, getStructuredDataSchemas, getTwitterCard } from './metadata/index.mjs'
 import { addBodyRender, emptyRender, type ContentlayerDocumentWithRender, type ContentlayerWebPageDocumentWithRender } from './render.mjs'
+import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
 import { documentByIdentifierSelector } from './selectors.mjs'
+import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, Person } from './types/index.mjs'
 
 export type ComputeDTO<T> = {
   documents: T[]
@@ -78,6 +78,7 @@ const computePersonPages = (persons: ContentlayerPerson[]) => async (documents: 
 
 const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents: Array<ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender>): Promise<Content[]> => {
   const buildBreadcrumb = breadcrumbBuilder(documents)
+  const buildAlternates = alternatesHeaderBuilder(documents)
   const selectPersonByIdentifier = documentByIdentifierSelector(persons)
 
   const getAuthor = (identifier?: string): Person | undefined => {
@@ -113,7 +114,8 @@ const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents
     return {
       ...contentWithoutHeaders,
       headers: {
-        ...getHeadersFromEntry(contentWithoutHeaders),
+        ...getBasicHeaders(contentWithoutHeaders),
+        alternates: buildAlternates(contentWithoutHeaders),
         structuredDataSchemas: getStructuredDataSchemas(contentWithoutHeaders),
         openGraph: getOpenGraphObjects(contentWithoutHeaders),
         twitterCard: getTwitterCard(contentWithoutHeaders),
