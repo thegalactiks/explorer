@@ -30,6 +30,11 @@ const baseUrl = getConfig().webManifest.start_url;
     ))
   }
   {
+    content.headers?.twitterCard?.map(({ name, content, ...props }) => (
+      <meta name={name} content={content} {...props} />
+    ))
+  }
+  {
     content.headers?.structuredDataSchemas?.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))
