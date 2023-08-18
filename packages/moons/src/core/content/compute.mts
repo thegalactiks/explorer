@@ -1,11 +1,12 @@
 import { alternatesHeaderBuilder, breadcrumbBuilder, getBasicHeaders, getOpenGraphObjects, getStructuredDataSchemas, getTwitterCard } from './metadata/index.mjs'
 import { addBodyRender, emptyRender, type ContentlayerDocumentWithRender, type ContentlayerWebPageDocumentWithRender } from './render.mjs'
 import { computeDocumentsUrl, type ContentlayerDocumentWithURL } from './urls.mjs'
-import { documentByIdentifierSelector } from './selectors.mjs'
-import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, Person } from './types/index.mjs'
+import { documentByIdentifierAndLanguageSelector, documentsByAuthorSelector, isInLanguage, usedLanguagesInDocumentsSelector } from './selectors.mjs'
+import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, ContentlayerWebsite, Person } from './types/index.mjs'
 
 export type ComputeDTO<T> = {
   documents: T[]
+  websites: ContentlayerWebsite[]
   persons: ContentlayerPerson[]
 }
 
@@ -39,23 +40,28 @@ const hydratePagesWithRender = async (documents: ContentlayerWebPageDocument[]) 
 }))
 
 const computeRemainingListingPages = async (documents: ContentlayerWebPageDocumentWithRender[]) =>
-  documents.reduce((acc, { keywords, dateCreated, datePublished, dateModified, isPartOf }) => {
-    const templateDocument = { dateCreated, datePublished, dateModified, isPartOf: 'tags' }
+  documents.reduce((acc, { keywords, dateCreated, datePublished, dateModified, isPartOf, inLanguage }) => {
+    const templateDocument = {
+      dateCreated,
+      datePublished,
+      dateModified,
+      inLanguage,
+    }
 
     // If parent page does not exist, create it
-    if (isPartOf && acc.some(_a => _a.identifier === isPartOf) === false) {
+    if (isPartOf && acc.some(_a => _a.identifier === isPartOf && isInLanguage(_a, inLanguage)) === false) {
       acc = acc.concat(createListingPage(isPartOf, `/${isPartOf}`, templateDocument))
     }
 
     // Create all keywords pages not existing yet
     if (Array.isArray(keywords)) {
-      if (acc.some(_a => _a.identifier === 'tags') === false) {
-        acc = acc.concat(createListingPage('tags', '/tags'))
+      if (acc.some(_a => _a.identifier === 'tags' && isInLanguage(_a, inLanguage)) === false) {
+        acc = acc.concat(createListingPage('tags', '/tags', { inLanguage }))
       }
 
       acc = acc.concat(keywords
-        .filter(_k => acc.some(_a => _a.identifier === _k) === false)
-        .map(_k => createListingPage(_k, `/${_k}`, templateDocument))
+        .filter(_k => acc.some(_a => _a.identifier === _k && isInLanguage(_a, inLanguage)) === false)
+        .map(_k => createListingPage(_k, `/${_k}`, { inLanguage, isPartOf: 'tags' }))
       )
     }
 
@@ -63,8 +69,14 @@ const computeRemainingListingPages = async (documents: ContentlayerWebPageDocume
   }, documents)
 
 const computePersonPages = (persons: ContentlayerPerson[]) => async (documents: ContentlayerWebPageDocumentWithRender[]) => {
+  const selectUsedLanguages = usedLanguagesInDocumentsSelector()
+  const selectDocumentByAuthor = documentsByAuthorSelector(documents)
+
   if (Array.isArray(persons) && persons.length > 0) {
-    documents = documents.concat(createListingPage('author', '/author'))
+    const usedLanguages = selectUsedLanguages(documents)
+    documents = documents.concat(
+      ...usedLanguages.map(language => createListingPage('author', '/author', { inLanguage: language }))
+    )
   }
 
   return persons.reduce((acc, person) => {
@@ -72,39 +84,38 @@ const computePersonPages = (persons: ContentlayerPerson[]) => async (documents: 
       return acc
     }
 
-    return acc.concat(createPage(person.identifier, person.identifier, { body: person.body, isPartOf: 'author' }))
+    const usedLanguages = selectUsedLanguages(selectDocumentByAuthor(person.identifier))
+    return acc.concat(
+      ...usedLanguages.map<ContentlayerWebPageDocumentWithRender>(language => createPage(person.identifier, person.identifier, { body: person.body, isPartOf: 'author', inLanguage: language }))
+    )
   }, documents)
 }
 
 const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents: Array<ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender>): Promise<Content[]> => {
   const buildBreadcrumb = breadcrumbBuilder(documents)
   const buildAlternates = alternatesHeaderBuilder(documents)
-  const selectPersonByIdentifier = documentByIdentifierSelector(persons)
+  const selectPersonByIdentifierAndLanguage = documentByIdentifierAndLanguageSelector(persons)
 
-  const getAuthor = (identifier?: string): Person | undefined => {
+  const getAuthor = (identifier?: string, inLanguage?: string): Person | undefined => {
     let author
     if (identifier) {
-      author = selectPersonByIdentifier(identifier)
+      author = selectPersonByIdentifierAndLanguage(identifier, inLanguage)
     } else if (persons.length === 1) {
       author = persons[0]
     }
 
-    if (author) {
-      return {
-        identifier: author.identifier,
-        name: author.name,
-        description: author.description,
-        url: author.url
-      }
+    return author && {
+      identifier: author.identifier,
+      name: author.name,
+      description: author.description,
+      url: author.url
     }
-
-    return undefined
   }
 
   return documents.map(document => {
     const contentWithoutHeaders: Omit<Content, 'headers'> = {
       ...document,
-      author: getAuthor(document.author),
+      author: getAuthor(document.author, document.inLanguage),
       breadcrumb: buildBreadcrumb(document),
       dateCreated: new Date(document.dateCreated),
       dateModified: new Date(document.dateModified || document.dateCreated),
@@ -124,10 +135,10 @@ const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents
   })
 }
 
-export const computeDocuments = async ({ documents, persons }: ComputeDTO<ContentlayerWebPageDocument>): Promise<Content[]> =>
+export const computeDocuments = async ({ documents, persons, websites }: ComputeDTO<ContentlayerWebPageDocument>): Promise<Content[]> =>
   Promise.resolve(documents)
     .then(hydratePagesWithRender)
     .then(computePersonPages(persons))
     .then(computeRemainingListingPages)
-    .then(computeDocumentsUrl)
+    .then(computeDocumentsUrl(websites))
     .then(computeMissingFields(persons))

@@ -4,20 +4,24 @@ import { z } from 'zod'
 import { readWebManifestFromPath, type WebManifest } from './webmanifest.config.mjs'
 import { join } from 'path'
 
+const localesSchema = z.object({
+  default: z.string(),
+  available: z.array(z.string())
+})
+
 const moonsConfigFileSchema = z.object({
+  locales: localesSchema.optional(),
   template: z.string(),
 })
 
 const defaultConfigFileName = 'moons.config.json'
 
-type ContentConfig = {
-  root: string
-  generated: string
-}
-export type MoonsConfig = {
+export type MoonsConfig = z.infer<typeof moonsConfigFileSchema> & {
   name?: string
-  template: string
-  content: ContentConfig
+  content: {
+    root: string
+    generated: string
+  }
   webManifest: WebManifest
 }
 
@@ -33,7 +37,7 @@ const readConfigFile = (path: string): MoonsConfig => {
   const configFile = moonsConfigFileSchema.parse(JSON.parse(configFileContent))
 
   const config: MoonsConfig = {
-    template: configFile.template,
+    ...configFile,
     content: {
       root: path,
       generated: join(path, '.contentlayer/generated/index.mjs'),
@@ -57,4 +61,12 @@ export function getConfig(path?: string): MoonsConfig {
   _config = readConfigFile(path)
 
   return _config
+}
+
+export function getDefaultLanguage(): string | undefined {
+  return getConfig().locales?.default
+}
+
+export function getLanguages(): string[] | undefined {
+  return getConfig().locales?.available
 }

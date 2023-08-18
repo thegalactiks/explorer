@@ -29,6 +29,8 @@ export type Article = {
   datePublished?: IsoDateTimeString | undefined
   isPartOf?: string | undefined
   inLanguage?: string | undefined
+  translationOfWork?: Id | undefined
+  workTranslation?: Id | undefined
   keywords?: string[] | undefined
   /** MDX file body */
   body: MDX
@@ -82,6 +84,8 @@ export type Page = {
   datePublished?: IsoDateTimeString | undefined
   isPartOf?: string | undefined
   inLanguage?: string | undefined
+  translationOfWork?: Id | undefined
+  workTranslation?: Id | undefined
   keywords?: string[] | undefined
   /** MDX file body */
   body: MDX
@@ -113,16 +117,49 @@ export type Person = {
   collection: string
 }
 
+export type Website = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'Website'
+  name: string
+  description: string
+  url?: string | undefined
+  identifier: string
+  image?: any | undefined
+  sameAs?: string | undefined
+  author?: string | undefined
+  headline?: string | undefined
+  dateCreated: IsoDateTimeString
+  dateModified?: IsoDateTimeString | undefined
+  datePublished?: IsoDateTimeString | undefined
+  isPartOf?: string | undefined
+  inLanguage?: string | undefined
+  translationOfWork?: Id | undefined
+  workTranslation?: Id | undefined
+  keywords?: string[] | undefined
+  issn?: string | undefined
+  /** MDX file body */
+  body: MDX
+}
+
 /** Nested types */
 
+export type Id = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'Id'
+  "@id": string
+}
 
 /** Helper types */
 
 export type AllTypes = DocumentTypes | NestedTypes
 export type AllTypeNames = DocumentTypeNames | NestedTypeNames
 
-export type DocumentTypes = Article | Organization | Page | Person
-export type DocumentTypeNames = 'Article' | 'Organization' | 'Page' | 'Person'
+export type DocumentTypes = Article | Organization | Page | Person | Website
+export type DocumentTypeNames = 'Article' | 'Organization' | 'Page' | 'Person' | 'Website'
 
 export type NestedTypes = never
 export type NestedTypeNames = never
@@ -133,4 +170,5 @@ export type DataExports = {
   allOrganizations: Organization[]
   allPages: Page[]
   allPeople: Person[]
+  allWebsites: Website[]
 }

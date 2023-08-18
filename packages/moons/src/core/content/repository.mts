@@ -1,12 +1,16 @@
 import { getConfig } from '@withmoons/config'
 
-import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument } from './types/index.mjs'
+import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument, ContentlayerWebsite } from './types/index.mjs'
 import { computeDocuments } from './compute.mjs'
 import { homeIdentifier } from './consts.mjs'
-import { documentByIdentifierSelector } from './selectors.mjs'
+import { documentByIdentifierSelector, documentsByLanguagesSelector } from './selectors.mjs'
 
 let _generated: ContentlayerDataExports
 let _documents: Content[]
+
+export type RepositoryFilters = {
+  inLanguages?: string[];
+}
 
 const getGenerated = async (): Promise<ContentlayerDataExports> => {
   if (!_generated) {
@@ -17,30 +21,38 @@ const getGenerated = async (): Promise<ContentlayerDataExports> => {
   return _generated
 }
 
+export const getWebsites = async (): Promise<ContentlayerWebsite[]> => (await getGenerated()).allWebsites
+
 const getWebPageDocuments = async (): Promise<Content[]> => {
-  if (!Array.isArray(_documents)) {
-    const generated = await getGenerated()
-    _documents = await computeDocuments({
-      documents: new Array<ContentlayerWebPageDocument>()
-        .concat(generated.allPages)
-        .concat(generated.allArticles),
-      persons: await getPersons(),
-    })
+  if (Array.isArray(_documents)) {
+    return _documents
   }
+
+  const generated = await getGenerated()
+  _documents = await computeDocuments({
+    websites: await getWebsites(),
+    documents: new Array<ContentlayerWebPageDocument>()
+      .concat(generated.allPages)
+      .concat(generated.allArticles),
+    persons: await getPersons(),
+  })
 
   return _documents
 }
 
-export const getPages = async (): Promise<Content[]> => getWebPageDocuments()
+export const getPages = async (filters?: RepositoryFilters): Promise<Content[]> => {
+  const documents = await getWebPageDocuments()
 
-export const getRootPages = async (): Promise<Content[]> => (await getPages()).filter(doc => !doc.isPartOf)
+  return filters?.inLanguages && Array.isArray(filters.inLanguages) && filters.inLanguages.length > 0
+    ? documentsByLanguagesSelector(documents)(filters.inLanguages)
+    : documents
+}
+export const getRootPages = async (filters?: RepositoryFilters): Promise<Content[]> => (await getPages(filters)).filter(doc => !doc.isPartOf)
+export const getPagesPartOf = async (slug: string, filters?: RepositoryFilters): Promise<Content[]> => (await getPages(filters)).filter(doc => doc.isPartOf === slug)
+export const getPageByIdentifier = async (identifier: string, filters?: RepositoryFilters) => documentByIdentifierSelector(await getPages(filters))(identifier)
 
-export const getPagesPartOf = async (slug: string): Promise<Content[]> => (await getPages()).filter(doc => doc.isPartOf === slug)
-
-export const getPageByIdentifier = async (identifier: string) => documentByIdentifierSelector(await getPages())(identifier)
-
-export const getPageBySlug = async (slug: string) =>
-  (await getPages()).find(doc => doc.slug === slug)
+export const getPageBySlug = async (slug: string, filters?: RepositoryFilters) =>
+  (await getPages(filters)).find(doc => doc.slug === slug)
 
 export const getPersons = async () => (await getGenerated()).allPeople
 export const getPersonByIdentifier = async (identifier: string) => documentByIdentifierSelector(await getPersons())(identifier)
@@ -48,11 +60,14 @@ export const getPersonByIdentifier = async (identifier: string) => documentByIde
 export const getOrganizations = async () => (await getGenerated()).allOrganizations
 export const getOrganizationByIdentifier = async (identifier: string) => documentByIdentifierSelector(await getOrganizations())(identifier)
 
-export const getAllPagesExceptHome = async (): Promise<Content[]> =>
-  (await getPages()).filter(({ identifier }) => identifier !== homeIdentifier)
+export const getAllPagesExceptHome = async (filters?: RepositoryFilters): Promise<Content[]> =>
+  (await getPages(filters)).filter(({ identifier }) => identifier !== homeIdentifier)
 
-export const getHomePage = async (): Promise<Content> => {
-  const homepageContent = await getPageByIdentifier(homeIdentifier)
+export type RepositoryHomeFilters = {
+  inLanguage?: string
+}
+export const getHomePage = async (filters?: RepositoryHomeFilters): Promise<Content> => {
+  const homepageContent = await getPageByIdentifier(homeIdentifier, filters?.inLanguage ? ({ inLanguages: [filters.inLanguage] }) : undefined)
   if (!homepageContent) {
     throw new Error('no content for homepage')
   }

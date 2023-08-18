@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Moons Astro integration",
   "author": "withmoons",
-  "type": "module",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">=16.20.0"
@@ -14,7 +14,7 @@
     "url": "https://github.com/withmoons/moons.git",
     "directory": "packages/adapters/astro"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "scripts": {
     "build": "run-s build:tsc build:copy-astro",
     "build:tsc": "tsc -p ./tsconfig.json",
