@@ -16,4 +16,5 @@ export const getArticle = (document: Content): WithContext<Article> => ({
   author: document.author && ([
     getPerson(document.author)
   ]),
+  inLanguage: document.inLanguage
 })

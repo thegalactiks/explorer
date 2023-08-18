@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*", "./contentlayer/generated/index.d.ts"],
+  "include": ["src/**/*"],
   "compilerOptions": {
     "baseUrl": "./src",
     "allowJs": true,

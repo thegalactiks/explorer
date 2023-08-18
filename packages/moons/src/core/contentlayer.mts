@@ -1,4 +1,4 @@
-import type { FieldDefs } from 'contentlayer/source-files'
+import { defineNestedType, type FieldDefs } from 'contentlayer/source-files'
 import { collectionName } from './content/index.mjs'
 
 const moonsFields: FieldDefs = {
@@ -6,6 +6,14 @@ const moonsFields: FieldDefs = {
   slug: { type: 'string', required: false },
   path: { type: 'string', required: false }
 }
+
+const idFields: FieldDefs = {
+  '@id': { type: 'string', required: true }
+}
+const idDocumentType = defineNestedType(() => ({
+  name: 'Id',
+  fields: idFields,
+}))
 
 const thingsFields: FieldDefs = {
   name: { type: 'string', required: true },
@@ -25,7 +33,17 @@ const creativeWorkFields: FieldDefs = {
   datePublished: { type: 'date', required: false },
   isPartOf: { type: 'string', required: false },
   inLanguage: { type: 'string', required: false },
+  translationOfWork: { type: 'nested', of: idDocumentType, required: false },
+  workTranslation: { type: 'nested', of: idDocumentType, required: false },
   keywords: { type: 'list', required: false, of: { type: 'string' } },
+}
+
+export const ContentLayerWebsiteFields = {
+  name: 'Website',
+  fields: {
+    ...creativeWorkFields,
+    issn: { type: 'string', required: false }
+  }
 }
 
 export const ContentLayerArticleFields = {

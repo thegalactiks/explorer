@@ -1,7 +1,7 @@
 import type { ItemList } from '../types/index.mjs'
 import { homeIdentifier, pageDepthLimit } from '../consts.mjs'
 import type { ContentlayerDocumentWithURL } from '../urls.mjs'
-import { documentByIdentifierSelector } from '../selectors.mjs'
+import { documentByIdentifierAndLanguageSelector } from '../selectors.mjs'
 import { MaxDepthLimitReachedError } from '../../exceptions/index.mjs'
 
 const addPosition = (itemList: ItemList['itemListElement']): ItemList['itemListElement'] => itemList.map((item, index, arr) => ({
@@ -10,14 +10,14 @@ const addPosition = (itemList: ItemList['itemListElement']): ItemList['itemListE
 })).sort((a, b) => b.position - a.position)
 
 export const breadcrumbBuilder = (documents: ContentlayerDocumentWithURL[]) => (document: ContentlayerDocumentWithURL): ItemList => {
-  const selectPageByIdentifier = documentByIdentifierSelector(documents)
+  const selectPageByIdentifierAndLanguage = documentByIdentifierAndLanguageSelector(documents)
 
-  const recursiveBreadcrumbExploration = (documentIdentifier: string, itemList: ItemList['itemListElement'] = []): ItemList['itemListElement'] => {
+  const recursiveBreadcrumbExploration = (documentIdentifier: string, inLanguage?: string, itemList: ItemList['itemListElement'] = []): ItemList['itemListElement'] => {
     if (itemList.length > pageDepthLimit) {
       throw new MaxDepthLimitReachedError()
     }
 
-    const page = selectPageByIdentifier(documentIdentifier)
+    const page = selectPageByIdentifierAndLanguage(documentIdentifier, inLanguage)
     if (!page) {
       throw new Error('No page found during breadcrumb computation')
     }
@@ -32,13 +32,13 @@ export const breadcrumbBuilder = (documents: ContentlayerDocumentWithURL[]) => (
       return itemList
     }
 
-    return recursiveBreadcrumbExploration(page.isPartOf || homeIdentifier, itemList)
+    return recursiveBreadcrumbExploration(page.isPartOf || homeIdentifier, inLanguage, itemList)
   }
 
   return {
     name: 'Breadcrumb',
     description: '',
     identifier: 'breadcrumb',
-    itemListElement: addPosition(recursiveBreadcrumbExploration(document.identifier))
+    itemListElement: addPosition(recursiveBreadcrumbExploration(document.identifier, document.inLanguage))
   }
 }

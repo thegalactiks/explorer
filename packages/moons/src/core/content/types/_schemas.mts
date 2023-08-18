@@ -31,6 +31,10 @@ const moonsSchema = z.object({
   headers: metadataHeaders.optional(),
 }).strict()
 
+const idSchema = z.object({
+  '@id': z.string(),
+}).strict()
+
 // Schema: https://schema.org/Thing
 const thingSchema = z
   .object({
@@ -82,10 +86,8 @@ const creativeWorkSchema = thingSchema.extend({
   keywords: z.array(z.string()).optional(),
   license: z.string().optional(),
   position: z.number().optional(),
-  translationOfWork: z.string().or(z.array(z.object({
-    inLanguage: z.string(),
-    url: z.string(),
-  }))).optional(),
+  translationOfWork: idSchema.optional(),
+  workTranslation: idSchema.optional(),
 })
 
 // Schema: https://schema.org/Event

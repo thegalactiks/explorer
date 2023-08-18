@@ -1,3 +1,4 @@
+export * from './alternates.mjs'
 export * from './schemas/structured-data.mjs'
 export * from './breadcrumb.mjs'
 export * from './headers.mjs'
