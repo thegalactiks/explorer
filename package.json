@@ -36,15 +36,15 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "2.26.2",
-    "@types/node": "20.4.10",
-    "@typescript-eslint/eslint-plugin": "6.3.0",
-    "@typescript-eslint/parser": "6.3.0",
+    "@types/node": "20.5.1",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
+    "@typescript-eslint/parser": "6.4.0",
     "eslint": "8.47.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-prettier": "5.0.0",
     "organize-imports-cli": "0.10.0",
-    "prettier": "3.0.1",
-    "prettier-plugin-astro": "0.11.0",
+    "prettier": "3.0.2",
+    "prettier-plugin-astro": "0.11.1",
     "turbo": "1.10.12",
     "typescript": "5.1.6"
   }
