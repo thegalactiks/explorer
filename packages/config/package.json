@@ -20,6 +20,7 @@
     "build:ci": "tsc -p ./tsconfig.json"
   },
   "exports": {
+    "./package.json": "./package.json",
     ".": "./dist/index.mjs"
   },
   "files": [
