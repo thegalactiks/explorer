@@ -7,6 +7,7 @@ export { isType } from 'contentlayer/client'
 
 export type { Markdown, MDX, ImageFieldData, IsoDateTimeString }
 
+
 /** Document types */
 export type Article = {
   /** File path relative to `contentDirPath` */
@@ -117,6 +118,20 @@ export type Person = {
   collection: string
 }
 
+export type WebPageElement = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'WebPageElement'
+  elementType?: 'SiteNavigationElement' | undefined
+  identifier: string
+  inLanguage?: string | undefined
+  name?: string | undefined
+  itemListElement: ItemListElement[]
+  /** MDX file body */
+  body: MDX
+}
+
 export type Website = {
   /** File path relative to `contentDirPath` */
   _id: string
@@ -153,13 +168,24 @@ export type Id = {
   "@id": string
 }
 
+export type ItemListElement = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'ItemListElement'
+  name: string
+  path?: string | undefined
+  url?: string | undefined
+  itemListElement?: ItemListElement[] | undefined
+}
+
 /** Helper types */
 
 export type AllTypes = DocumentTypes | NestedTypes
 export type AllTypeNames = DocumentTypeNames | NestedTypeNames
 
-export type DocumentTypes = Article | Organization | Page | Person | Website
-export type DocumentTypeNames = 'Article' | 'Organization' | 'Page' | 'Person' | 'Website'
+export type DocumentTypes = Article | Organization | Page | Person | WebPageElement | Website
+export type DocumentTypeNames = 'Article' | 'Organization' | 'Page' | 'Person' | 'WebPageElement' | 'Website'
 
 export type NestedTypes = never
 export type NestedTypeNames = never
@@ -171,4 +197,5 @@ export type DataExports = {
   allPages: Page[]
   allPeople: Person[]
   allWebsites: Website[]
+  allWebPageElements: WebPageElement[]
 }
