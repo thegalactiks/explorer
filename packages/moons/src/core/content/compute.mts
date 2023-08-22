@@ -56,12 +56,12 @@ const computeRemainingListingPages = async (documents: ContentlayerWebPageDocume
     // Create all keywords pages not existing yet
     if (Array.isArray(keywords)) {
       if (acc.some(_a => _a.identifier === 'tags' && isInLanguage(_a, inLanguage)) === false) {
-        acc = acc.concat(createListingPage('tags', '/tags', { inLanguage }))
+        acc = acc.concat(createListingPage('tags', '/tags', templateDocument))
       }
 
       acc = acc.concat(keywords
         .filter(_k => acc.some(_a => _a.identifier === _k && isInLanguage(_a, inLanguage)) === false)
-        .map(_k => createListingPage(_k, `/${_k}`, { inLanguage, isPartOf: 'tags' }))
+        .map(_k => createListingPage(_k, `/${_k}`, { ...templateDocument, isPartOf: 'tags' }))
       )
     }
 
