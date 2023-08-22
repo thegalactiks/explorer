@@ -113,13 +113,14 @@ const computeMissingFields = (persons: ContentlayerPerson[]) => async (documents
   }
 
   return documents.map(document => {
+    const dateCreated = new Date(document.dateCreated)
     const contentWithoutHeaders: Omit<Content, 'headers'> = {
       ...document,
       author: getAuthor(document.author, document.inLanguage),
       breadcrumb: buildBreadcrumb(document),
-      dateCreated: new Date(document.dateCreated),
-      dateModified: new Date(document.dateModified || document.dateCreated),
-      datePublished: document.datePublished ? new Date(document.datePublished) : undefined,
+      dateCreated,
+      dateModified: document.dateModified ? new Date(document.dateModified) : dateCreated,
+      datePublished: document.datePublished ? new Date(document.datePublished) : dateCreated,
     }
 
     return {
