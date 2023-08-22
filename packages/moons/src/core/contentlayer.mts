@@ -1,4 +1,4 @@
-import { defineNestedType, type FieldDefs } from 'contentlayer/source-files'
+import { defineNestedType, type DocumentTypeDef, type FieldDefs, type NestedType } from 'contentlayer/source-files'
 import { collectionName } from './content/index.mjs'
 
 const moonsFields: FieldDefs = {
@@ -14,6 +14,22 @@ const idDocumentType = defineNestedType(() => ({
   name: 'Id',
   fields: idFields,
 }))
+
+const itemListElementFields: NestedType = defineNestedType(() => ({
+  name: 'ItemListElement',
+  fields: {
+    name: { type: 'string', required: true },
+    path: { type: 'string', required: false },
+    url: { type: 'string', required: false },
+    itemListElement: { type: 'list', required: false, of: itemListElementFields }
+  }
+}))
+
+const itemListFields: FieldDefs = {
+  name: { type: 'string', required: false },
+  identifier: { type: 'string', required: true },
+  itemListElement: { type: 'list', required: true, of: itemListElementFields }
+}
 
 const thingsFields: FieldDefs = {
   name: { type: 'string', required: true },
@@ -38,7 +54,7 @@ const creativeWorkFields: FieldDefs = {
   keywords: { type: 'list', required: false, of: { type: 'string' } },
 }
 
-export const ContentLayerWebsiteFields = {
+export const ContentLayerWebsiteFields: DocumentTypeDef = {
   name: 'Website',
   fields: {
     ...creativeWorkFields,
@@ -46,7 +62,16 @@ export const ContentLayerWebsiteFields = {
   }
 }
 
-export const ContentLayerArticleFields = {
+export const ContentLayerWebPageElementFields: DocumentTypeDef = {
+  name: 'WebPageElement',
+  fields: {
+    elementType: { type: 'enum', options: ['SiteNavigationElement'], required: false }, // avoid collision with contentlayer type
+    inLanguage: { type: 'string', required: false },
+    ...itemListFields
+  }
+}
+
+export const ContentLayerArticleFields: DocumentTypeDef = {
   name: 'Article',
   fields: {
     ...moonsFields,
@@ -57,7 +82,7 @@ export const ContentLayerArticleFields = {
   }
 }
 
-export const ContentLayerPageFields = {
+export const ContentLayerPageFields: DocumentTypeDef = {
   name: 'Page',
   fields: {
     ...moonsFields,
@@ -68,7 +93,7 @@ export const ContentLayerPageFields = {
   }
 }
 
-export const ContentLayerPersonFields = {
+export const ContentLayerPersonFields: DocumentTypeDef = {
   name: 'Person',
   fields: {
     ...moonsFields,
@@ -85,7 +110,7 @@ export const ContentLayerPersonFields = {
   }
 }
 
-export const ContentLayerOrganizationFields = {
+export const ContentLayerOrganizationFields: DocumentTypeDef = {
   name: 'Organization',
   fields: {
     ...moonsFields,

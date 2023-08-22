@@ -1,6 +1,6 @@
 import { getConfig } from '@withmoons/config'
 
-import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument, ContentlayerWebsite } from './types/index.mjs'
+import type { Content, ContentlayerDataExports, ContentlayerWebPageDocument, ContentlayerWebPageElement, ContentlayerWebsite } from './types/index.mjs'
 import { computeDocuments } from './compute.mjs'
 import { homeIdentifier } from './consts.mjs'
 import { documentByIdentifierSelector, documentsByLanguagesSelector } from './selectors.mjs'
@@ -22,6 +22,20 @@ const getGenerated = async (): Promise<ContentlayerDataExports> => {
 }
 
 export const getWebsites = async (): Promise<ContentlayerWebsite[]> => (await getGenerated()).allWebsites
+
+export type WebPageElementFilters = {
+  inLanguage?: string;
+}
+export const getWebPageElements = async (filters?: WebPageElementFilters): Promise<ContentlayerWebPageElement[]> => {
+  const elements = (await getGenerated()).allWebPageElements
+
+  return filters?.inLanguage
+    ? documentsByLanguagesSelector(elements)([filters.inLanguage])
+    : elements
+}
+export const getWebPageElementByType = async (type: ContentlayerWebPageElement['elementType'], filters?: WebPageElementFilters): Promise<ContentlayerWebPageElement | undefined> =>
+  (await getWebPageElements(filters)).find(({ elementType: _t }) => _t === type)
+export const getSiteNavigationElement = (filters?: WebPageElementFilters) => getWebPageElementByType('SiteNavigationElement', filters)
 
 const getWebPageDocuments = async (): Promise<Content[]> => {
   if (Array.isArray(_documents)) {
