@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "engines": {
-    "node": ">=16.20.0"
+    "node": ">=18.0.0"
   },
   "bugs": "https://github.com/withmoons/moons/issues",
   "repository": {
@@ -41,26 +41,24 @@
     "@withmoons/explorer": "*"
   },
   "peerDependencies": {
-    "@astrojs/partytown": "1.2.3",
+    "@astrojs/partytown": "2.0.0",
     "@astrojs/prefetch": "0.4.0",
-    "@astrojs/react": "2.3.2",
-    "@astrojs/rss": "2.4.4",
-    "@astrojs/sitemap": "2.0.2",
-    "astro": "2.10.15",
-    "astro-compress": "2.0.15",
+    "@astrojs/react": "3.0.0",
+    "@astrojs/rss": "3.0.0",
+    "@astrojs/sitemap": "3.0.0",
+    "astro": "3.0.7",
     "astro-critters": "2.0.11",
     "astro-robots-txt": "0.5.0"
   },
   "devDependencies": {
-    "@astrojs/partytown": "1.2.3",
+    "@astrojs/partytown": "2.0.0",
     "@astrojs/prefetch": "0.4.0",
-    "@astrojs/react": "2.3.2",
-    "@astrojs/rss": "2.4.4",
-    "@astrojs/sitemap": "2.0.2",
+    "@astrojs/react": "3.0.0",
+    "@astrojs/rss": "3.0.0",
+    "@astrojs/sitemap": "3.0.0",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "astro": "2.10.15",
-    "astro-compress": "2.0.15",
+    "astro": "3.0.7",
     "astro-critters": "2.0.11",
     "astro-robots-txt": "0.5.0",
     "copyfiles": "2.4.1",

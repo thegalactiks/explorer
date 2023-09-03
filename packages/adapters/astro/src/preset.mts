@@ -4,7 +4,6 @@ import prefetch from '@astrojs/prefetch'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import critters from 'astro-critters'
-import compress from 'astro-compress'
 import robotsTxt from 'astro-robots-txt'
 
 export const integrationsPreset = (): AstroIntegration[] => ([
@@ -14,5 +13,4 @@ export const integrationsPreset = (): AstroIntegration[] => ([
   sitemap(),
   robotsTxt(),
   critters(),
-  compress(),
 ])
