@@ -6,7 +6,7 @@
   "types": "./dist/index.d.mts",
   "license": "MIT",
   "engines": {
-    "node": ">=16.20.0"
+    "node": ">=18.0.0"
   },
   "bugs": "https://github.com/withmoons/moons/issues",
   "repository": {
