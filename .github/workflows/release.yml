@@ -8,6 +8,8 @@ on:
 permissions:
   contents: write
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 defaults:
   run:
     shell: bash
