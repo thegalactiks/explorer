@@ -1,39 +1,59 @@
-import { z } from 'zod'
-import { collectionName } from '../consts.mjs'
+import { z } from 'zod';
+import { collectionName } from '../consts.mjs';
 
-const metadataHeaders = z.object({
-  title: z.string().optional(),
-  description: z.string().optional(),
-  canonical: z.string().optional(),
-  alternates: z.array(z.object({
-    href: z.string(),
-    hreflang: z.string(),
-  })).optional(),
-  robots: z.string().optional(),
-  openGraph: z.array(z.object({
-    prefix: z.string().optional(),
-    property: z.string(),
-    content: z.string(),
-  })).optional(),
-  twitterCard: z.array(z.object({
-    name: z.string(),
-    content: z.string(),
-  })).optional(),
-  structuredDataSchemas: z.array(z.object({})).optional()
-}).strict()
+const metadataHeaders = z
+  .object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    canonical: z.string().optional(),
+    alternates: z
+      .array(
+        z.object({
+          href: z.string(),
+          hreflang: z.string(),
+        })
+      )
+      .optional(),
+    robots: z.string().optional(),
+    openGraph: z
+      .array(
+        z.object({
+          prefix: z.string().optional(),
+          property: z.string(),
+          content: z.string(),
+        })
+      )
+      .optional(),
+    twitterCard: z
+      .array(
+        z.object({
+          name: z.string(),
+          content: z.string(),
+        })
+      )
+      .optional(),
+    structuredDataSchemas: z.array(z.object({})).optional(),
+  })
+  .strict();
 
-const moonsSchema = z.object({
-  collection: z.enum(Object.values(collectionName) as [string, ...string[]]).or(z.string()),
-  tags: z.array(z.string()).optional(),
-  listingPage: z.boolean().default(false),
-  path: z.string(),
-  slug: z.string().optional(),
-  headers: metadataHeaders.optional(),
-}).strict()
+const moonsSchema = z
+  .object({
+    collection: z
+      .enum(Object.values(collectionName) as [string, ...string[]])
+      .or(z.string()),
+    tags: z.array(z.string()).optional(),
+    listingPage: z.boolean().default(false),
+    path: z.string(),
+    slug: z.string().optional(),
+    headers: metadataHeaders.optional(),
+  })
+  .strict();
 
-const idSchema = z.object({
-  '@id': z.string(),
-}).strict()
+const idSchema = z
+  .object({
+    '@id': z.string(),
+  })
+  .strict();
 
 // Schema: https://schema.org/Thing
 const thingSchema = z
@@ -42,26 +62,30 @@ const thingSchema = z
     description: z.string(),
     url: z.string().optional(),
     identifier: z.string(),
-    image: z.object({
-      name: z.string().optional(),
-      description: z.string().optional(),
-      contentUrl: z.string(),
-      datePublished: z.string().optional(),
-      author: z.string().optional(),
-      contentLocation: z.string().optional(),
-    }).optional(),
+    image: z
+      .object({
+        name: z.string().optional(),
+        description: z.string().optional(),
+        contentUrl: z.string(),
+        datePublished: z.string().optional(),
+        author: z.string().optional(),
+        contentLocation: z.string().optional(),
+      })
+      .optional(),
     sameAs: z.string().optional(),
   })
-  .strict()
+  .strict();
 
 // Schema: https://schema.org/ItemList
 const itemListSchema = thingSchema.extend({
-  itemListElement: z.array(z.object({
-    position: z.number(),
-    name: z.string(),
-    item: z.string(),
-  })),
-})
+  itemListElement: z.array(
+    z.object({
+      position: z.number(),
+      name: z.string(),
+      item: z.string(),
+    })
+  ),
+});
 
 // Schema: https://schema.org/Person
 export const personSchema = thingSchema.extend({
@@ -71,7 +95,7 @@ export const personSchema = thingSchema.extend({
   givenName: z.string().optional(),
   jobTitle: z.string().optional(),
   telephone: z.string().optional(),
-})
+});
 
 // Schema: https://schema.org/CreativeWork
 const creativeWorkSchema = thingSchema.extend({
@@ -88,7 +112,7 @@ const creativeWorkSchema = thingSchema.extend({
   position: z.number().optional(),
   translationOfWork: idSchema.optional(),
   workTranslation: idSchema.optional(),
-})
+});
 
 // Schema: https://schema.org/Event
 export const eventSchema = thingSchema.extend({
@@ -96,31 +120,31 @@ export const eventSchema = thingSchema.extend({
   inLanguage: z.string().optional(),
   startDate: z.date().optional(),
   keywords: z.array(z.string()).optional(),
-})
+});
 
 // Schema: https://schema.org/QuantitativeValue
 const quantitativeValueSchema = thingSchema.extend({
   maxValue: z.number().optional(),
   minValue: z.number().optional(),
   value: z.number(),
-})
+});
 
 // Schema: https://schema.org/MediaObject
 const mediaObjectSchema = creativeWorkSchema.extend({
   height: quantitativeValueSchema.optional(),
   uploadDate: z.date().optional(),
   width: quantitativeValueSchema.optional(),
-})
+});
 
 const propertyValueSchema = thingSchema.extend({
   value: z.string(),
-})
+});
 
 // Schema: https://schema.org/ImageObject
 const imageObjectSchema = mediaObjectSchema.extend({
   caption: mediaObjectSchema.or(z.string()).optional(),
   exifData: z.array(propertyValueSchema).optional(),
-})
+});
 
 // Schema: https://schema.org/Organization
 export const organizationSchema = thingSchema.extend({
@@ -132,22 +156,26 @@ export const organizationSchema = thingSchema.extend({
   taxID: z.string().optional(),
   telephone: z.string().optional(),
   vatID: z.string().optional(),
-})
+});
 
 // Schema: https://schema.org/Article
-const articleSchema = creativeWorkSchema.extend({
-  articleBody: z.string().optional(),
-  wordCount: z.number().optional(),
-}).strict()
+const articleSchema = creativeWorkSchema
+  .extend({
+    articleBody: z.string().optional(),
+    wordCount: z.number().optional(),
+  })
+  .strict();
 
 // Schema: https://schema.org/WebPage
-const webPageSchema = creativeWorkSchema.extend({
-  breadcrumb: itemListSchema.optional(),
-  relatedLink: z.string().optional()
-}).strict()
+const webPageSchema = creativeWorkSchema
+  .extend({
+    breadcrumb: itemListSchema.optional(),
+    relatedLink: z.string().optional(),
+  })
+  .strict();
 
 // Schema:
-const answerSchema = thingSchema.extend({})
+const answerSchema = thingSchema.extend({});
 
 // Schema: https://schema.org/Question
 export const questionSchema = creativeWorkSchema.extend({
@@ -155,14 +183,14 @@ export const questionSchema = creativeWorkSchema.extend({
   answerCount: z.number().optional(),
   acceptedAnswer: answerSchema,
   suggestedAnswer: answerSchema,
-})
+});
 
-export const articlePageSchema = moonsSchema.merge(articleSchema)
-export const pageSchema = moonsSchema.merge(webPageSchema)
+export const articlePageSchema = moonsSchema.merge(articleSchema);
+export const pageSchema = moonsSchema.merge(webPageSchema);
 
-export type MetadataHeaders = z.infer<typeof metadataHeaders>
-export type ItemList = z.infer<typeof itemListSchema>
-export type Person = z.infer<typeof personSchema>
-export type Organization = z.infer<typeof organizationSchema>
-export type Article = z.infer<typeof articlePageSchema>
-export type Page = z.infer<typeof pageSchema>
+export type MetadataHeaders = z.infer<typeof metadataHeaders>;
+export type ItemList = z.infer<typeof itemListSchema>;
+export type Person = z.infer<typeof personSchema>;
+export type Organization = z.infer<typeof organizationSchema>;
+export type Article = z.infer<typeof articlePageSchema>;
+export type Page = z.infer<typeof pageSchema>;

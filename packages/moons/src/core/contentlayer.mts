@@ -1,19 +1,24 @@
-import { defineNestedType, type DocumentTypeDef, type FieldDefs, type NestedType } from 'contentlayer/source-files'
-import { collectionName } from './content/index.mjs'
+import {
+  defineNestedType,
+  type DocumentTypeDef,
+  type FieldDefs,
+  type NestedType,
+} from 'contentlayer/source-files';
+import { collectionName } from './content/index.mjs';
 
 const moonsFields: FieldDefs = {
   listingPage: { type: 'boolean', required: false, default: false },
   slug: { type: 'string', required: false },
-  path: { type: 'string', required: false }
-}
+  path: { type: 'string', required: false },
+};
 
 const idFields: FieldDefs = {
-  '@id': { type: 'string', required: true }
-}
+  '@id': { type: 'string', required: true },
+};
 const idDocumentType = defineNestedType(() => ({
   name: 'Id',
   fields: idFields,
-}))
+}));
 
 const itemListElementFields: NestedType = defineNestedType(() => ({
   name: 'ItemListElement',
@@ -21,15 +26,19 @@ const itemListElementFields: NestedType = defineNestedType(() => ({
     name: { type: 'string', required: true },
     path: { type: 'string', required: false },
     url: { type: 'string', required: false },
-    itemListElement: { type: 'list', required: false, of: itemListElementFields }
-  }
-}))
+    itemListElement: {
+      type: 'list',
+      required: false,
+      of: itemListElementFields,
+    },
+  },
+}));
 
 const itemListFields: FieldDefs = {
   name: { type: 'string', required: false },
   identifier: { type: 'string', required: true },
-  itemListElement: { type: 'list', required: true, of: itemListElementFields }
-}
+  itemListElement: { type: 'list', required: true, of: itemListElementFields },
+};
 
 const thingsFields: FieldDefs = {
   name: { type: 'string', required: true },
@@ -37,13 +46,13 @@ const thingsFields: FieldDefs = {
   url: { type: 'string', required: false },
   identifier: { type: 'string', required: true },
   image: { type: 'json', required: false },
-  sameAs: { type: 'string', required: false }
-}
+  sameAs: { type: 'string', required: false },
+};
 
 const creativeWorkFields: FieldDefs = {
   ...thingsFields,
-  author: { type: 'string', required: false, },
-  headline: { type: 'string', required: false, },
+  author: { type: 'string', required: false },
+  headline: { type: 'string', required: false },
   dateCreated: { type: 'date', required: true },
   dateModified: { type: 'date', required: false },
   datePublished: { type: 'date', required: false },
@@ -52,46 +61,50 @@ const creativeWorkFields: FieldDefs = {
   translationOfWork: { type: 'nested', of: idDocumentType, required: false },
   workTranslation: { type: 'nested', of: idDocumentType, required: false },
   keywords: { type: 'list', required: false, of: { type: 'string' } },
-}
+};
 
 export const ContentLayerWebsiteFields: DocumentTypeDef = {
   name: 'Website',
   fields: {
     ...creativeWorkFields,
-    issn: { type: 'string', required: false }
-  }
-}
+    issn: { type: 'string', required: false },
+  },
+};
 
 export const ContentLayerWebPageElementFields: DocumentTypeDef = {
   name: 'WebPageElement',
   fields: {
-    elementType: { type: 'enum', options: ['SiteNavigationElement'], required: false }, // avoid collision with contentlayer type
+    elementType: {
+      type: 'enum',
+      options: ['SiteNavigationElement'],
+      required: false,
+    }, // avoid collision with contentlayer type
     inLanguage: { type: 'string', required: false },
-    ...itemListFields
-  }
-}
+    ...itemListFields,
+  },
+};
 
 export const ContentLayerArticleFields: DocumentTypeDef = {
   name: 'Article',
   fields: {
     ...moonsFields,
-    ...creativeWorkFields
+    ...creativeWorkFields,
   },
   computedFields: {
     collection: { type: 'string', resolve: () => collectionName.article },
-  }
-}
+  },
+};
 
 export const ContentLayerPageFields: DocumentTypeDef = {
   name: 'Page',
   fields: {
     ...moonsFields,
-    ...creativeWorkFields
+    ...creativeWorkFields,
   },
   computedFields: {
     collection: { type: 'string', resolve: () => collectionName.page },
-  }
-}
+  },
+};
 
 export const ContentLayerPersonFields: DocumentTypeDef = {
   name: 'Person',
@@ -107,8 +120,8 @@ export const ContentLayerPersonFields: DocumentTypeDef = {
   },
   computedFields: {
     collection: { type: 'string', resolve: () => collectionName.person },
-  }
-}
+  },
+};
 
 export const ContentLayerOrganizationFields: DocumentTypeDef = {
   name: 'Organization',
@@ -125,5 +138,5 @@ export const ContentLayerOrganizationFields: DocumentTypeDef = {
   },
   computedFields: {
     collection: { type: 'string', resolve: () => collectionName.organization },
-  }
-}
+  },
+};

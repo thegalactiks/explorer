@@ -10,11 +10,11 @@ const { content } = Astro.props;
 
 let prefix;
 if (Array.isArray(content.headers?.openGraph)) {
-  prefix = 'og: https://ogp.me/ns#'
+  prefix = 'og: https://ogp.me/ns#';
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang={content?.inLanguage} prefix={prefix}>
   <Head content={content}>
     <slot name="head" />

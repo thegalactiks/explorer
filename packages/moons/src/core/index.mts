@@ -1,2 +1,2 @@
-export * from './content/index.mjs'
-export * from './contentlayer.mjs'
+export * from './content/index.mjs';
+export * from './contentlayer.mjs';
