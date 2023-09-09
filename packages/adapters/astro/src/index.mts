@@ -1,17 +1,17 @@
-import type { AstroIntegration } from 'astro'
-import { getConfig } from '@withmoons/config'
+import type { AstroIntegration } from 'astro';
+import { getConfig } from '@withmoons/config';
 
-export { getStaticPaths, getHomePage } from './pages.mjs'
-export { integrationsPreset } from './preset.mjs'
+export { getStaticPaths, getHomePage } from './pages.mjs';
+export { integrationsPreset } from './preset.mjs';
 
 type MoonsOptions = {
   content?: {
-    path?: string
-  }
-}
+    path?: string;
+  };
+};
 
 export default function createPlugin(options: MoonsOptions): AstroIntegration {
-  const moonsConfig = getConfig(options?.content?.path)
+  const moonsConfig = getConfig(options?.content?.path);
 
   return {
     name: '@withmoons/astro-integration',
@@ -19,12 +19,12 @@ export default function createPlugin(options: MoonsOptions): AstroIntegration {
       'astro:config:setup': ({ command, updateConfig, addWatchFile }) => {
         updateConfig({
           site: moonsConfig.webManifest.start_url,
-        })
+        });
 
         if (command === 'dev') {
-          addWatchFile(moonsConfig.content.generated)
+          addWatchFile(moonsConfig.content.generated);
         }
-      }
+      },
     },
-  }
+  };
 }

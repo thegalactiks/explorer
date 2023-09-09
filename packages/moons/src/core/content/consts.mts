@@ -1,5 +1,5 @@
-export const homeIdentifier = 'index'
-export const pageDepthLimit = 10
+export const homeIdentifier = 'index';
+export const pageDepthLimit = 10;
 
 export enum collectionName {
   article = 'articles',

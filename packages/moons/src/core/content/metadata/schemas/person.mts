@@ -1,10 +1,10 @@
-import type { Person, WithContext } from 'schema-dts'
-import type { Person as ContentPerson } from '../../types/index.mjs'
+import type { Person, WithContext } from 'schema-dts';
+import type { Person as ContentPerson } from '../../types/index.mjs';
 
 export const getPerson = (document: ContentPerson): WithContext<Person> => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: document.name,
   url: document.url,
-  jobTitle: document.jobTitle
-})
+  jobTitle: document.jobTitle,
+});
