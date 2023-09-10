@@ -1,5 +1,7 @@
-import { getConfig } from '@withmoons/config';
+import { StdUriTemplate } from '@std-uritemplate/std-uritemplate';
+import { documentTypes, getConfig } from '@withmoons/config';
 import { join } from 'path';
+
 import type {
   ContentlayerWebPageDocument,
   ContentlayerWebsite,
@@ -21,13 +23,18 @@ export type ContentlayerDocumentWithURL = WithRequired<
   'url'
 >;
 
-const _getPath = (document: ContentlayerWebPageDocument): string => {
+const _getPathWithoutTemplate = (
+  document: ContentlayerWebPageDocument
+): string => {
   if (document.path) {
-    return join('/', document.path);
+    return document.path;
   }
 
-  return document.identifier === 'index' ? '/' : `/${document.identifier}`;
+  return document.identifier;
 };
+
+const makePathRelative = (path: string) =>
+  path.substring(0, 1) === '/' ? path.substring(1) : path;
 
 export const computeDocumentsUrl =
   (websites: ContentlayerWebsite[]) =>
@@ -36,7 +43,25 @@ export const computeDocumentsUrl =
       documentByIdentifierAndLanguageSelector(documents);
     const getWebsitesByLanguage = documentsByLanguageSelector(websites);
 
-    const { webManifest } = getConfig();
+    const { locales, pages, webManifest } = getConfig();
+
+    const _getPagePathTemplate = (
+      type: ContentlayerWebPageDocument['type'],
+      inLanguage?: string
+    ) => {
+      const page = pages[documentTypes[type]] || pages[documentTypes.Page];
+      if (!page) {
+        return undefined;
+      }
+
+      if (typeof page.path === 'string') {
+        return page.path;
+      }
+
+      return page.path.find(
+        ({ locale }) => locale === inLanguage || locale === locales?.default
+      )?.path;
+    };
 
     const _getDocumentUrl = (
       document: ContentlayerDocumentWithPath
@@ -58,30 +83,56 @@ export const computeDocumentsUrl =
       return new URL(document.path, baseUrl).toString();
     };
 
-    const _computePath = (document: ContentlayerWebPageDocument): string => {
-      const path = _getPath(document);
-      if (!document.isPartOf) {
-        return path;
+    const _computePath = (
+      document: ContentlayerWebPageDocument
+    ): string | undefined => {
+      if (document.path) {
+        return document.path;
       }
 
-      // The page has been created if missing
-      const parent = getDocumentByIdentifierAndLanguage(
-        document.isPartOf,
+      const pathTemplate = _getPagePathTemplate(
+        document.type,
         document.inLanguage
-      ) as ContentlayerDocumentWithPath;
-      return join(_getPath(parent), path);
+      );
+      if (!pathTemplate) {
+        return undefined;
+      }
+
+      let isPartOfPath: string | undefined;
+      if (pathTemplate.indexOf('isPartOf') && document.isPartOf) {
+        // The page has been created if missing
+        const isPartOf = getDocumentByIdentifierAndLanguage(
+          document.isPartOf,
+          document.inLanguage
+        ) as ContentlayerDocumentWithPath;
+        isPartOfPath = makePathRelative(_getPathWithoutTemplate(isPartOf)) || '';
+      }
+
+      const existingStringProperties: [string, string][] = Object.entries({
+        ...document,
+        isPartOf: isPartOfPath,
+      }).filter(([, value]) => typeof value === 'string');
+      return join(
+        StdUriTemplate.expand(
+          pathTemplate,
+          Object.fromEntries(existingStringProperties)
+        )
+      );
     };
 
     const selectPageDepth = pageDepthSelector(documents);
     return documents
-      .sort((_d) => selectPageDepth(_d))
-      .map((document) => {
-        document.path = _computePath(document);
-        document.url = _getDocumentUrl(
-          document as ContentlayerDocumentWithPath
-        );
+      .sort((_document) => selectPageDepth(_document))
+      .map((_document) => {
+        _document.path = _computePath(_document);
+        if (_document.path) {
+          _document.url = _getDocumentUrl(
+            _document as ContentlayerDocumentWithPath
+          );
+        }
 
-        return document as ContentlayerWebPageDocumentWithRender &
+        return _document as ContentlayerWebPageDocumentWithRender &
           ContentlayerDocumentWithURL;
-      });
+      })
+      .filter((_document) => _document.path);
   };

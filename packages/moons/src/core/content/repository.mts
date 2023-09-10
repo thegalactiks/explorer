@@ -65,8 +65,9 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     websites: await getWebsites(),
     documents: new Array<ContentlayerWebPageDocument>()
       .concat(generated.allPages)
-      .concat(generated.allArticles),
-    persons: await getPersons(),
+      .concat(generated.allArticles)
+      .concat(generated.allPeople),
+    people: generated.allPeople,
   });
 
   return _documents;
@@ -101,10 +102,6 @@ export const getPageBySlug = async (
   slug: string,
   filters?: RepositoryFilters
 ) => (await getPages(filters)).find((doc) => doc.slug === slug);
-
-export const getPersons = async () => (await getGenerated()).allPeople;
-export const getPersonByIdentifier = async (identifier: string) =>
-  documentByIdentifierSelector(await getPersons())(identifier);
 
 export const getOrganizations = async () =>
   (await getGenerated()).allOrganizations;

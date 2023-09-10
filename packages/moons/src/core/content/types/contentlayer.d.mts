@@ -39,7 +39,6 @@ export type Article = {
   keywords?: string[] | undefined;
   /** MDX file body */
   body: MDX;
-  collection: string;
 };
 
 export type Organization = {
@@ -65,7 +64,6 @@ export type Organization = {
   vatID?: string | undefined;
   /** MDX file body */
   body: MDX;
-  collection: string;
 };
 
 export type Page = {
@@ -94,7 +92,6 @@ export type Page = {
   keywords?: string[] | undefined;
   /** MDX file body */
   body: MDX;
-  collection: string;
 };
 
 export type Person = {
@@ -117,9 +114,17 @@ export type Person = {
   givenName?: string | undefined;
   jobTitle?: string | undefined;
   telephone?: string | undefined;
+  isPartOf?: string | undefined;
+  inLanguage?: string | undefined;
+  dateCreated: IsoDateTimeString;
+  dateModified?: IsoDateTimeString | undefined;
+  datePublished?: IsoDateTimeString | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
+  keywords?: string[] | undefined;
+  author?: string | undefined;
   /** MDX file body */
   body: MDX;
-  collection: string;
 };
 
 export type WebPageElement = {
