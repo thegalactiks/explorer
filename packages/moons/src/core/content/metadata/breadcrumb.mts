@@ -34,7 +34,9 @@ export const breadcrumbBuilder =
         inLanguage
       );
       if (!page) {
-        throw new Error('No page found during breadcrumb computation');
+        throw new Error(
+          `No page ${documentIdentifier} in ${inLanguage} found during breadcrumb computation`
+        );
       }
 
       itemList = itemList.concat({

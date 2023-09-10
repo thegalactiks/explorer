@@ -1,10 +1,14 @@
 import {
   defineNestedType,
-  type DocumentTypeDef,
+  type DocumentTypeDef as ContentlayerDocumentTypeDef,
   type FieldDefs,
   type NestedType,
 } from 'contentlayer/source-files';
-import { collectionName } from './content/index.mjs';
+import { documentTypes } from '@withmoons/config';
+
+type DocumentTypeDef = ContentlayerDocumentTypeDef & {
+  name: keyof typeof documentTypes;
+};
 
 const moonsFields: FieldDefs = {
   listingPage: { type: 'boolean', required: false, default: false },
@@ -90,9 +94,6 @@ export const ContentLayerArticleFields: DocumentTypeDef = {
     ...moonsFields,
     ...creativeWorkFields,
   },
-  computedFields: {
-    collection: { type: 'string', resolve: () => collectionName.article },
-  },
 };
 
 export const ContentLayerPageFields: DocumentTypeDef = {
@@ -101,25 +102,21 @@ export const ContentLayerPageFields: DocumentTypeDef = {
     ...moonsFields,
     ...creativeWorkFields,
   },
-  computedFields: {
-    collection: { type: 'string', resolve: () => collectionName.page },
-  },
 };
 
 export const ContentLayerPersonFields: DocumentTypeDef = {
   name: 'Person',
   fields: {
     ...moonsFields,
-    ...thingsFields,
+    ...creativeWorkFields,
+    dateCreated: { type: 'date', required: false },
+
     additionalName: { type: 'string', required: false },
     email: { type: 'string', required: false },
     familyName: { type: 'string', required: false },
     givenName: { type: 'string', required: false },
     jobTitle: { type: 'string', required: false },
     telephone: { type: 'string', required: false },
-  },
-  computedFields: {
-    collection: { type: 'string', resolve: () => collectionName.person },
   },
 };
 
@@ -135,8 +132,5 @@ export const ContentLayerOrganizationFields: DocumentTypeDef = {
     taxID: { type: 'string', required: false },
     telephone: { type: 'string', required: false },
     vatID: { type: 'string', required: false },
-  },
-  computedFields: {
-    collection: { type: 'string', resolve: () => collectionName.organization },
   },
 };

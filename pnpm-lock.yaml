@@ -110,12 +110,18 @@ importers:
 
   packages/config:
     dependencies:
+      deepmerge:
+        specifier: 4.3.1
+        version: 4.3.1
       zod:
         specifier: 3.22.2
         version: 3.22.2
 
   packages/moons:
     dependencies:
+      '@std-uritemplate/std-uritemplate':
+        specifier: 0.0.40
+        version: 0.0.40
       '@withmoons/config':
         specifier: '*'
         version: link:../config
@@ -1714,6 +1720,10 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: true
 
+  /@std-uritemplate/std-uritemplate@0.0.40:
+    resolution: {integrity: sha512-I4AsuizKBTk6aD7IOWKW/er6aSb79HBKKtrro6MNTQPAPRn3tdl4YLdWSCT8I5XqZwMuhkAALTp/p9ibGUzJnQ==}
+    dev: false
+
   /@ts-morph/common@0.16.0:
     resolution: {integrity: sha512-SgJpzkTgZKLKqQniCjLaE3c2L2sdL7UShvmTmPBejAKd2OKV/yfMpQ2IWpAuA+VY5wy7PkSUaEObIqEK6afFuw==}
     dependencies:
@@ -2817,6 +2827,11 @@ packages:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
     dev: true
+
+  /deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /default-browser-id@3.0.0:
     resolution: {integrity: sha512-OZ1y3y0SqSICtE8DE4S8YOE9UZOJ8wO16fKWVP5J1Qz42kV9jcnMVFrEE/noXb/ss3Q4pZIH79kxofzyNNtUNA==}

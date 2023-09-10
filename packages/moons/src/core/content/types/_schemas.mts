@@ -1,5 +1,5 @@
+import { documentTypes } from '@withmoons/config';
 import { z } from 'zod';
-import { collectionName } from '../consts.mjs';
 
 const metadataHeaders = z
   .object({
@@ -38,9 +38,7 @@ const metadataHeaders = z
 
 const moonsSchema = z
   .object({
-    collection: z
-      .enum(Object.values(collectionName) as [string, ...string[]])
-      .or(z.string()),
+    type: z.enum(Object.keys(documentTypes) as [keyof typeof documentTypes]),
     tags: z.array(z.string()).optional(),
     listingPage: z.boolean().default(false),
     path: z.string(),

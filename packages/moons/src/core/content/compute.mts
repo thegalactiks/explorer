@@ -18,9 +18,7 @@ import {
 } from './urls.mjs';
 import {
   documentByIdentifierAndLanguageSelector,
-  documentsByAuthorSelector,
   isInLanguage,
-  usedLanguagesInDocumentsSelector,
 } from './selectors.mjs';
 import type {
   Content,
@@ -33,22 +31,19 @@ import type {
 export type ComputeDTO<T> = {
   documents: T[];
   websites: ContentlayerWebsite[];
-  persons: ContentlayerPerson[];
+  people: ContentlayerPerson[];
 };
 
 function createPage<T>(
   identifier: string,
-  path: string,
   document: Partial<ContentlayerWebPageDocument>
 ) {
   return {
     _id: identifier,
     identifier,
-    path,
     slug: identifier,
     description: '',
     type: 'Page',
-    collection: 'pages',
     name: identifier,
     ...document,
     body: document.body?.raw
@@ -63,12 +58,10 @@ function createPage<T>(
 
 const createListingPage = (
   identifier: string,
-  path: string,
   document: Partial<ContentlayerWebPageDocument> = {}
 ) =>
   createPage<ContentlayerDocumentWithRender<ContentlayerWebPageDocument>>(
     identifier,
-    path,
     {
       listingPage: true,
       ...document,
@@ -112,9 +105,7 @@ const computeRemainingListingPages = async (
           (_a) => _a.identifier === isPartOf && isInLanguage(_a, inLanguage)
         ) === false
       ) {
-        acc = acc.concat(
-          createListingPage(isPartOf, `/${isPartOf}`, templateDocument)
-        );
+        acc = acc.concat(createListingPage(isPartOf, templateDocument));
       }
 
       // Create all keywords pages not existing yet
@@ -124,9 +115,7 @@ const computeRemainingListingPages = async (
             (_a) => _a.identifier === 'tags' && isInLanguage(_a, inLanguage)
           ) === false
         ) {
-          acc = acc.concat(
-            createListingPage('tags', '/tags', templateDocument)
-          );
+          acc = acc.concat(createListingPage('tags', templateDocument));
         }
 
         acc = acc.concat(
@@ -138,7 +127,7 @@ const computeRemainingListingPages = async (
                 ) === false
             )
             .map((_k) =>
-              createListingPage(_k, `/${_k}`, {
+              createListingPage(_k, {
                 ...templateDocument,
                 isPartOf: 'tags',
               })
@@ -151,44 +140,8 @@ const computeRemainingListingPages = async (
     documents
   );
 
-const computePersonPages =
-  (persons: ContentlayerPerson[]) =>
-  async (documents: ContentlayerWebPageDocumentWithRender[]) => {
-    const selectUsedLanguages = usedLanguagesInDocumentsSelector();
-    const selectDocumentByAuthor = documentsByAuthorSelector(documents);
-
-    if (Array.isArray(persons) && persons.length > 0) {
-      const usedLanguages = selectUsedLanguages(documents);
-      documents = documents.concat(
-        ...usedLanguages.map((language) =>
-          createListingPage('author', '/author', { inLanguage: language })
-        )
-      );
-    }
-
-    return persons.reduce((acc, person) => {
-      if (!person.body) {
-        return acc;
-      }
-
-      const usedLanguages = selectUsedLanguages(
-        selectDocumentByAuthor(person.identifier)
-      );
-      return acc.concat(
-        ...usedLanguages.map<ContentlayerWebPageDocumentWithRender>(
-          (language) =>
-            createPage(person.identifier, person.identifier, {
-              body: person.body,
-              isPartOf: 'author',
-              inLanguage: language,
-            })
-        )
-      );
-    }, documents);
-  };
-
 const computeMissingFields =
-  (persons: ContentlayerPerson[]) =>
+  (people: ContentlayerPerson[]) =>
   async (
     documents: Array<
       ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
@@ -197,7 +150,7 @@ const computeMissingFields =
     const buildBreadcrumb = breadcrumbBuilder(documents);
     const buildAlternates = alternatesHeaderBuilder(documents);
     const selectPersonByIdentifierAndLanguage =
-      documentByIdentifierAndLanguageSelector(persons);
+      documentByIdentifierAndLanguageSelector(people);
 
     const getAuthor = (
       identifier?: string,
@@ -206,8 +159,8 @@ const computeMissingFields =
       let author;
       if (identifier) {
         author = selectPersonByIdentifierAndLanguage(identifier, inLanguage);
-      } else if (persons.length === 1) {
-        author = persons[0];
+      } else if (people.length === 1) {
+        author = people[0];
       }
 
       return (
@@ -252,12 +205,11 @@ const computeMissingFields =
 
 export const computeDocuments = async ({
   documents,
-  persons,
+  people,
   websites,
 }: ComputeDTO<ContentlayerWebPageDocument>): Promise<Content[]> =>
   Promise.resolve(documents)
     .then(hydratePagesWithRender)
-    .then(computePersonPages(persons))
     .then(computeRemainingListingPages)
     .then(computeDocumentsUrl(websites))
-    .then(computeMissingFields(persons));
+    .then(computeMissingFields(people));
