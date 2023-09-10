@@ -87,7 +87,7 @@ export const computeDocumentsUrl =
       document: ContentlayerWebPageDocument
     ): string | undefined => {
       if (document.path) {
-        return document.path;
+        return join('/', document.path);
       }
 
       const pathTemplate = _getPagePathTemplate(
