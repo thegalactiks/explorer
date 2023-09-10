@@ -1,3 +1,5 @@
+import slugify from 'slugify'
+
 import {
   alternatesHeaderBuilder,
   breadcrumbBuilder,
@@ -38,10 +40,12 @@ function createPage<T>(
   identifier: string,
   document: Partial<ContentlayerWebPageDocument>
 ) {
+  const id = slugify(identifier)
+
   return {
-    _id: identifier,
-    identifier,
-    slug: identifier,
+    _id: id,
+    identifier: id,
+    slug: id,
     description: '',
     type: 'Page',
     name: identifier,
