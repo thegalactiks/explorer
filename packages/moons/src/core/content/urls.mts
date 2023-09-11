@@ -105,7 +105,8 @@ export const computeDocumentsUrl =
           document.isPartOf,
           document.inLanguage
         ) as ContentlayerDocumentWithPath;
-        isPartOfPath = makePathRelative(_getPathWithoutTemplate(isPartOf)) || '';
+        isPartOfPath =
+          makePathRelative(_getPathWithoutTemplate(isPartOf)) || '';
       }
 
       const existingStringProperties: [string, string][] = Object.entries({

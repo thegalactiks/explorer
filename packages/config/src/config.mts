@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge';
 import { existsSync, readFileSync } from 'fs';
+import set from 'lodash.set';
 import { z } from 'zod';
 
 import {
@@ -51,6 +52,8 @@ export type MoonsConfig = WithRequired<
   content: {
     root: string;
     generated: string;
+    assets: string;
+    public: string;
   };
   webManifest: WebManifest;
 };
@@ -89,6 +92,8 @@ const readConfigFile = (path: string): MoonsConfig => {
     content: {
       root: path,
       generated: join(path, '.contentlayer/generated/index.mjs'),
+      assets: join(path, 'assets'),
+      public: join(path, 'public'),
     },
     webManifest: readWebManifestFromPath(path),
   };
@@ -108,6 +113,12 @@ export function getConfig(path?: string): MoonsConfig {
     path = process.cwd();
   }
   _config = readConfigFile(path);
+
+  return _config;
+}
+
+export function setConfig(key: string, value: unknown): MoonsConfig {
+  _config = set(getConfig(), key, value);
 
   return _config;
 }

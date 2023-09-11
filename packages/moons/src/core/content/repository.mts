@@ -60,8 +60,11 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     return _documents;
   }
 
+  const config = getConfig();
+
   const generated = await getGenerated();
   _documents = await computeDocuments({
+    config,
     websites: await getWebsites(),
     documents: new Array<ContentlayerWebPageDocument>()
       .concat(generated.allPages)
