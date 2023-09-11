@@ -1,4 +1,5 @@
-import slugify from 'slugify'
+import type { MoonsConfig } from '@withmoons/config';
+import slugify from 'slugify';
 
 import {
   alternatesHeaderBuilder,
@@ -31,6 +32,7 @@ import type {
 } from './types/index.mjs';
 
 export type ComputeDTO<T> = {
+  config: MoonsConfig;
   documents: T[];
   websites: ContentlayerWebsite[];
   people: ContentlayerPerson[];
@@ -40,7 +42,7 @@ function createPage<T>(
   identifier: string,
   document: Partial<ContentlayerWebPageDocument>
 ) {
-  const id = slugify(identifier)
+  const id = slugify(identifier);
 
   return {
     _id: id,
@@ -145,7 +147,7 @@ const computeRemainingListingPages = async (
   );
 
 const computeMissingFields =
-  (people: ContentlayerPerson[]) =>
+  (config: MoonsConfig, people: ContentlayerPerson[]) =>
   async (
     documents: Array<
       ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
@@ -173,6 +175,7 @@ const computeMissingFields =
           name: author.name,
           description: author.description,
           url: author.url,
+          image: author.image,
         }
       );
     };
@@ -208,6 +211,7 @@ const computeMissingFields =
   };
 
 export const computeDocuments = async ({
+  config,
   documents,
   people,
   websites,
@@ -216,4 +220,4 @@ export const computeDocuments = async ({
     .then(hydratePagesWithRender)
     .then(computeRemainingListingPages)
     .then(computeDocumentsUrl(websites))
-    .then(computeMissingFields(people));
+    .then(computeMissingFields(config, people));
