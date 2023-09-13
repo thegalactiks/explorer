@@ -26,7 +26,7 @@ const pageSchema = z.object({
     .or(z.string()),
 });
 
-const moonsConfigFileSchema = z.object({
+const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
   pages: z
@@ -41,11 +41,11 @@ const moonsConfigFileSchema = z.object({
     .optional(),
 });
 
-const defaultConfigFileName = 'moons.config.json';
+const defaultConfigFileName = 'galactiks.config.json';
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-export type MoonsConfig = WithRequired<
-  z.infer<typeof moonsConfigFileSchema>,
+export type GalactiksConfig = WithRequired<
+  z.infer<typeof galactiksConfigFileSchema>,
   'pages'
 > & {
   name?: string;
@@ -58,7 +58,7 @@ export type MoonsConfig = WithRequired<
   webManifest: WebManifest;
 };
 
-const defaultPages: MoonsConfig['pages'] = {
+const defaultPages: GalactiksConfig['pages'] = {
   articles: {
     path: '/{+isPartOf}/{/identifier}',
   },
@@ -76,16 +76,18 @@ const defaultPages: MoonsConfig['pages'] = {
   },
 };
 
-let _config: MoonsConfig;
+let _config: GalactiksConfig;
 
-const readConfigFile = (path: string): MoonsConfig => {
+const readConfigFile = (path: string): GalactiksConfig => {
   const configPath = join(path, defaultConfigFileName);
   if (!existsSync(configPath)) {
-    throw new Error(`The moons config file "${configPath}" does not exist.`);
+    throw new Error(`The config file "${configPath}" does not exist.`);
   }
 
   const configFileContent = readFileSync(configPath, 'utf8');
-  const configFile = moonsConfigFileSchema.parse(JSON.parse(configFileContent));
+  const configFile = galactiksConfigFileSchema.parse(
+    JSON.parse(configFileContent)
+  );
 
   const defaultConfig = {
     pages: defaultPages,
@@ -97,12 +99,12 @@ const readConfigFile = (path: string): MoonsConfig => {
     },
     webManifest: readWebManifestFromPath(path),
   };
-  const config: MoonsConfig = deepmerge(defaultConfig, configFile);
+  const config: GalactiksConfig = deepmerge(defaultConfig, configFile);
 
   return config;
 };
 
-export function getConfig(path?: string): MoonsConfig {
+export function getConfig(path?: string): GalactiksConfig {
   if (_config) {
     return _config;
   }
@@ -117,7 +119,7 @@ export function getConfig(path?: string): MoonsConfig {
   return _config;
 }
 
-export function setConfig(key: string, value: unknown): MoonsConfig {
+export function setConfig(key: string, value: unknown): GalactiksConfig {
   _config = set(getConfig(), key, value);
 
   return _config;

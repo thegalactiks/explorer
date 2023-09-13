@@ -1,8 +1,8 @@
-import { getDefaultLanguage, getLanguages } from '@withmoons/config';
+import { getDefaultLanguage, getLanguages } from '@galactiks/config';
 import {
   getAllPagesExceptHome,
   getHomePage as explorerGetHomePage,
-} from '@withmoons/explorer';
+} from '@galactiks/explorer';
 
 export async function getStaticPaths() {
   return (await getAllPagesExceptHome({ inLanguages: getLanguages() })).map(

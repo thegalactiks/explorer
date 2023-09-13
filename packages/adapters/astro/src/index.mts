@@ -1,4 +1,4 @@
-import { getConfig, setConfig } from '@withmoons/config';
+import { getConfig, setConfig } from '@galactiks/config';
 import type { AstroIntegration } from 'astro';
 import {
   existsSync,
@@ -13,7 +13,7 @@ import { join } from 'path';
 export { getStaticPaths, getHomePage } from './pages.mjs';
 export { integrationsPreset } from './preset.mjs';
 
-type MoonsOptions = {
+type GalactiksOptions = {
   content?: {
     path?: string;
   };
@@ -31,17 +31,19 @@ const removeDirSymbolicLinks = (path: string) =>
     .filter((file) => lstatSync(file).isSymbolicLink())
     .forEach((file) => unlinkSync(file));
 
-export default function createPlugin(options: MoonsOptions): AstroIntegration {
-  let moonsConfig = getConfig(options?.content?.path);
+export default function createPlugin(
+  options: GalactiksOptions
+): AstroIntegration {
+  let galactiksConfig = getConfig(options?.content?.path);
 
-  const moonsConfigContentAssets = moonsConfig.content.assets;
-  const moonsConfigContentPublic = moonsConfig.content.public;
+  const galactiksConfigContentAssets = galactiksConfig.content.assets;
+  const galactiksConfigContentPublic = galactiksConfig.content.public;
 
   let assetsPath: string;
   let publicPath: string;
 
   return {
-    name: '@withmoons/astro-integration',
+    name: '@galactiks/astro-integration',
     hooks: {
       'astro:config:setup': ({
         config,
@@ -50,13 +52,13 @@ export default function createPlugin(options: MoonsOptions): AstroIntegration {
         addWatchFile,
       }) => {
         assetsPath = join(fileURLToPath(config.srcDir), 'assets');
-        moonsConfig = setConfig('content.assets', assetsPath);
+        galactiksConfig = setConfig('content.assets', assetsPath);
 
         publicPath = fileURLToPath(config.publicDir);
-        moonsConfig = setConfig('content.public', publicPath);
+        galactiksConfig = setConfig('content.public', publicPath);
 
         updateConfig({
-          site: moonsConfig.webManifest.start_url,
+          site: galactiksConfig.webManifest.start_url,
           vite: {
             resolve: {
               preserveSymlinks: true,
@@ -64,14 +66,14 @@ export default function createPlugin(options: MoonsOptions): AstroIntegration {
           },
         });
 
-        symlinkDir(moonsConfigContentAssets, assetsPath);
-        symlinkDir(moonsConfigContentAssets, publicPath);
-        symlinkDir(moonsConfigContentPublic, publicPath);
+        symlinkDir(galactiksConfigContentAssets, assetsPath);
+        symlinkDir(galactiksConfigContentAssets, publicPath);
+        symlinkDir(galactiksConfigContentPublic, publicPath);
 
         if (command === 'dev') {
-          addWatchFile(moonsConfig.content.generated);
-          addWatchFile(moonsConfigContentAssets);
-          addWatchFile(moonsConfigContentPublic);
+          addWatchFile(galactiksConfig.content.generated);
+          addWatchFile(galactiksConfigContentAssets);
+          addWatchFile(galactiksConfigContentPublic);
         }
       },
 

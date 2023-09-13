@@ -1,4 +1,4 @@
-import { getConfig } from '@withmoons/config';
+import { getConfig } from '@galactiks/config';
 
 import type {
   Content,

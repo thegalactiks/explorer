@@ -4,13 +4,13 @@ import {
   type FieldDefs,
   type NestedType,
 } from 'contentlayer/source-files';
-import { documentTypes } from '@withmoons/config';
+import { documentTypes } from '@galactiks/config';
 
 type DocumentTypeDef = ContentlayerDocumentTypeDef & {
   name: keyof typeof documentTypes;
 };
 
-const moonsFields: FieldDefs = {
+const galactiksFields: FieldDefs = {
   listingPage: { type: 'boolean', required: false, default: false },
   slug: { type: 'string', required: false },
   path: { type: 'string', required: false },
@@ -91,7 +91,7 @@ export const ContentLayerWebPageElementFields: DocumentTypeDef = {
 export const ContentLayerArticleFields: DocumentTypeDef = {
   name: 'Article',
   fields: {
-    ...moonsFields,
+    ...galactiksFields,
     ...creativeWorkFields,
   },
 };
@@ -99,7 +99,7 @@ export const ContentLayerArticleFields: DocumentTypeDef = {
 export const ContentLayerPageFields: DocumentTypeDef = {
   name: 'Page',
   fields: {
-    ...moonsFields,
+    ...galactiksFields,
     ...creativeWorkFields,
   },
 };
@@ -107,7 +107,7 @@ export const ContentLayerPageFields: DocumentTypeDef = {
 export const ContentLayerPersonFields: DocumentTypeDef = {
   name: 'Person',
   fields: {
-    ...moonsFields,
+    ...galactiksFields,
     ...creativeWorkFields,
     dateCreated: { type: 'date', required: false },
 
@@ -123,7 +123,7 @@ export const ContentLayerPersonFields: DocumentTypeDef = {
 export const ContentLayerOrganizationFields: DocumentTypeDef = {
   name: 'Organization',
   fields: {
-    ...moonsFields,
+    ...galactiksFields,
     ...thingsFields,
     email: { type: 'string', required: false },
     keywords: { type: 'list', required: false, of: { type: 'string' } },

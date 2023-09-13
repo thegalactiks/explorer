@@ -1,17 +1,17 @@
 {
-  "name": "@withmoons/config",
+  "name": "@galactiks/config",
   "version": "0.1.0",
-  "description": "Moons config",
-  "author": "withmoons",
+  "description": "Galactiks config",
+  "author": "galactiks",
   "types": "./dist/index.d.mts",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/withmoons/moons/issues",
+  "bugs": "https://github.com/thegalactiks/explorer/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/withmoons/moons.git",
+    "url": "https://github.com/thegalactiks/explorer.git",
     "directory": "packages/config"
   },
   "main": "dist/index.mjs",
@@ -28,7 +28,7 @@
   ],
   "keywords": [
     "astro",
-    "moons"
+    "galactiks"
   ],
   "dependencies": {
     "deepmerge": "4.3.1",

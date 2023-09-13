@@ -1,17 +1,17 @@
 {
-  "name": "@withmoons/astro-integration",
+  "name": "@galactiks/astro-integration",
   "version": "0.1.0",
-  "description": "Moons Astro integration",
-  "author": "withmoons",
+  "description": "Galactiks Astro integration",
+  "author": "galactiks",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/withmoons/moons/issues",
+  "bugs": "https://github.com/thegalactiks/explorer/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/withmoons/moons.git",
+    "url": "https://github.com/thegalactiks/explorer.git",
     "directory": "packages/adapters/astro"
   },
   "main": "dist/index.mjs",
@@ -34,11 +34,11 @@
     "astro-integration",
     "astro-component",
     "seo",
-    "moons"
+    "galactiks"
   ],
   "dependencies": {
-    "@withmoons/config": "*",
-    "@withmoons/explorer": "*"
+    "@galactiks/config": "*",
+    "@galactiks/explorer": "*"
   },
   "peerDependencies": {
     "@astrojs/partytown": "2.0.0",

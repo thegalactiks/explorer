@@ -1,18 +1,18 @@
 {
-  "name": "@withmoons/explorer",
+  "name": "@galactiks/explorer",
   "version": "0.1.0",
-  "description": "Moons Explorer",
-  "author": "withmoons",
+  "description": "Galactiks Explorer",
+  "author": "galactiks",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/withmoons/moons/issues",
+  "bugs": "https://github.com/thegalactiks/explorer/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/withmoons/moons.git",
-    "directory": "packages/moons"
+    "url": "https://github.com/thegalactiks/explorer.git",
+    "directory": "packages/explorer"
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
@@ -28,11 +28,12 @@
     "dist"
   ],
   "keywords": [
-    "moons"
+    "contentlayer",
+    "galactiks"
   ],
   "dependencies": {
     "@std-uritemplate/std-uritemplate": "0.0.40",
-    "@withmoons/config": "*",
+    "@galactiks/config": "*",
     "esbuild": "0.19.2",
     "mdx-bundler": "9.2.1",
     "react": "18.2.0",

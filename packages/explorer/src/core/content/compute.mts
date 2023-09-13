@@ -1,4 +1,4 @@
-import type { MoonsConfig } from '@withmoons/config';
+import type { GalactiksConfig } from '@galactiks/config';
 import slugify from 'slugify';
 
 import {
@@ -32,7 +32,7 @@ import type {
 } from './types/index.mjs';
 
 export type ComputeDTO<T> = {
-  config: MoonsConfig;
+  config: GalactiksConfig;
   documents: T[];
   websites: ContentlayerWebsite[];
   people: ContentlayerPerson[];
@@ -147,7 +147,7 @@ const computeRemainingListingPages = async (
   );
 
 const computeMissingFields =
-  (config: MoonsConfig, people: ContentlayerPerson[]) =>
+  (config: GalactiksConfig, people: ContentlayerPerson[]) =>
   async (
     documents: Array<
       ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender

@@ -1,5 +1,5 @@
 import { StdUriTemplate } from '@std-uritemplate/std-uritemplate';
-import { documentTypes, getConfig } from '@withmoons/config';
+import { documentTypes, getConfig } from '@galactiks/config';
 import { join } from 'path';
 
 import type {

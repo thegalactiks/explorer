@@ -55,12 +55,12 @@ importers:
 
   packages/adapters/astro:
     dependencies:
-      '@withmoons/config':
+      '@galactiks/config':
         specifier: '*'
         version: link:../../config
-      '@withmoons/explorer':
+      '@galactiks/explorer':
         specifier: '*'
-        version: link:../../moons
+        version: link:../../explorer
     devDependencies:
       '@astrojs/partytown':
         specifier: 2.0.0
@@ -124,14 +124,14 @@ importers:
         specifier: 4.3.7
         version: 4.3.7
 
-  packages/moons:
+  packages/explorer:
     dependencies:
+      '@galactiks/config':
+        specifier: '*'
+        version: link:../config
       '@std-uritemplate/std-uritemplate':
         specifier: 0.0.40
         version: 0.0.40
-      '@withmoons/config':
-        specifier: '*'
-        version: link:../config
       esbuild:
         specifier: 0.19.2
         version: 0.19.2
@@ -781,7 +781,7 @@ packages:
       esbuild: 0.19.2
       gray-matter: 4.0.3
       mdx-bundler: 9.2.1(esbuild@0.19.2)
-      rehype-stringify: 9.0.3
+      rehype-stringify: 9.0.4
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.2
       remark-rehype: 10.1.0
@@ -5863,14 +5863,6 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       hast-util-raw: 7.2.3
-      unified: 10.1.2
-    dev: true
-
-  /rehype-stringify@9.0.3:
-    resolution: {integrity: sha512-kWiZ1bgyWlgOxpqD5HnxShKAdXtb2IUljn3hQAhySeak6IOQPPt6DeGnsIh4ixm7yKJWzm8TXFuC/lPfcWHJqw==}
-    dependencies:
-      '@types/hast': 2.3.4
-      hast-util-to-html: 8.0.4
       unified: 10.1.2
     dev: true
 

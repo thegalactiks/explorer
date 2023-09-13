@@ -22,7 +22,7 @@ env:
 jobs:
   changelog:
     name: Changelog PR or Release
-    if: ${{ github.repository_owner == 'withmoons' }}
+    if: ${{ github.repository_owner == 'thegalactiks' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

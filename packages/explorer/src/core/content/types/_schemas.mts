@@ -1,4 +1,4 @@
-import { documentTypes } from '@withmoons/config';
+import { documentTypes } from '@galactiks/config';
 import { z } from 'zod';
 
 const metadataHeaders = z
@@ -36,7 +36,7 @@ const metadataHeaders = z
   })
   .strict();
 
-const moonsSchema = z
+const galactiksSchema = z
   .object({
     type: z.enum(Object.keys(documentTypes) as [keyof typeof documentTypes]),
     tags: z.array(z.string()).optional(),
@@ -183,8 +183,8 @@ export const questionSchema = creativeWorkSchema.extend({
   suggestedAnswer: answerSchema,
 });
 
-export const articlePageSchema = moonsSchema.merge(articleSchema);
-export const pageSchema = moonsSchema.merge(webPageSchema);
+export const articlePageSchema = galactiksSchema.merge(articleSchema);
+export const pageSchema = galactiksSchema.merge(webPageSchema);
 
 export type MetadataHeaders = z.infer<typeof metadataHeaders>;
 export type ItemList = z.infer<typeof itemListSchema>;
