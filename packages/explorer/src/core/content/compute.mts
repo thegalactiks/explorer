@@ -120,6 +120,7 @@ const computeRemainingListingPages = async (
           keywords
             .filter(
               (_k) =>
+                _k &&
                 acc.some(
                   (_a) => _a.identifier === _k && isInLanguage(_a, inLanguage)
                 ) === false
