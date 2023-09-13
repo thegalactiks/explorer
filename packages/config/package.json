@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/config",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Galactiks config",
   "author": "galactiks",
   "types": "./dist/index.d.mts",
