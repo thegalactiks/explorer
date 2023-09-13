@@ -42,7 +42,7 @@ function createPage<T>(
   identifier: string,
   document: Partial<ContentlayerWebPageDocument>
 ) {
-  const id = slugify(identifier);
+  const id = slugify(identifier, { lower: true, trim: true });
 
   return {
     _id: id,
@@ -116,14 +116,6 @@ const computeRemainingListingPages = async (
 
       // Create all keywords pages not existing yet
       if (Array.isArray(keywords)) {
-        if (
-          acc.some(
-            (_a) => _a.identifier === 'tags' && isInLanguage(_a, inLanguage)
-          ) === false
-        ) {
-          acc = acc.concat(createListingPage('tags', templateDocument));
-        }
-
         acc = acc.concat(
           keywords
             .filter(
@@ -135,7 +127,7 @@ const computeRemainingListingPages = async (
             .map((_k) =>
               createListingPage(_k, {
                 ...templateDocument,
-                isPartOf: 'tags',
+                type: 'Tag',
               })
             )
         );
