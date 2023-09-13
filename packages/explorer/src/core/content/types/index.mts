@@ -20,7 +20,9 @@ export type {
   WebPageElement as ContentlayerWebPageElement,
 } from './contentlayer.mjs';
 export type * from './_schemas.mjs';
+type ContentlayerTagPage = Omit<ContentlayerPage, 'type'> & { type: 'Tag' };
 export type ContentlayerWebPageDocument =
   | ContentlayerArticle
   | ContentlayerPage
-  | ContentlayerPerson;
+  | ContentlayerPerson
+  | ContentlayerTagPage;

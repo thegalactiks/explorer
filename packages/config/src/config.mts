@@ -74,6 +74,10 @@ const defaultPages: GalactiksConfig['pages'] = {
   organizations: {
     path: '/organizations/{/identifier}',
   },
+
+  tags: {
+    path: '/tags/{/identifier}',
+  },
 };
 
 let _config: GalactiksConfig;
