@@ -12,6 +12,7 @@ import {
   pageDepthSelector,
 } from './selectors.mjs';
 import type { ContentlayerWebPageDocumentWithRender } from './render.mjs';
+import { homeIdentifier } from './consts.mjs';
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 type ContentlayerDocumentWithPath = WithRequired<
@@ -111,7 +112,8 @@ export const computeDocumentsUrl =
 
       const existingStringProperties: [string, string][] = Object.entries({
         ...document,
-        identifier: document.identifier !== 'index' ? document.identifier : '', 
+        identifier:
+          document.identifier !== homeIdentifier ? document.identifier : '',
         isPartOf: isPartOfPath,
       }).filter(([, value]) => typeof value === 'string');
       return join(

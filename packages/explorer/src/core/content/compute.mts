@@ -1,5 +1,4 @@
 import type { GalactiksConfig } from '@galactiks/config';
-import slugify from 'slugify';
 
 import {
   alternatesHeaderBuilder,
@@ -30,6 +29,7 @@ import type {
   ContentlayerWebsite,
   Person,
 } from './types/index.mjs';
+import { createIdentifierFromString } from './utils.mjs';
 
 export type ComputeDTO<T> = {
   config: GalactiksConfig;
@@ -42,7 +42,7 @@ function createPage<T>(
   identifier: string,
   document: Partial<ContentlayerWebPageDocument>
 ) {
-  const id = slugify(identifier, { lower: true, trim: true });
+  const id = createIdentifierFromString(identifier);
 
   return {
     _id: id,

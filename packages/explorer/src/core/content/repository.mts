@@ -13,6 +13,7 @@ import {
   documentByIdentifierSelector,
   documentsByLanguagesSelector,
 } from './selectors.mjs';
+import { createIdentifierFromString } from './utils.mjs';
 
 let _generated: ContentlayerDataExports;
 let _documents: Content[];
@@ -96,6 +97,16 @@ export const getPagesPartOf = async (
   filters?: RepositoryFilters
 ): Promise<Content[]> =>
   (await getPages(filters)).filter((doc) => doc.isPartOf === slug);
+export const getPagesWithKeywordIdentifier = async (
+  keywordIdentifier: string,
+  filters?: RepositoryFilters
+): Promise<Content[]> =>
+  (await getPages(filters)).filter(
+    (doc) =>
+      doc.keywords?.some(
+        (keyword) => createIdentifierFromString(keyword) === keywordIdentifier
+      )
+  );
 export const getPageByIdentifier = async (
   identifier: string,
   filters?: RepositoryFilters
