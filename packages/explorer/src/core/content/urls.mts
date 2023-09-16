@@ -111,6 +111,7 @@ export const computeDocumentsUrl =
 
       const existingStringProperties: [string, string][] = Object.entries({
         ...document,
+        identifier: document.identifier !== 'index' ? document.identifier : '', 
         isPartOf: isPartOfPath,
       }).filter(([, value]) => typeof value === 'string');
       return join(
