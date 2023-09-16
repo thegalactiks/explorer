@@ -60,23 +60,23 @@ export type GalactiksConfig = WithRequired<
 
 const defaultPages: GalactiksConfig['pages'] = {
   articles: {
-    path: '/{+isPartOf}/{/identifier}',
+    path: '/{+isPartOf}/{/identifier}/',
   },
 
   pages: {
-    path: '/{+isPartOf}{/identifier}',
+    path: '/{+isPartOf}{/identifier}/',
   },
 
   people: {
-    path: '/authors/{/identifier}',
+    path: '/authors/{/identifier}/',
   },
 
   organizations: {
-    path: '/organizations/{/identifier}',
+    path: '/organizations/{/identifier}/',
   },
 
   tags: {
-    path: '/tags/{/identifier}',
+    path: '/tags/{/identifier}/',
   },
 };
 
