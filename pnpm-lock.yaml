@@ -94,8 +94,8 @@ importers:
         specifier: 2.0.11
         version: 2.0.11
       astro-robots-txt:
-        specifier: 0.5.0
-        version: 0.5.0
+        specifier: 1.0.0
+        version: 1.0.0
       copyfiles:
         specifier: 2.4.1
         version: 2.4.1
@@ -2205,8 +2205,8 @@ packages:
       files-pipe: 2.0.16
     dev: true
 
-  /astro-robots-txt@0.5.0:
-    resolution: {integrity: sha512-MJDcxBDjEKSp7Uvw32cnmkPHlmjQ/pW5JwzMhKEegFRoGaiSh2i1kkh1QEhk1UpGnAsSondWCoIt2xpG8qjSgA==}
+  /astro-robots-txt@1.0.0:
+    resolution: {integrity: sha512-6JQSLid4gMhoWjOm85UHLkgrw0+hHIjnJVIUqxjU2D6feKlVyYukMNYjH44ZDZBK1P8hNxd33PgWlHzCASvedA==}
     dependencies:
       valid-filename: 4.0.0
       zod: 3.22.2
@@ -2629,6 +2629,7 @@ packages:
 
   /color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
     dev: true
 
   /color-string@1.9.1:
