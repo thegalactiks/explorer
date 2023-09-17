@@ -2,13 +2,14 @@
   "name": "@galactiks/astro-integration",
   "version": "0.2.0",
   "description": "Galactiks Astro integration",
-  "author": "galactiks",
+  "author": "thegalactiks",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
   "bugs": "https://github.com/thegalactiks/explorer/issues",
+  "homepage": "https://www.galactiks.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/thegalactiks/explorer.git",
@@ -34,7 +35,8 @@
     "astro-integration",
     "astro-component",
     "seo",
-    "galactiks"
+    "galactiks",
+    "performance"
   ],
   "dependencies": {
     "@galactiks/config": "workspace:^",

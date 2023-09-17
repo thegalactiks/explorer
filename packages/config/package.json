@@ -1,14 +1,15 @@
 {
   "name": "@galactiks/config",
   "version": "0.2.0",
-  "description": "Galactiks config",
-  "author": "galactiks",
+  "description": "Reading Galactiks configurations files and get config during website generation",
+  "author": "thegalactiks",
   "types": "./dist/index.d.mts",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
   "bugs": "https://github.com/thegalactiks/explorer/issues",
+  "homepage": "https://www.galactiks.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/thegalactiks/explorer.git",
@@ -27,8 +28,8 @@
     "dist"
   ],
   "keywords": [
-    "astro",
-    "galactiks"
+    "galactiks",
+    "config"
   ],
   "dependencies": {
     "@galactiks/contentlayer": "workspace:^",

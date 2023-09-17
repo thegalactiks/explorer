@@ -1,14 +1,15 @@
 {
   "name": "@galactiks/explorer",
   "version": "0.2.0",
-  "description": "Galactiks Explorer",
-  "author": "galactiks",
+  "description": "Ensure Galactiks content model consistence, explore content built with ContentLayer and create dynamically missing pages and fields for SEO purposes",
+  "author": "thegalactiks",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
   "bugs": "https://github.com/thegalactiks/explorer/issues",
+  "homepage": "https://www.galactiks.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/thegalactiks/explorer.git",
@@ -27,7 +28,10 @@
     "dist"
   ],
   "keywords": [
-    "galactiks"
+    "galactiks",
+    "cms",
+    "contentlayer",
+    "jamstack"
   ],
   "dependencies": {
     "@galactiks/config": "workspace:^",
