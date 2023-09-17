@@ -37,8 +37,8 @@
     "galactiks"
   ],
   "dependencies": {
-    "@galactiks/config": "*",
-    "@galactiks/explorer": "*"
+    "@galactiks/config": "workspace:^",
+    "@galactiks/explorer": "workspace:^"
   },
   "peerDependencies": {
     "@astrojs/partytown": "2.0.0",

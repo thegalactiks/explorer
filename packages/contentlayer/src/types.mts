@@ -8,8 +8,6 @@ import type {
 } from 'contentlayer/core';
 import * as Local from 'contentlayer/source-files';
 
-export { isType } from 'contentlayer/client';
-
 export type { Markdown, MDX, ImageFieldData, IsoDateTimeString };
 
 /** Document types */
