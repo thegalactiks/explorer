@@ -1,4 +1,4 @@
-import type { MDX } from 'contentlayer/core';
+import type { MDX } from '@galactiks/contentlayer';
 import { getMDXComponent } from 'mdx-bundler/client/index.js';
 import * as React from 'react';
 import type {

@@ -16,8 +16,7 @@
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "build:ci": "tsc -p ./tsconfig.json",
-    "contentlayer:build": "contentlayer build"
+    "build:ci": "tsc -p ./tsconfig.json"
   },
   "types": "./dist/index.d.mts",
   "exports": {
@@ -28,12 +27,12 @@
     "dist"
   ],
   "keywords": [
-    "contentlayer",
     "galactiks"
   ],
   "dependencies": {
+    "@galactiks/config": "workspace:^",
+    "@galactiks/contentlayer": "workspace:^",
     "@std-uritemplate/std-uritemplate": "0.0.40",
-    "@galactiks/config": "*",
     "esbuild": "0.19.3",
     "mdx-bundler": "9.2.1",
     "react": "18.2.0",
@@ -42,10 +41,6 @@
   },
   "devDependencies": {
     "@types/react": "18.2.21",
-    "contentlayer": "0.3.4",
     "schema-dts": "1.1.2"
-  },
-  "peerDependencies": {
-    "contentlayer": "0.3.4"
   }
 }

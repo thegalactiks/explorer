@@ -4,7 +4,24 @@ import {
   type FieldDefs,
   type NestedType,
 } from 'contentlayer/source-files';
-import { documentTypes } from '@galactiks/config';
+
+export enum pageDocumentTypes {
+  Article = 'articles',
+  Organization = 'organizations',
+  Page = 'pages',
+  Person = 'people',
+  Tag = 'tags',
+}
+
+export enum documentTypes {
+  Article = pageDocumentTypes.Article,
+  Organization = pageDocumentTypes.Organization,
+  Page = pageDocumentTypes.Page,
+  Person = pageDocumentTypes.Person,
+  Tag = pageDocumentTypes.Tag,
+  WebPageElement = 'webPageElements',
+  Website = 'websites',
+}
 
 type DocumentTypeDef = ContentlayerDocumentTypeDef & {
   name: keyof typeof documentTypes;

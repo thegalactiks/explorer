@@ -1,3 +1,4 @@
+import { pageDocumentTypes } from '@galactiks/contentlayer';
 import deepmerge from 'deepmerge';
 import { existsSync, readFileSync } from 'fs';
 import set from 'lodash.set';
@@ -8,7 +9,6 @@ import {
   type WebManifest,
 } from './webmanifest.config.mjs';
 import { join } from 'path';
-import { pageDocumentTypes } from './consts.mjs';
 
 const localesSchema = z.object({
   default: z.string(),

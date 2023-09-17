@@ -1,5 +1,6 @@
 import { StdUriTemplate } from '@std-uritemplate/std-uritemplate';
-import { documentTypes, getConfig } from '@galactiks/config';
+import { getConfig } from '@galactiks/config';
+import { documentTypes } from '@galactiks/contentlayer';
 import { join } from 'path';
 
 import type {

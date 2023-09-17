@@ -1,4 +1,4 @@
-import { documentTypes } from '@galactiks/config';
+import { documentTypes } from '@galactiks/contentlayer';
 import { z } from 'zod';
 
 const metadataHeaders = z
