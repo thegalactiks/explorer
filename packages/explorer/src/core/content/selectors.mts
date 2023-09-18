@@ -22,6 +22,23 @@ export const documentByIdentifierAndLanguageSelector =
     documents.find(
       (_d) => _d.identifier === identifier && isInLanguage(_d, inLanguage)
     );
+export const documentByTypeAndIdentifierAndLanguageSelector =
+  <
+    T extends Pick<
+      ContentlayerWebPageDocument,
+      'type' | 'identifier' | 'inLanguage'
+    >,
+  >(
+    type: ContentlayerWebPageDocument['type'],
+    documents: T[]
+  ) =>
+  (identifier: string, inLanguage?: string) =>
+    documents.find(
+      (_d) =>
+        _d.type === type &&
+        _d.identifier === identifier &&
+        isInLanguage(_d, inLanguage)
+    );
 export const documentsByLanguagesSelector =
   <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
   (inLanguages: string[]) =>

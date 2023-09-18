@@ -19,7 +19,7 @@ import {
   type ContentlayerDocumentWithURL,
 } from './urls.mjs';
 import {
-  documentByIdentifierAndLanguageSelector,
+  documentByTypeAndIdentifierAndLanguageSelector,
   isInLanguage,
 } from './selectors.mjs';
 import type {
@@ -149,7 +149,7 @@ const computeMissingFields =
     const buildBreadcrumb = breadcrumbBuilder(documents);
     const buildAlternates = alternatesHeaderBuilder(documents);
     const selectPersonByIdentifierAndLanguage =
-      documentByIdentifierAndLanguageSelector(people);
+      documentByTypeAndIdentifierAndLanguageSelector('Person', documents);
 
     const getAuthor = (
       identifier?: string,
