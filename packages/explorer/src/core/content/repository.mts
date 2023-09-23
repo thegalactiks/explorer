@@ -112,6 +112,16 @@ export const getPageByIdentifier = async (
   filters?: RepositoryFilters
 ) => documentByIdentifierSelector(await getPages(filters))(identifier);
 
+export const getTagPageByKeyword = async (
+  keyword: string,
+  filters?: RepositoryFilters
+) =>
+  (await getPages(filters)).filter(
+    (doc) =>
+      doc.type === 'Tag' &&
+      doc.identifier === createIdentifierFromString(keyword)
+  );
+
 export const getPageBySlug = async (
   slug: string,
   filters?: RepositoryFilters
