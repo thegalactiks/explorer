@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.1.1
+
+### Patch Changes
+
+- [`4630b1c`](https://github.com/thegalactiks/explorer/commit/4630b1cdb5dea901507fef8a2c7a9d3b4c97bd43) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - small refactos and fixes
+
 ## 0.1.0
 
 ### Minor Changes
