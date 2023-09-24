@@ -13,6 +13,7 @@ import { join } from 'path';
 export { getI18nConfig } from './i18n.mjs';
 export { getStaticPaths, getIndexPage } from './pages.mjs';
 export { integrationsPreset } from './preset.mjs';
+export { getRSS } from './rss.mjs';
 
 type GalactiksOptions = {
   content?: {
