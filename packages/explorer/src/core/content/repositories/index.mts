@@ -5,6 +5,7 @@ import { createIdentifierFromString } from '../utils.mjs';
 
 import type { RepositoryFilters } from './filters.mjs';
 import { getOrganizations, getPages } from './generated.mjs';
+import { getDefaultLanguage, getLanguages } from '@galactiks/config';
 
 export * from './generated.mjs';
 
@@ -50,26 +51,23 @@ export const getPageBySlug = async (
 export const getOrganizationByIdentifier = async (identifier: string) =>
   documentByIdentifierSelector(await getOrganizations())(identifier);
 
-export const getAllPagesExceptHome = async (
-  filters?: RepositoryFilters
-): Promise<Content[]> =>
-  (await getPages(filters)).filter(
-    ({ identifier }) => identifier !== homeIdentifier
-  );
-
 export type RepositoryHomeFilters = {
   inLanguage?: string;
 };
 export const getHomePage = async (
   filters?: RepositoryHomeFilters
-): Promise<Content> => {
-  const homepageContent = await getPageByIdentifier(
+): Promise<Content | undefined> =>
+  getPageByIdentifier(
     homeIdentifier,
     filters?.inLanguage ? { inLanguages: [filters.inLanguage] } : undefined
   );
-  if (!homepageContent) {
-    throw new Error('no content for homepage');
-  }
 
-  return homepageContent;
+export const getIndexPage = async (): Promise<Content | undefined> => {
+  const defaultLanguage = getDefaultLanguage();
+  const languages = getLanguages();
+
+  const inLanguage =
+    defaultLanguage || (languages.length === 1 && languages[0]) || undefined;
+
+  return getHomePage({ inLanguage });
 };

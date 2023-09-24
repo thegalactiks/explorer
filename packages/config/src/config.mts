@@ -133,6 +133,10 @@ export function getDefaultLanguage(): string | undefined {
   return getConfig().locales?.default;
 }
 
-export function getLanguages(): string[] | undefined {
-  return getConfig().locales?.available;
+export function getLanguages(): string[] {
+  const locales = getConfig().locales;
+
+  return typeof locales === 'object'
+    ? locales.available || [locales.default]
+    : [];
 }
