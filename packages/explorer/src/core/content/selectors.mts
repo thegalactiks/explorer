@@ -39,12 +39,6 @@ export const documentByTypeAndIdentifierAndLanguageSelector =
         _d.identifier === identifier &&
         isInLanguage(_d, inLanguage)
     );
-export const documentsByLanguagesSelector =
-  <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
-  (inLanguages: string[]) =>
-    documents.filter(
-      (_d) => !_d.inLanguage || inLanguages.indexOf(_d.inLanguage) !== -1
-    );
 export const documentsByLanguageSelector =
   <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
   (inLanguage: string) =>
