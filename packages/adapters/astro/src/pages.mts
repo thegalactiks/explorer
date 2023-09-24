@@ -1,18 +1,18 @@
-import { getDefaultLanguage, getLanguages } from '@galactiks/config';
+import { getLanguages } from '@galactiks/config';
 import {
-  getAllPagesExceptHome,
-  getHomePage as explorerGetHomePage,
+  getPages,
+  getIndexPage as explorerGetIndexPage,
 } from '@galactiks/explorer';
 
 export async function getStaticPaths() {
-  return (await getAllPagesExceptHome({ inLanguages: getLanguages() })).map(
-    (page) => ({
+  return (await getPages({ inLanguages: getLanguages() }))
+    .filter((_p) => _p.slug !== '')
+    .map((page) => ({
       params: { path: page.path.slice(1) },
       props: { page },
-    })
-  );
+    }));
 }
 
-export function getHomePage() {
-  return explorerGetHomePage({ inLanguage: getDefaultLanguage() });
+export function getIndexPage() {
+  return explorerGetIndexPage();
 }

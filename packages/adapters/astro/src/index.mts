@@ -10,7 +10,7 @@ import {
 import { fileURLToPath } from 'node:url';
 import { join } from 'path';
 
-export { getStaticPaths, getHomePage } from './pages.mjs';
+export { getStaticPaths, getIndexPage } from './pages.mjs';
 export { integrationsPreset } from './preset.mjs';
 
 type GalactiksOptions = {
