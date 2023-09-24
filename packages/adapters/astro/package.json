@@ -40,7 +40,8 @@
   ],
   "dependencies": {
     "@galactiks/config": "workspace:^",
-    "@galactiks/explorer": "workspace:^"
+    "@galactiks/explorer": "workspace:^",
+    "date-fns": "2.30.0"
   },
   "peerDependencies": {
     "@astrojs/partytown": "2.0.1",
