@@ -56,7 +56,8 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     documents: new Array<ContentlayerWebPageDocument>()
       .concat(generated.allPages)
       .concat(generated.allArticles)
-      .concat(generated.allPeople),
+      .concat(generated.allPeople)
+      .concat(generated.allPlaces),
     people: generated.allPeople,
   });
 

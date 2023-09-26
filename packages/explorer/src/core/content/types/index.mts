@@ -3,6 +3,7 @@ import type {
   Article as ContentlayerArticle,
   Page as ContentlayerPage,
   Person as ContentlayerPerson,
+  Place as ContentlayerPlace,
 } from '@galactiks/contentlayer';
 
 import type { MetadataHeaders, Page } from './_schemas.mjs';
@@ -16,6 +17,7 @@ export type {
   DocumentTypes as ContentlayerDocumentTypes,
   DataExports as ContentlayerDataExports,
   Person as ContentlayerPerson,
+  Place as ContentlayerPlace,
   Website as ContentlayerWebsite,
   WebPageElement as ContentlayerWebPageElement,
 } from '@galactiks/contentlayer';
@@ -25,4 +27,5 @@ export type ContentlayerWebPageDocument =
   | ContentlayerArticle
   | ContentlayerPage
   | ContentlayerPerson
+  | ContentlayerPlace
   | ContentlayerTagPage;

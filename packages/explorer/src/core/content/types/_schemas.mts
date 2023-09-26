@@ -85,6 +85,16 @@ const itemListSchema = thingSchema.extend({
   ),
 });
 
+// Schema: https://schema.org/PostalAddress
+export const postalAddressSchema = thingSchema.extend({
+  addressCountry: z.string(),
+  addressLocality: z.string().optional(),
+  addressRegion: z.string().optional(),
+  postOfficeBoxNumber: z.string().optional(),
+  postalCode: z.string().optional(),
+  streetAddress: z.string().optional(),
+});
+
 // Schema: https://schema.org/Person
 export const personSchema = thingSchema.extend({
   additionalName: z.string().optional(),
@@ -92,6 +102,15 @@ export const personSchema = thingSchema.extend({
   familyName: z.string().optional(),
   givenName: z.string().optional(),
   jobTitle: z.string().optional(),
+  telephone: z.string().optional(),
+});
+
+// Schema: https://schema.org/Place
+export const placeSchema = thingSchema.extend({
+  address: postalAddressSchema.optional(),
+  latitude: z.string().or(z.number()).optional(),
+  longitude: z.string().or(z.number()).optional(),
+  keywords: z.array(z.string()).optional(),
   telephone: z.string().optional(),
 });
 
@@ -189,6 +208,7 @@ export const pageSchema = galactiksSchema.merge(webPageSchema);
 export type MetadataHeaders = z.infer<typeof metadataHeaders>;
 export type ItemList = z.infer<typeof itemListSchema>;
 export type Person = z.infer<typeof personSchema>;
+export type Place = z.infer<typeof placeSchema>;
 export type Organization = z.infer<typeof organizationSchema>;
 export type Article = z.infer<typeof articlePageSchema>;
 export type Page = z.infer<typeof pageSchema>;
