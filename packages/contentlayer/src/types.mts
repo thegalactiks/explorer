@@ -125,6 +125,38 @@ export type Person = {
   body: MDX;
 };
 
+export type Place = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'Place';
+  listingPage: boolean;
+  slug?: string | undefined;
+  path?: string | undefined;
+  name: string;
+  description: string;
+  url?: string | undefined;
+  identifier: string;
+  image?: any | undefined;
+  sameAs?: string | undefined;
+  author?: string | undefined;
+  headline?: string | undefined;
+  dateCreated: IsoDateTimeString;
+  dateModified?: IsoDateTimeString | undefined;
+  datePublished?: IsoDateTimeString | undefined;
+  isPartOf?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
+  keywords?: string[] | undefined;
+  address?: PostalAddress | undefined;
+  latitude?: string | undefined;
+  longitude?: string | undefined;
+  telephone?: string | undefined;
+  /** MDX file body */
+  body: MDX;
+};
+
 export type WebPageElement = {
   /** File path relative to `contentDirPath` */
   _id: string;
@@ -186,6 +218,19 @@ export type ItemListElement = {
   itemListElement?: ItemListElement[] | undefined;
 };
 
+export type PostalAddress = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'PostalAddress';
+  addressCountry: string;
+  addressLocality?: string | undefined;
+  addressRegion?: string | undefined;
+  postOfficeBoxNumber?: string | undefined;
+  postalCode?: string | undefined;
+  streetAddress?: string | undefined;
+};
+
 /** Helper types */
 
 export type AllTypes = DocumentTypes | NestedTypes;
@@ -196,6 +241,7 @@ export type DocumentTypes =
   | Organization
   | Page
   | Person
+  | Place
   | WebPageElement
   | Website;
 export type DocumentTypeNames =
@@ -203,11 +249,12 @@ export type DocumentTypeNames =
   | 'Organization'
   | 'Page'
   | 'Person'
+  | 'Place'
   | 'WebPageElement'
   | 'Website';
 
-export type NestedTypes = never;
-export type NestedTypeNames = never;
+export type NestedTypes = Id | ItemListElement | PostalAddress;
+export type NestedTypeNames = 'Id' | 'ItemListElement' | 'PostalAddress';
 
 export type DataExports = {
   allDocuments: DocumentTypes[];
@@ -215,6 +262,38 @@ export type DataExports = {
   allOrganizations: Organization[];
   allPages: Page[];
   allPeople: Person[];
+  allPlaces: Place[];
   allWebsites: Website[];
   allWebPageElements: WebPageElement[];
+};
+
+export interface ContentlayerGenTypes {
+  documentTypes: DocumentTypes;
+  documentTypeMap: DocumentTypeMap;
+  documentTypeNames: DocumentTypeNames;
+  nestedTypes: NestedTypes;
+  nestedTypeMap: NestedTypeMap;
+  nestedTypeNames: NestedTypeNames;
+  allTypeNames: AllTypeNames;
+  dataExports: DataExports;
+}
+
+declare global {
+  interface ContentlayerGen extends ContentlayerGenTypes {}
+}
+
+export type DocumentTypeMap = {
+  Article: Article;
+  Organization: Organization;
+  Page: Page;
+  Person: Person;
+  Place: Place;
+  WebPageElement: WebPageElement;
+  Website: Website;
+};
+
+export type NestedTypeMap = {
+  Id: Id;
+  ItemListElement: ItemListElement;
+  PostalAddress: PostalAddress;
 };
