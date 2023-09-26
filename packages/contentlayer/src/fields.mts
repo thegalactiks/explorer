@@ -10,6 +10,7 @@ export enum pageDocumentTypes {
   Organization = 'organizations',
   Page = 'pages',
   Person = 'people',
+  Place = 'place',
   Tag = 'tags',
 }
 
@@ -18,6 +19,7 @@ export enum documentTypes {
   Organization = pageDocumentTypes.Organization,
   Page = pageDocumentTypes.Page,
   Person = pageDocumentTypes.Person,
+  Place = pageDocumentTypes.Place,
   Tag = pageDocumentTypes.Tag,
   WebPageElement = 'webPageElements',
   Website = 'websites',
@@ -127,12 +129,36 @@ export const ContentLayerPersonFields: DocumentTypeDef = {
     ...galactiksFields,
     ...creativeWorkFields,
     dateCreated: { type: 'date', required: false },
-
     additionalName: { type: 'string', required: false },
     email: { type: 'string', required: false },
     familyName: { type: 'string', required: false },
     givenName: { type: 'string', required: false },
     jobTitle: { type: 'string', required: false },
+    telephone: { type: 'string', required: false },
+  },
+};
+
+const postalAddress = defineNestedType(() => ({
+  name: 'PostalAddress',
+  fields: {
+    addressCountry: { type: 'string', required: true },
+    addressLocality: { type: 'string', required: false },
+    addressRegion: { type: 'string', required: false },
+    postOfficeBoxNumber: { type: 'string', required: false },
+    postalCode: { type: 'string', required: false },
+    streetAddress: { type: 'string', required: false },
+  },
+}));
+
+export const ContentLayerPlaceFields: DocumentTypeDef = {
+  name: 'Place',
+  fields: {
+    ...galactiksFields,
+    ...creativeWorkFields,
+    address: { type: 'nested', of: postalAddress },
+    latitude: { type: 'string', required: false },
+    longitude: { type: 'string', required: false },
+    keywords: { type: 'list', required: false, of: { type: 'string' } },
     telephone: { type: 'string', required: false },
   },
 };

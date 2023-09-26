@@ -6,6 +6,7 @@ import {
   ContentLayerOrganizationFields,
   ContentLayerPageFields,
   ContentLayerPersonFields,
+  ContentLayerPlaceFields,
 } from '../fields.mjs';
 
 export const ArticleDocumentType = defineDocumentType(() => ({
@@ -23,6 +24,12 @@ export const PageDocumentType = defineDocumentType(() => ({
 export const PersonDocumentType = defineDocumentType(() => ({
   ...ContentLayerPersonFields,
   filePathPattern: 'persons/**/*.mdx',
+  contentType: 'mdx',
+}));
+
+export const PlaceDocumentType = defineDocumentType(() => ({
+  ...ContentLayerPlaceFields,
+  filePathPattern: 'places/**/*.mdx',
   contentType: 'mdx',
 }));
 
