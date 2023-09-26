@@ -6,7 +6,7 @@ import {
 
 export async function getStaticPaths() {
   return (await getPages({ inLanguages: getLanguages() }))
-    .filter((_p) => _p.slug !== '')
+    .filter((_p) => _p.path && _p.path !== '/')
     .map((page) => ({
       params: { path: page.path.slice(1) },
       props: { page },
