@@ -4,9 +4,10 @@ import type { Content } from '@galactiks/explorer';
 
 type Props = {
   content: Content;
+  class?: string;
 };
 
-const { content } = Astro.props;
+const { content, class: className } = Astro.props;
 
 let prefix;
 if (Array.isArray(content.headers?.openGraph)) {
@@ -19,7 +20,7 @@ if (Array.isArray(content.headers?.openGraph)) {
   <Head content={content}>
     <slot name="head" />
   </Head>
-  <body>
+  <body class={className}>
     <slot />
   </body>
 </html>
