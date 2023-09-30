@@ -32,11 +32,11 @@ const galactiksConfigFileSchema = z.object({
   pages: z
     .object({
       articles: pagesObjectItemSchema,
-      'organizations': pagesObjectItemSchema,
-      'pages': pagesObjectItemSchema,
-      'people': pagesObjectItemSchema,
-      'place': pagesObjectItemSchema,
-      'tags': pagesObjectItemSchema,
+      organizations: pagesObjectItemSchema,
+      pages: pagesObjectItemSchema,
+      people: pagesObjectItemSchema,
+      place: pagesObjectItemSchema,
+      tags: pagesObjectItemSchema,
     })
     .optional(),
 });
