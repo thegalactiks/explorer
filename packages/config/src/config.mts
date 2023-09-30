@@ -1,4 +1,3 @@
-import { pageDocumentTypes } from '@galactiks/contentlayer';
 import deepmerge from 'deepmerge';
 import { existsSync, readFileSync } from 'fs';
 import set from 'lodash.set';
@@ -26,18 +25,19 @@ const pageSchema = z.object({
     .or(z.string()),
 });
 
+const pagesObjectItemSchema = pageSchema.or(z.literal(false)).optional();
 const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
   pages: z
-    .object(
-      Object.fromEntries(
-        Object.values(pageDocumentTypes).map((key) => [
-          key,
-          pageSchema.or(z.literal(false)).optional(),
-        ])
-      )
-    )
+    .object({
+      articles: pagesObjectItemSchema,
+      'organizations': pagesObjectItemSchema,
+      'pages': pagesObjectItemSchema,
+      'people': pagesObjectItemSchema,
+      'place': pagesObjectItemSchema,
+      'tags': pagesObjectItemSchema,
+    })
     .optional(),
 });
 
