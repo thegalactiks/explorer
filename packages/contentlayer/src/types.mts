@@ -258,13 +258,13 @@ export type NestedTypeNames = 'Id' | 'ItemListElement' | 'PostalAddress';
 
 export type DataExports = {
   allDocuments: DocumentTypes[];
-  allArticles: Article[];
-  allOrganizations: Organization[];
-  allPages: Page[];
-  allPeople: Person[];
-  allPlaces: Place[];
-  allWebsites: Website[];
-  allWebPageElements: WebPageElement[];
+  allArticles?: Article[];
+  allOrganizations?: Organization[];
+  allPages?: Page[];
+  allPeople?: Person[];
+  allPlaces?: Place[];
+  allWebsites?: Website[];
+  allWebPageElements?: WebPageElement[];
 };
 
 export interface ContentlayerGenTypes {

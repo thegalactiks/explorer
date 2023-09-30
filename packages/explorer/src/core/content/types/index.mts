@@ -16,6 +16,7 @@ export type Content = Page & {
 export type {
   DocumentTypes as ContentlayerDocumentTypes,
   DataExports as ContentlayerDataExports,
+  Organization as ContentlayerOrganization,
   Person as ContentlayerPerson,
   Place as ContentlayerPlace,
   Website as ContentlayerWebsite,

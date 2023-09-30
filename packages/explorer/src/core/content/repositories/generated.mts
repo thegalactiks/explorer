@@ -5,6 +5,7 @@ import type {
   ContentlayerWebsite,
   ContentlayerWebPageElement,
   ContentlayerWebPageDocument,
+  ContentlayerOrganization,
 } from '../types/index.mjs';
 import { computeDocuments } from '../compute.mjs';
 
@@ -30,12 +31,12 @@ const getGenerated = async (): Promise<ContentlayerDataExports> => {
 };
 
 export const getWebsites = async (): Promise<ContentlayerWebsite[]> =>
-  (await getGenerated()).allWebsites;
+  (await getGenerated()).allWebsites || [];
 
 export const getWebPageElements = async (
   filters?: WebPageElementFilters
 ): Promise<ContentlayerWebPageElement[]> => {
-  const elements = (await getGenerated()).allWebPageElements;
+  const elements = (await getGenerated()).allWebPageElements || [];
 
   return filters?.inLanguage
     ? documentsByLanguagesSelector(elements)([filters.inLanguage])
@@ -54,11 +55,11 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     config,
     websites: await getWebsites(),
     documents: new Array<ContentlayerWebPageDocument>()
-      .concat(generated.allPages)
-      .concat(generated.allArticles)
-      .concat(generated.allPeople)
-      .concat(generated.allPlaces),
-    people: generated.allPeople,
+      .concat(generated.allPages || [])
+      .concat(generated.allArticles || [])
+      .concat(generated.allPeople || [])
+      .concat(generated.allPlaces || []),
+    people: generated.allPeople || [],
   });
 
   return _documents;
@@ -96,5 +97,5 @@ export const getWebPageDocumentsByType = async (
   filters?: Omit<RepositoryFilters, 'type'>
 ) => getPages({ type, ...filters });
 
-export const getOrganizations = async () =>
-  (await getGenerated()).allOrganizations;
+export const getOrganizations = async (): Promise<ContentlayerOrganization[]> =>
+  (await getGenerated()).allOrganizations || [];
