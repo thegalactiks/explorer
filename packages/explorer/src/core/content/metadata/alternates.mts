@@ -1,3 +1,4 @@
+import { getDefaultLanguage } from '@galactiks/config';
 import type { Content, MetadataHeaders } from '../index.mjs';
 import type { ContentlayerDocumentWithURL } from '../urls.mjs';
 
@@ -19,7 +20,7 @@ export const alternatesHeaderBuilder = (
 
   return (document: Content): MetadataHeaders['alternates'] => {
     let translations: Array<ContentlayerDocumentWithURL | Content> = [];
-    let defaultTranslation: ContentlayerDocumentWithURL | Content;
+    let defaultTranslation: ContentlayerDocumentWithURL | Content | undefined;
     if (document.translationOfWork) {
       const translationOfWorkId = document.translationOfWork['@id'];
 
@@ -42,13 +43,17 @@ export const alternatesHeaderBuilder = (
         document.identifier,
         document.url
       );
-      defaultTranslation = document;
     }
 
-    translations = translations.concat(defaultTranslation);
-
-    if (translations.length === 1) {
+    if (translations.length === 0) {
       translations = selectPagesByIdentifier(document.identifier);
+    }
+
+    if (!defaultTranslation) {
+      const configDefaultLanguage = getDefaultLanguage();
+      defaultTranslation =
+        translations.find((t) => t.inLanguage === configDefaultLanguage) ||
+        document;
     }
 
     return translations
