@@ -16,10 +16,10 @@ let _documents: Content[];
 
 const documentsByLanguagesSelector =
   <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
-  (inLanguages: string[]) =>
-    documents.filter(
-      (_d) => !_d.inLanguage || inLanguages.indexOf(_d.inLanguage) !== -1
-    );
+    (inLanguages: string[]) =>
+      documents.filter(
+        (_d) => !_d.inLanguage || inLanguages.indexOf(_d.inLanguage) !== -1
+      );
 
 const getGenerated = async (): Promise<ContentlayerDataExports> => {
   if (!_generated) {
@@ -79,17 +79,21 @@ export const getPages = async (
   filters?: RepositoryFilters
 ): Promise<Content[]> => {
   const documents = await getWebPageDocuments();
+  if (!filters) {
+    return documents
+  }
 
-  return filters
-    ? documents.filter(
-        (_d) =>
-          (!Array.isArray(filters.inLanguages) ||
-            filters.inLanguages.length === 0 ||
-            !_d.inLanguage ||
-            filters.inLanguages.indexOf(_d.inLanguage) !== -1) &&
-          (!filters.type || _d.type === filters.type)
-      )
-    : documents;
+  let inLanguages = Array.isArray(filters.inLanguages) ? filters.inLanguages : [];
+  if (typeof filters.inLanguage === 'string') {
+    inLanguages = inLanguages.concat(filters.inLanguage);
+  }
+
+  return documents.filter(
+    (_d) =>
+      (inLanguages.length === 0 || !_d.inLanguage ||
+        inLanguages.indexOf(_d.inLanguage) !== -1) &&
+      (!filters.type || _d.type === filters.type)
+  );
 };
 
 export const getWebPageDocumentsByType = async (
