@@ -200,9 +200,6 @@ export type Website = {
 /** Nested types */
 
 export type Id = {
-  /** File path relative to `contentDirPath` */
-  _id: string;
-  _raw: Local.RawDocumentData;
   type: 'Id';
   '@id': string;
 };
