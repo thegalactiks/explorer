@@ -23,7 +23,7 @@ export const integrationsPreset = (): AstroIntegration[] => [
     serialize: async (item) => {
       const page = await getPageByURL(item.url);
       if (!page) {
-        return item;
+        return undefined;
       }
 
       return ({
