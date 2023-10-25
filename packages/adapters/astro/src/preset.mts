@@ -23,7 +23,7 @@ export const integrationsPreset = (): AstroIntegration[] => [
     serialize: async (item) => {
       const page = await getPageByURL(item.url);
       if (!page) {
-        return item;
+        return undefined;
       }
 
       return ({
@@ -32,7 +32,7 @@ export const integrationsPreset = (): AstroIntegration[] => [
         news: page.type === 'Article' && {
           publication: {
             name: getConfig().webManifest.name,
-            language: getDefaultLanguage(),
+            language: (page.inLanguage && getDefaultLanguage())?.substring(0, 2).toLowerCase(),
           },
 
           publication_date: isValid(page.datePublished) ? page.datePublished.toISOString() : undefined,
