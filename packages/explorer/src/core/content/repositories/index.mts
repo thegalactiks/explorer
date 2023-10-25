@@ -33,6 +33,8 @@ export const getPageByIdentifier = async (
   filters?: RepositoryFilters
 ) => documentByIdentifierSelector(await getPages(filters))(identifier);
 
+export const getPageByURL = async (url: string) => (await getPages()).find(_p => _p.url === url)
+
 export const getTagPageByKeyword = async (
   keyword: string,
   filters?: RepositoryFilters
