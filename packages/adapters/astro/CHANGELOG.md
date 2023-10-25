@@ -1,5 +1,15 @@
 # @galactiks/astro-integration
 
+## 0.2.5
+
+### Patch Changes
+
+- [`9e1871e`](https://github.com/thegalactiks/explorer/commit/9e1871e5918a76e65113010815a3437f97cbdec8) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fixes some bugs and add sitemap news support
+
+- Updated dependencies [[`9e1871e`](https://github.com/thegalactiks/explorer/commit/9e1871e5918a76e65113010815a3437f97cbdec8)]:
+  - @galactiks/config@0.2.5
+  - @galactiks/explorer@0.2.5
+
 ## 0.2.4
 
 ### Patch Changes
