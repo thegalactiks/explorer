@@ -1,4 +1,5 @@
 import type { GalactiksConfig } from '@galactiks/config';
+import type { Id } from '@galactiks/contentlayer';
 
 import {
   alternatesHeaderBuilder,
@@ -19,6 +20,7 @@ import {
   type ContentlayerDocumentWithURL,
 } from './urls.mjs';
 import {
+  documentByIdentifierSelector,
   documentByTypeAndIdentifierAndLanguageSelector,
   isInLanguage,
 } from './selectors.mjs';
@@ -55,10 +57,10 @@ function createPage<T>(
     body: document.body?.raw
       ? addBodyRender(document.body)
       : {
-          raw: '',
-          code: '',
-          render: emptyRender,
-        },
+        raw: '',
+        code: '',
+        render: emptyRender,
+      },
   } as T;
 }
 
@@ -84,124 +86,130 @@ const hydratePagesWithRender = async (
 
 const computeRemainingListingPages = async (
   documents: ContentlayerWebPageDocumentWithRender[]
-) =>
-  documents.reduce(
-    (
-      acc,
-      {
-        keywords,
-        dateCreated,
-        datePublished,
-        dateModified,
-        isPartOf,
-        inLanguage,
-      }
-    ) => {
-      const templateDocument = {
-        dateCreated,
-        datePublished,
-        dateModified,
-        inLanguage,
-      };
+) => {
+  const getDocumentByIdentifier = documentByIdentifierSelector(documents);
 
-      // If parent page does not exist, create it
-      if (
-        isPartOf &&
-        acc.some(
-          (_a) => _a.identifier === isPartOf && isInLanguage(_a, inLanguage)
-        ) === false
-      ) {
-        acc = acc.concat(createListingPage(isPartOf, templateDocument));
-      }
-
-      // Create all keywords pages not existing yet
-      if (Array.isArray(keywords)) {
-        acc = acc.concat(
-          keywords
-            .filter(
-              (_k) =>
-                _k &&
-                acc.some(
-                  (_a) => _a.identifier === _k && isInLanguage(_a, inLanguage)
-                ) === false
-            )
-            .map((_k) =>
-              createListingPage(_k, {
-                ...templateDocument,
-                type: 'Tag',
-              })
-            )
-        );
-      }
-
-      return acc;
-    },
-    documents
-  );
-
-const computeMissingFields =
-  (config: GalactiksConfig, people: ContentlayerPerson[]) =>
-  async (
-    documents: Array<
-      ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
-    >
-  ): Promise<Content[]> => {
-    const buildBreadcrumb = breadcrumbBuilder(documents);
-    const buildAlternates = alternatesHeaderBuilder(documents);
-    const selectPersonByIdentifierAndLanguage =
-      documentByTypeAndIdentifierAndLanguageSelector('Person', documents);
-
-    const getAuthor = (
-      identifier?: string,
-      inLanguage?: string
-    ): Person | undefined => {
-      let author;
-      if (identifier) {
-        author = selectPersonByIdentifierAndLanguage(identifier, inLanguage);
-      } else if (people.length === 1) {
-        author = people[0];
-      }
-
-      return (
-        author && {
-          identifier: author.identifier,
-          name: author.name,
-          description: author.description,
-          url: author.url,
-          image: author.image,
-        }
-      );
+  return documents.reduce((acc, _d) => {
+    const templateDocument: Partial<ContentlayerWebPageDocument> = {
+      dateCreated: _d.dateCreated,
+      datePublished: _d.datePublished,
+      dateModified: _d.dateModified,
+      inLanguage: _d.inLanguage,
     };
 
-    return documents.map((document) => {
-      const dateCreated = new Date(document.dateCreated);
-      const contentWithoutHeaders: Omit<Content, 'headers'> = {
-        ...document,
-        author: getAuthor(document.author, document.inLanguage),
-        breadcrumb: buildBreadcrumb(document),
-        dateCreated,
-        dateModified: document.dateModified
-          ? new Date(document.dateModified)
-          : dateCreated,
-        datePublished: document.datePublished
-          ? new Date(document.datePublished)
-          : dateCreated,
+    // If parent page does not exist, create it
+    if (
+      _d.isPartOf &&
+      acc.some(
+        (_a) => _a.identifier === _d.isPartOf && isInLanguage(_a, _d.inLanguage)
+      ) === false
+    ) {
+      let translationOfWork: Id | undefined = undefined;
+      if (_d.translationOfWork && _d.translationOfWork['@id']) {
+        const translationOfWorkDocument = getDocumentByIdentifier(_d.translationOfWork['@id']);
+        console.log(_d.translationOfWork, translationOfWorkDocument)
+
+        if (translationOfWorkDocument?.isPartOf) {
+          translationOfWork = {
+            "type": "Id",
+            "@id": translationOfWorkDocument.isPartOf,
+          };
+        }
+      }
+
+      acc = acc.concat(createListingPage(_d.isPartOf, {
+        ...templateDocument,
+        translationOfWork,
+      }));
+    }
+
+    // Create all keywords pages not existing yet
+    if (Array.isArray(_d.keywords)) {
+      acc = acc.concat(
+        _d.keywords
+          .filter(
+            (_k) =>
+              _k &&
+              acc.some(
+                (_a) => _a.identifier === _k && isInLanguage(_a, _d.inLanguage)
+              ) === false
+          )
+          .map((_k) =>
+            createListingPage(_k, {
+              ...templateDocument,
+              type: 'Tag',
+            })
+          )
+      );
+    }
+
+    return acc;
+  }, documents);
+}
+
+const computeMissingFields =
+  (_: GalactiksConfig, people: ContentlayerPerson[]) =>
+    async (
+      documents: Array<
+        ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
+      >
+    ): Promise<Content[]> => {
+      const buildBreadcrumb = breadcrumbBuilder(documents);
+      const buildAlternates = alternatesHeaderBuilder(documents);
+      const selectPersonByIdentifierAndLanguage =
+        documentByTypeAndIdentifierAndLanguageSelector('Person', documents);
+
+      const getAuthor = (
+        identifier?: string,
+        inLanguage?: string
+      ): Person | undefined => {
+        let author;
+        if (identifier) {
+          author = selectPersonByIdentifierAndLanguage(identifier, inLanguage);
+        } else if (people.length === 1) {
+          author = people[0];
+        }
+
+        return (
+          author && {
+            identifier: author.identifier,
+            name: author.name,
+            description: author.description,
+            url: author.url,
+            image: author.image,
+          }
+        );
       };
 
-      return {
-        ...contentWithoutHeaders,
-        headers: {
-          ...getBasicHeaders(contentWithoutHeaders),
-          alternates: buildAlternates(contentWithoutHeaders),
-          structuredDataSchemas: getStructuredDataSchemas(
-            contentWithoutHeaders
-          ),
-          openGraph: getOpenGraphObjects(contentWithoutHeaders),
-          twitterCard: getTwitterCard(contentWithoutHeaders),
-        },
-      };
-    });
-  };
+      return documents.map((document) => {
+        const dateCreated = new Date(document.dateCreated);
+        const contentWithoutHeaders: Omit<Content, 'headers'> = {
+          ...document,
+          author: getAuthor(document.author, document.inLanguage),
+          breadcrumb: buildBreadcrumb(document),
+          dateCreated,
+          dateModified: document.dateModified
+            ? new Date(document.dateModified)
+            : dateCreated,
+          datePublished: document.datePublished
+            ? new Date(document.datePublished)
+            : dateCreated,
+        };
+
+        return {
+          ...contentWithoutHeaders,
+          headers: {
+            ...getBasicHeaders(contentWithoutHeaders),
+            alternates: buildAlternates(contentWithoutHeaders),
+            structuredDataSchemas: getStructuredDataSchemas(
+              contentWithoutHeaders
+            ),
+            openGraph: getOpenGraphObjects(contentWithoutHeaders),
+            twitterCard: getTwitterCard(contentWithoutHeaders),
+          },
+        };
+      });
+    };
 
 export const computeDocuments = async ({
   config,
