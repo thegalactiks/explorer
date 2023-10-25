@@ -32,7 +32,7 @@ export const integrationsPreset = (): AstroIntegration[] => [
         news: page.type === 'Article' && {
           publication: {
             name: getConfig().webManifest.name,
-            language: getDefaultLanguage(),
+            language: (page.inLanguage && getDefaultLanguage())?.substring(0, 2).toLowerCase(),
           },
 
           publication_date: isValid(page.datePublished) ? page.datePublished.toISOString() : undefined,
