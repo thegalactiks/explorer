@@ -57,10 +57,10 @@ function createPage<T>(
     body: document.body?.raw
       ? addBodyRender(document.body)
       : {
-        raw: '',
-        code: '',
-        render: emptyRender,
-      },
+          raw: '',
+          code: '',
+          render: emptyRender,
+        },
   } as T;
 }
 
@@ -106,21 +106,25 @@ const computeRemainingListingPages = async (
     ) {
       let translationOfWork: Id | undefined = undefined;
       if (_d.translationOfWork && _d.translationOfWork['@id']) {
-        const translationOfWorkDocument = getDocumentByIdentifier(_d.translationOfWork['@id']);
-        console.log(_d.translationOfWork, translationOfWorkDocument)
+        const translationOfWorkDocument = getDocumentByIdentifier(
+          _d.translationOfWork['@id']
+        );
+        console.log(_d.translationOfWork, translationOfWorkDocument);
 
         if (translationOfWorkDocument?.isPartOf) {
           translationOfWork = {
-            "type": "Id",
-            "@id": translationOfWorkDocument.isPartOf,
+            type: 'Id',
+            '@id': translationOfWorkDocument.isPartOf,
           };
         }
       }
 
-      acc = acc.concat(createListingPage(_d.isPartOf, {
-        ...templateDocument,
-        translationOfWork,
-      }));
+      acc = acc.concat(
+        createListingPage(_d.isPartOf, {
+          ...templateDocument,
+          translationOfWork,
+        })
+      );
     }
 
     // Create all keywords pages not existing yet
@@ -145,71 +149,71 @@ const computeRemainingListingPages = async (
 
     return acc;
   }, documents);
-}
+};
 
 const computeMissingFields =
   (_: GalactiksConfig, people: ContentlayerPerson[]) =>
-    async (
-      documents: Array<
-        ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
-      >
-    ): Promise<Content[]> => {
-      const buildBreadcrumb = breadcrumbBuilder(documents);
-      const buildAlternates = alternatesHeaderBuilder(documents);
-      const selectPersonByIdentifierAndLanguage =
-        documentByTypeAndIdentifierAndLanguageSelector('Person', documents);
+  async (
+    documents: Array<
+      ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
+    >
+  ): Promise<Content[]> => {
+    const buildBreadcrumb = breadcrumbBuilder(documents);
+    const buildAlternates = alternatesHeaderBuilder(documents);
+    const selectPersonByIdentifierAndLanguage =
+      documentByTypeAndIdentifierAndLanguageSelector('Person', documents);
 
-      const getAuthor = (
-        identifier?: string,
-        inLanguage?: string
-      ): Person | undefined => {
-        let author;
-        if (identifier) {
-          author = selectPersonByIdentifierAndLanguage(identifier, inLanguage);
-        } else if (people.length === 1) {
-          author = people[0];
+    const getAuthor = (
+      identifier?: string,
+      inLanguage?: string
+    ): Person | undefined => {
+      let author;
+      if (identifier) {
+        author = selectPersonByIdentifierAndLanguage(identifier, inLanguage);
+      } else if (people.length === 1) {
+        author = people[0];
+      }
+
+      return (
+        author && {
+          identifier: author.identifier,
+          name: author.name,
+          description: author.description,
+          url: author.url,
+          image: author.image,
         }
+      );
+    };
 
-        return (
-          author && {
-            identifier: author.identifier,
-            name: author.name,
-            description: author.description,
-            url: author.url,
-            image: author.image,
-          }
-        );
+    return documents.map((document) => {
+      const dateCreated = new Date(document.dateCreated);
+      const contentWithoutHeaders: Omit<Content, 'headers'> = {
+        ...document,
+        author: getAuthor(document.author, document.inLanguage),
+        breadcrumb: buildBreadcrumb(document),
+        dateCreated,
+        dateModified: document.dateModified
+          ? new Date(document.dateModified)
+          : dateCreated,
+        datePublished: document.datePublished
+          ? new Date(document.datePublished)
+          : dateCreated,
       };
 
-      return documents.map((document) => {
-        const dateCreated = new Date(document.dateCreated);
-        const contentWithoutHeaders: Omit<Content, 'headers'> = {
-          ...document,
-          author: getAuthor(document.author, document.inLanguage),
-          breadcrumb: buildBreadcrumb(document),
-          dateCreated,
-          dateModified: document.dateModified
-            ? new Date(document.dateModified)
-            : dateCreated,
-          datePublished: document.datePublished
-            ? new Date(document.datePublished)
-            : dateCreated,
-        };
-
-        return {
-          ...contentWithoutHeaders,
-          headers: {
-            ...getBasicHeaders(contentWithoutHeaders),
-            alternates: buildAlternates(contentWithoutHeaders),
-            structuredDataSchemas: getStructuredDataSchemas(
-              contentWithoutHeaders
-            ),
-            openGraph: getOpenGraphObjects(contentWithoutHeaders),
-            twitterCard: getTwitterCard(contentWithoutHeaders),
-          },
-        };
-      });
-    };
+      return {
+        ...contentWithoutHeaders,
+        headers: {
+          ...getBasicHeaders(contentWithoutHeaders),
+          alternates: buildAlternates(contentWithoutHeaders),
+          structuredDataSchemas: getStructuredDataSchemas(
+            contentWithoutHeaders
+          ),
+          openGraph: getOpenGraphObjects(contentWithoutHeaders),
+          twitterCard: getTwitterCard(contentWithoutHeaders),
+        },
+      };
+    });
+  };
 
 export const computeDocuments = async ({
   config,

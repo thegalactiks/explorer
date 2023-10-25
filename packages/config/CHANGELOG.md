@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.2.5
+
+### Patch Changes
+
+- [#89](https://github.com/thegalactiks/explorer/pull/89) [`1dbf299`](https://github.com/thegalactiks/explorer/commit/1dbf299d494136cac271384182f2dbb695112fb2) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fixes some bugs and add sitemap news support
+
 ## 0.2.4
 
 ### Patch Changes
