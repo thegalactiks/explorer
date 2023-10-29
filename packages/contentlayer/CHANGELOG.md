@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.1.5
+
+### Patch Changes
+
+- add scheduled content support and dependencies updates
+
 ## 0.1.4
 
 ### Patch Changes
