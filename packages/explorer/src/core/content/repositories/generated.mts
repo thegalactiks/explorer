@@ -14,7 +14,7 @@ import type { RepositoryFilters, WebPageElementFilters } from './filters.mjs';
 let _generated: ContentlayerDataExports;
 let _documents: Content[];
 
-const dateNow = new Date()
+const dateNow = new Date();
 
 const documentsByLanguagesSelector =
   <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
@@ -58,7 +58,7 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     .concat(generated.allArticles || [])
     .concat(generated.allPeople || [])
     .concat(generated.allPlaces || [])
-    .filter(_d => !_d.datePublished || new Date(_d.datePublished) <= dateNow);
+    .filter((_d) => !_d.datePublished || new Date(_d.datePublished) <= dateNow);
   _documents = await computeDocuments({
     config,
     websites: await getWebsites(),

@@ -1,5 +1,15 @@
 # @galactiks/astro-integration
 
+## 0.2.6
+
+### Patch Changes
+
+- add scheduled content support and dependencies updates
+
+- Updated dependencies []:
+  - @galactiks/config@0.2.6
+  - @galactiks/explorer@0.2.6
+
 ## 0.2.5
 
 ### Patch Changes

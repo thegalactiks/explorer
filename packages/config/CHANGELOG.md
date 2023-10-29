@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.2.6
+
+### Patch Changes
+
+- add scheduled content support and dependencies updates
+
 ## 0.2.5
 
 ### Patch Changes
