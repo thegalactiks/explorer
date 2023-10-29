@@ -109,8 +109,6 @@ const computeRemainingListingPages = async (
         const translationOfWorkDocument = getDocumentByIdentifier(
           _d.translationOfWork['@id']
         );
-        console.log(_d.translationOfWork, translationOfWorkDocument);
-
         if (translationOfWorkDocument?.isPartOf) {
           translationOfWork = {
             type: 'Id',
