@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.1.6
+
+### Patch Changes
+
+- [`073ec50`](https://github.com/thegalactiks/explorer/commit/073ec50b9b942b0be951b9e121121c75689daa53) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - add support for more markdown filename extensiosn
+
 ## 0.1.5
 
 ### Patch Changes
