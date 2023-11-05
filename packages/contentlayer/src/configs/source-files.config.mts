@@ -11,42 +11,42 @@ import {
 
 export const ArticleDocumentType = defineDocumentType(() => ({
   ...ContentLayerArticleFields,
-  filePathPattern: 'articles/**/*.mdx',
+  filePathPattern: 'articles/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const PageDocumentType = defineDocumentType(() => ({
   ...ContentLayerPageFields,
-  filePathPattern: 'pages/**/*.mdx',
+  filePathPattern: 'pages/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const PersonDocumentType = defineDocumentType(() => ({
   ...ContentLayerPersonFields,
-  filePathPattern: 'persons/**/*.mdx',
+  filePathPattern: 'persons/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const PlaceDocumentType = defineDocumentType(() => ({
   ...ContentLayerPlaceFields,
-  filePathPattern: 'places/**/*.mdx',
+  filePathPattern: 'places/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const OrganizationDocumentType = defineDocumentType(() => ({
   ...ContentLayerOrganizationFields,
-  filePathPattern: 'organizations/**/*.mdx',
+  filePathPattern: 'organizations/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const WebsiteDocumentType = defineDocumentType(() => ({
   ...ContentLayerWebsiteFields,
-  filePathPattern: 'websites/*.mdx',
+  filePathPattern: 'websites/**/*.md?(x)',
   contentType: 'mdx',
 }));
 
 export const WebpageElementDocumentType = defineDocumentType(() => ({
   ...ContentLayerWebPageElementFields,
-  filePathPattern: 'elements/*.mdx',
+  filePathPattern: 'elements/**/*.md?(x)',
   contentType: 'mdx',
 }));
