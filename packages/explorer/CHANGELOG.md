@@ -1,5 +1,12 @@
 # @galactiks/explorer
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`073ec50`](https://github.com/thegalactiks/explorer/commit/073ec50b9b942b0be951b9e121121c75689daa53)]:
+  - @galactiks/contentlayer@0.1.6
+
 ## 0.2.6
 
 ### Patch Changes
