@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.1.6
+
+### Patch Changes
+
+- [#99](https://github.com/thegalactiks/explorer/pull/99) [`5addff7`](https://github.com/thegalactiks/explorer/commit/5addff7dda70dacb704f06d70ad3c05e5b3cbec9) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - support more mardown file extensions
+
 ## 0.1.5
 
 ### Patch Changes
