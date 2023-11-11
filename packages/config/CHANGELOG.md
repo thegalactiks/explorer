@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.2.7
+
+### Patch Changes
+
+- add new content types
+
 ## 0.2.6
 
 ### Patch Changes

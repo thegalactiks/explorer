@@ -1,5 +1,15 @@
 # @galactiks/explorer
 
+## 0.2.8
+
+### Patch Changes
+
+- add new content types
+
+- Updated dependencies []:
+  - @galactiks/config@0.2.7
+  - @galactiks/contentlayer@0.1.7
+
 ## 0.2.7
 
 ### Patch Changes

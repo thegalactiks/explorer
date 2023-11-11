@@ -162,7 +162,12 @@ export type WebPageElement = {
   _id: string;
   _raw: Local.RawDocumentData;
   type: 'WebPageElement';
-  elementType?: 'SiteNavigationElement' | 'WPFooter' | 'WPHeader' | 'WPSideBar' | undefined;
+  elementType?:
+    | 'SiteNavigationElement'
+    | 'WPFooter'
+    | 'WPHeader'
+    | 'WPSideBar'
+    | undefined;
   identifier: string;
   inLanguage?: string | undefined;
   name?: string | undefined;
