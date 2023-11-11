@@ -1,5 +1,11 @@
 # @galactiks/astro-integration
 
+## 0.2.9
+
+### Patch Changes
+
+- remove astro prefetch package
+
 ## 0.2.8
 
 ### Patch Changes
