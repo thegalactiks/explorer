@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/config",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Reading Galactiks configurations files and get config during website generation",
   "author": "thegalactiks",
   "types": "./dist/index.d.mts",

@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.1.7
+
+### Patch Changes
+
+- add new content types
+
 ## 0.1.6
 
 ### Patch Changes
