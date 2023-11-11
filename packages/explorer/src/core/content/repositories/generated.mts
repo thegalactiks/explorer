@@ -78,6 +78,10 @@ export const getWebPageElementByType = async (
   );
 export const getSiteNavigationElement = (filters?: WebPageElementFilters) =>
   getWebPageElementByType('SiteNavigationElement', filters);
+export const getWebPageHeader = (filters?: WebPageElementFilters) =>
+  getWebPageElementByType('WPHeader', filters);
+export const getWebPageFooter = (filters?: WebPageElementFilters) =>
+  getWebPageElementByType('WPFooter', filters);
 
 export const getPages = async (
   filters?: RepositoryFilters

@@ -99,7 +99,7 @@ export const ContentLayerWebPageElementFields: DocumentTypeDef = {
   fields: {
     elementType: {
       type: 'enum',
-      options: ['SiteNavigationElement'],
+      options: ['SiteNavigationElement', 'WPFooter', 'WPHeader', 'WPSideBar'],
       required: false,
     }, // avoid collision with contentlayer type
     inLanguage: { type: 'string', required: false },
