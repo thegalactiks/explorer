@@ -1,6 +1,5 @@
 import type { AstroIntegration } from 'astro';
 import partytown from '@astrojs/partytown';
-import prefetch from '@astrojs/prefetch';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import { getConfig, getDefaultLanguage, getLanguages } from '@galactiks/config';
@@ -14,7 +13,6 @@ const defaultLocale = getDefaultLanguage();
 export const integrationsPreset = (): AstroIntegration[] => [
   react(),
   partytown(),
-  prefetch(),
   sitemap({
     i18n: defaultLocale
       ? {

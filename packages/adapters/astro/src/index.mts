@@ -59,6 +59,7 @@ export default function createPlugin(
 
         updateConfig({
           site: galactiksConfig.webManifest.start_url,
+          prefetch: true,
           vite: {
             resolve: {
               preserveSymlinks: true,
