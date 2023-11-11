@@ -129,14 +129,19 @@ export const computeDocumentsUrl =
     return documents
       .sort((_document) => selectPageDepth(_document))
       .map((_document) => {
-        _document.path = _computePath(_document);
-        if (_document.path) {
-          _document.url = _getDocumentUrl(
+        const path = _document.path || _computePath(_document);
+        let url: string | undefined = undefined
+        if (path) {
+          url = _getDocumentUrl(
             _document as ContentlayerDocumentWithPath
           );
         }
 
-        return _document as ContentlayerWebPageDocumentWithRender &
+        return {
+          ..._document,
+          url,
+          path
+        } as ContentlayerWebPageDocumentWithRender &
           ContentlayerDocumentWithURL;
       })
       .filter((_document) => _document.path);
