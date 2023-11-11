@@ -1,5 +1,11 @@
 # @galactiks/explorer
 
+## 0.2.9
+
+### Patch Changes
+
+- [#107](https://github.com/thegalactiks/explorer/pull/107) [`cdf0d89`](https://github.com/thegalactiks/explorer/commit/cdf0d890b5deddef925f013740ea642cb5a61eaf) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix(@galactiks/explorer): avoid modifying documents during computation
+
 ## 0.2.8
 
 ### Patch Changes
