@@ -12,7 +12,7 @@ Coming soon
 
 ## Documentation
 
-Coming soon
+In progress: [Galactiks Documentation](https://docs.galactiks.com/)
 
 ## Packages
 
