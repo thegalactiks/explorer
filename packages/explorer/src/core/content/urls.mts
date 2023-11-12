@@ -2,18 +2,21 @@ import { StdUriTemplate } from '@std-uritemplate/std-uritemplate';
 import { getConfig } from '@galactiks/config';
 import { documentTypes } from '@galactiks/contentlayer';
 import { join } from 'path';
+import Debug from 'debug'
 
-import type {
-  ContentlayerWebPageDocument,
-  ContentlayerWebsite,
-} from './types/index.mjs';
+import { homeIdentifier } from './consts.mjs';
 import {
   documentByIdentifierAndLanguageSelector,
   documentsByLanguageSelector,
   pageDepthSelector,
 } from './selectors.mjs';
 import type { ContentlayerWebPageDocumentWithRender } from './render.mjs';
-import { homeIdentifier } from './consts.mjs';
+import type {
+  ContentlayerWebPageDocument,
+  ContentlayerWebsite,
+} from './types/index.mjs';
+
+const debug = Debug('@galactiks/explorer:urls');
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 type ContentlayerDocumentWithPath = WithRequired<
@@ -40,107 +43,110 @@ const makePathRelative = (path: string) =>
 
 export const computeDocumentsUrl =
   (websites: ContentlayerWebsite[]) =>
-  async (documents: ContentlayerWebPageDocumentWithRender[]) => {
-    const getDocumentByIdentifierAndLanguage =
-      documentByIdentifierAndLanguageSelector(documents);
-    const getWebsitesByLanguage = documentsByLanguageSelector(websites);
+    async (documents: ContentlayerWebPageDocumentWithRender[]) => {
+      const getDocumentByIdentifierAndLanguage =
+        documentByIdentifierAndLanguageSelector(documents);
+      const getWebsitesByLanguage = documentsByLanguageSelector(websites);
 
-    const { locales, pages, webManifest } = getConfig();
+      const { locales, pages, webManifest } = getConfig();
 
-    const _getPagePathTemplate = (
-      type: ContentlayerWebPageDocument['type'],
-      inLanguage?: string
-    ) => {
-      const page = pages[documentTypes[type]] || pages[documentTypes.Page];
-      if (!page) {
-        return undefined;
-      }
-
-      if (typeof page.path === 'string') {
-        return page.path;
-      }
-
-      return page.path.find(
-        ({ locale }) => locale === inLanguage || locale === locales?.default
-      )?.path;
-    };
-
-    const _getDocumentUrl = (
-      document: ContentlayerDocumentWithPath
-    ): string => {
-      if (document.url) {
-        return document.url;
-      }
-
-      let baseUrl = webManifest.start_url;
-      if (websites.length === 1 && websites[0].url) {
-        baseUrl = websites[0].url;
-      } else if (websites.length > 1 && document.inLanguage) {
-        const websitesByLanguage = getWebsitesByLanguage(document.inLanguage);
-        if (websitesByLanguage.length === 1 && websitesByLanguage[0].url) {
-          baseUrl = websitesByLanguage[0].url;
+      const _getPagePathTemplate = (
+        type: ContentlayerWebPageDocument['type'],
+        inLanguage?: string
+      ) => {
+        const page = pages[documentTypes[type]] || pages[documentTypes.Page];
+        if (!page) {
+          return undefined;
         }
-      }
 
-      return new URL(document.path, baseUrl).toString();
-    };
+        if (typeof page.path === 'string') {
+          return page.path;
+        }
 
-    const _computePath = (
-      document: ContentlayerWebPageDocument
-    ): string | undefined => {
-      if (document.path) {
-        return join('/', document.path);
-      }
+        return page.path.find(
+          ({ locale }) => locale === inLanguage || locale === locales?.default
+        )?.path;
+      };
 
-      const pathTemplate = _getPagePathTemplate(
-        document.type,
-        document.inLanguage
-      );
-      if (!pathTemplate) {
-        return undefined;
-      }
+      const _getDocumentUrl = (
+        document: ContentlayerWebPageDocument, path: string
+      ): string => {
+        if (document.url) {
+          return document.url;
+        }
 
-      let isPartOfPath: string | undefined;
-      if (pathTemplate.indexOf('isPartOf') && document.isPartOf) {
-        // The page has been created if missing
-        const isPartOf = getDocumentByIdentifierAndLanguage(
-          document.isPartOf,
+        let baseUrl = webManifest.start_url;
+        if (websites.length === 1 && websites[0].url) {
+          baseUrl = websites[0].url;
+        } else if (websites.length > 1 && document.inLanguage) {
+          const websitesByLanguage = getWebsitesByLanguage(document.inLanguage);
+          if (websitesByLanguage.length === 1 && websitesByLanguage[0].url) {
+            baseUrl = websitesByLanguage[0].url;
+          }
+        }
+
+        return new URL(path, baseUrl).toString();
+      };
+
+      const _computePath = (
+        document: ContentlayerWebPageDocument
+      ): string | undefined => {
+        if (document.path) {
+          return join('/', document.path);
+        }
+
+        const pathTemplate = _getPagePathTemplate(
+          document.type,
           document.inLanguage
-        ) as ContentlayerDocumentWithPath;
-        isPartOfPath =
-          makePathRelative(_getPathWithoutTemplate(isPartOf)) || '';
-      }
-
-      const existingStringProperties: [string, string][] = Object.entries({
-        ...document,
-        identifier:
-          document.identifier !== homeIdentifier ? document.identifier : '',
-        isPartOf: isPartOfPath,
-      }).filter(([, value]) => typeof value === 'string');
-      return join(
-        StdUriTemplate.expand(
-          pathTemplate,
-          Object.fromEntries(existingStringProperties)
-        )
-      );
-    };
-
-    const selectPageDepth = pageDepthSelector(documents);
-    return documents
-      .sort((_document) => selectPageDepth(_document))
-      .map((_document) => {
-        const path = _document.path || _computePath(_document);
-        let url: string | undefined = undefined;
-        if (path) {
-          url = _getDocumentUrl(_document as ContentlayerDocumentWithPath);
+        );
+        if (!pathTemplate) {
+          return undefined;
         }
 
-        return {
-          ..._document,
-          url,
-          path,
-        } as ContentlayerWebPageDocumentWithRender &
-          ContentlayerDocumentWithURL;
-      })
-      .filter((_document) => _document.path);
-  };
+        let isPartOfPath: string | undefined;
+        if (pathTemplate.indexOf('isPartOf') && document.isPartOf) {
+          // The page has been created if missing
+          const isPartOf = getDocumentByIdentifierAndLanguage(
+            document.isPartOf,
+            document.inLanguage
+          );
+          isPartOfPath = (isPartOf && makePathRelative(_getPathWithoutTemplate(isPartOf))) || '';
+        }
+
+        const existingStringProperties: [string, string][] = Object.entries({
+          ...document,
+          identifier:
+            document.identifier !== homeIdentifier ? document.identifier : '',
+          isPartOf: isPartOfPath,
+        }).filter(([, value]) => typeof value === 'string');
+        return join(
+          StdUriTemplate.expand(
+            pathTemplate,
+            Object.fromEntries(existingStringProperties)
+          )
+        );
+      };
+
+      const selectPageDepth = pageDepthSelector(documents);
+      return documents
+        .sort((_document) => selectPageDepth(_document))
+        .map((_document) => {
+          const path = _document.path || _computePath(_document);
+          let url: string | undefined = undefined;
+          if (path) {
+            url = _getDocumentUrl(_document, path);
+          }
+
+          const _computed = {
+            ..._document,
+            url,
+            path,
+          } as ContentlayerWebPageDocumentWithRender &
+            ContentlayerDocumentWithURL;
+
+          debug('computing document url', _computed);
+
+          return _computed;
+        })
+        .filter((_document) => _document.path);
+    };
