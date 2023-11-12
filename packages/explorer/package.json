@@ -37,6 +37,7 @@
     "@galactiks/config": "workspace:^",
     "@galactiks/contentlayer": "workspace:^",
     "@std-uritemplate/std-uritemplate": "0.0.46",
+    "debug": "4.3.4",
     "esbuild": "0.19.5",
     "mdx-bundler": "9.2.1",
     "react": "18.2.0",
@@ -44,6 +45,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@types/debug": "4.1.12",
     "@types/react": "18.2.37",
     "schema-dts": "1.1.2"
   }

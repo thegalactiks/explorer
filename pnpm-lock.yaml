@@ -64,6 +64,9 @@ importers:
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
+      debug:
+        specifier: 4.3.4
+        version: 4.3.4
     devDependencies:
       '@astrojs/partytown':
         specifier: 2.0.2
@@ -77,6 +80,9 @@ importers:
       '@astrojs/sitemap':
         specifier: 3.0.3
         version: 3.0.3
+      '@types/debug':
+        specifier: 4.1.12
+        version: 4.1.12
       '@types/react':
         specifier: 18.2.37
         version: 18.2.37
@@ -141,6 +147,9 @@ importers:
       '@std-uritemplate/std-uritemplate':
         specifier: 0.0.46
         version: 0.0.46
+      debug:
+        specifier: 4.3.4
+        version: 4.3.4
       esbuild:
         specifier: 0.19.5
         version: 0.19.5
@@ -157,6 +166,9 @@ importers:
         specifier: 3.22.4
         version: 3.22.4
     devDependencies:
+      '@types/debug':
+        specifier: 4.1.12
+        version: 4.1.12
       '@types/react':
         specifier: 18.2.37
         version: 18.2.37
@@ -1801,8 +1813,8 @@ packages:
       '@babel/types': 7.22.11
     dev: true
 
-  /@types/debug@4.1.7:
-    resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
+  /@types/debug@4.1.12:
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
       '@types/ms': 0.7.31
 
@@ -5249,7 +5261,7 @@ packages:
   /micromark@3.1.0:
     resolution: {integrity: sha512-6Mj0yHLdUZjHnOPgr5xfWIMqMWS12zDN6iws9SLuSz76W8jTtAv24MN4/CL7gJrl5vtxGInkkqDv/JIoRsQOvA==}
     dependencies:
-      '@types/debug': 4.1.7
+      '@types/debug': 4.1.12
       debug: 4.3.4
       decode-named-character-reference: 1.0.2
       micromark-core-commonmark: 1.0.6
