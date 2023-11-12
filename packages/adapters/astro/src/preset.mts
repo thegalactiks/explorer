@@ -11,21 +11,21 @@ import { sitemapSerialize } from './sitemap.mjs';
 export const integrationsPreset = (): AstroIntegration[] => {
   const defaultLanguage = getDefaultLanguage();
 
-  return ([
+  return [
     react(),
     partytown(),
     sitemap({
       i18n: defaultLanguage
         ? {
-          defaultLocale: defaultLanguage,
-          locales: Object.fromEntries(
-            getLanguages().map((lang) => [lang, lang])
-          ),
-        }
+            defaultLocale: defaultLanguage,
+            locales: Object.fromEntries(
+              getLanguages().map((lang) => [lang, lang])
+            ),
+          }
         : undefined,
       serialize: sitemapSerialize(defaultLanguage),
     }),
     robotsTxt(),
     critters(),
-  ]);
+  ];
 };
