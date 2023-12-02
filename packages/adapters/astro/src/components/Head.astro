@@ -1,4 +1,5 @@
 ---
+import { Plausible } from 'astro-analytics';
 import { join } from 'path';
 import { getConfig } from '@galactiks/config';
 import type { Content } from '@galactiks/explorer';
@@ -9,7 +10,10 @@ type Props = {
 
 const { content } = Astro.props;
 
-const baseUrl = getConfig().webManifest.start_url;
+const {
+  analytics,
+  webManifest: { start_url: baseUrl },
+} = getConfig();
 ---
 
 <head>
@@ -39,5 +43,7 @@ const baseUrl = getConfig().webManifest.start_url;
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))
   }
+
+  {analytics?.service === 'plausible' && <Plausible {...analytics.config} />}
   <slot />
 </head>

@@ -26,9 +26,17 @@ const pageSchema = z.object({
 });
 
 const pagesObjectItemSchema = pageSchema.or(z.literal(false)).optional();
+const plausibleConfigSchema = z.object({
+  domain: z.string(),
+  src: z.string().optional(),
+});
 const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
+  analytics: z.object({
+    service: z.enum(['plausible']),
+    config: plausibleConfigSchema,
+  }).optional(),
   pages: z
     .object({
       articles: pagesObjectItemSchema,
