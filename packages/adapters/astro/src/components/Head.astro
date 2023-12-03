@@ -1,8 +1,9 @@
 ---
-import { Plausible } from 'astro-analytics';
 import { join } from 'path';
 import { getConfig } from '@galactiks/config';
 import type { Content } from '@galactiks/explorer';
+
+import Plausible from './Plausible.astro'
 
 type Props = {
   content: Content;

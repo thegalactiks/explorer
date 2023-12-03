@@ -1,13 +1,14 @@
 import deepmerge from 'deepmerge';
 import { existsSync, readFileSync } from 'fs';
 import set from 'lodash.set';
+import { join } from 'path';
 import { z } from 'zod';
 
+import { analyticsConfigSchema } from './analytics.mjs';
 import {
   readWebManifestFromPath,
   type WebManifest,
 } from './webmanifest.config.mjs';
-import { join } from 'path';
 
 const localesSchema = z.object({
   default: z.string(),
@@ -26,17 +27,10 @@ const pageSchema = z.object({
 });
 
 const pagesObjectItemSchema = pageSchema.or(z.literal(false)).optional();
-const plausibleConfigSchema = z.object({
-  domain: z.string(),
-  src: z.string().optional(),
-});
 const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
-  analytics: z.object({
-    service: z.enum(['plausible']),
-    config: plausibleConfigSchema,
-  }).optional(),
+  analytics: analyticsConfigSchema.optional(),
   pages: z
     .object({
       articles: pagesObjectItemSchema,

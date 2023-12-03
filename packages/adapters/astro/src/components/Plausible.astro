@@ -1,0 +1,8 @@
+---
+import type { PlausibleConfig } from '@galactiks/config';
+
+export interface Props extends PlausibleConfig {};
+
+const { domain, src = 'https://plausible.io/js/script.js', ...props } = Astro.props;
+---
+<script defer data-domain={domain} src={src} {...props}></script>

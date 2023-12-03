@@ -61,9 +61,6 @@ importers:
       '@galactiks/explorer':
         specifier: workspace:^
         version: link:../../explorer
-      astro-analytics:
-        specifier: 2.7.0
-        version: 2.7.0
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
@@ -2227,10 +2224,6 @@ packages:
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
-
-  /astro-analytics@2.7.0:
-    resolution: {integrity: sha512-/qctBn7LF9DS3ff2YYFrYtCkLLw2fboPDJUgg3HErygGbEBvebW/eGRftZH4ykDJhlCvwTsSEKz/vff7WllyAw==}
-    dev: false
 
   /astro-critters@2.0.11:
     resolution: {integrity: sha512-SdFiAbmIJtgDiLTuBddJkmFyTmxlljPBZRBQRPccAXyoQ2IXCCsrhMfogrRk5/hr3Jg4+Ao+bqs7OCYtpdZlpw==}
