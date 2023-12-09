@@ -1,5 +1,4 @@
 ---
-import { join } from 'path';
 import { getConfig } from '@galactiks/config';
 import type { Content } from '@galactiks/explorer';
 
@@ -13,7 +12,6 @@ const { content } = Astro.props;
 
 const {
   analytics,
-  webManifest: { start_url: baseUrl },
 } = getConfig();
 ---
 
@@ -23,7 +21,7 @@ const {
   <title>{content.headers?.title}</title>
   <link rel="canonical" href={content.headers?.canonical} />
   <meta name="robots" content={content.headers?.robots} />
-  <link rel="sitemap" href={join(baseUrl, '/sitemap-index.xml')} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   {
     content.headers?.alternates?.map(({ href, hreflang }) => (
       <link rel="alternate" href={href} hreflang={hreflang} />
