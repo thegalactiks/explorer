@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/contentlayer",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Galactiks contentlayer configurations",
   "author": "galactiks",
   "types": "./dist/index.d.mts",

@@ -2,7 +2,7 @@
 import { getConfig } from '@galactiks/config';
 import type { Content } from '@galactiks/explorer';
 
-import Plausible from './Plausible.astro'
+import Plausible from './Plausible.astro';
 
 type Props = {
   content: Content;
@@ -10,9 +10,7 @@ type Props = {
 
 const { content } = Astro.props;
 
-const {
-  analytics,
-} = getConfig();
+const { analytics } = getConfig();
 ---
 
 <head>

@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.2.8
+
+### Patch Changes
+
+- [`2c7898f`](https://github.com/thegalactiks/explorer/commit/2c7898f9e5b5fb0451a208a1e1a50d831eabf3fb) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - dependencies update
+
 ## 0.2.7
 
 ### Patch Changes
