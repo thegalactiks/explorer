@@ -91,8 +91,8 @@ importers:
         specifier: 18.2.18
         version: 18.2.18
       astro:
-        specifier: 4.0.5
-        version: 4.0.5(@types/node@20.10.4)(typescript@5.3.3)
+        specifier: 4.0.6
+        version: 4.0.6(@types/node@20.10.4)(typescript@5.3.3)
       astro-critters:
         specifier: 2.0.11
         version: 2.0.11
@@ -2389,8 +2389,8 @@ packages:
       zod: 3.22.2
     dev: true
 
-  /astro@4.0.5(@types/node@20.10.4)(typescript@5.3.3):
-    resolution: {integrity: sha512-OTiTEiXYdXTkVJXNNKIWdYG1z2wpTST+92Qcldm36x91Pe4fKpLxeuRloy5cW175oHi8lvXytgG3Gl3VBP18RQ==}
+  /astro@4.0.6(@types/node@20.10.4)(typescript@5.3.3):
+    resolution: {integrity: sha512-P7CfFqWKzkJozzF6IoOC6qoI2ONndV8P3ULhGDgMiXPL7xVkWI5haTBSpyrcjBx643tVXspIRsSV/v+Cx+CjGw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
@@ -3233,10 +3233,6 @@ packages:
 
   /electron-to-chromium@1.4.450:
     resolution: {integrity: sha512-BLG5HxSELlrMx7dJ2s+8SFlsCtJp37Zpk2VAxyC6CZtbc+9AJeZHfYHbrlSgdXp6saQ8StMqOTEDaBKgA7u1sw==}
-    dev: true
-
-  /emoji-regex@10.2.1:
-    resolution: {integrity: sha512-97g6QgOk8zlDRdgq1WxwgTMgEWGVAQvB5Fdpgc1MkNy56la5SKP9GsMXKDOdqwn90/41a8yPwIGk1Y6WVbeMQA==}
     dev: true
 
   /emoji-regex@10.3.0:
@@ -7448,7 +7444,7 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       eastasianwidth: 0.2.0
-      emoji-regex: 10.2.1
+      emoji-regex: 10.3.0
       strip-ansi: 7.1.0
     dev: true
 
