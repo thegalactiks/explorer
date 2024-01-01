@@ -6,8 +6,8 @@ import type {
   ContentlayerWebPageElement,
   ContentlayerWebPageDocument,
   ContentlayerOrganization,
-} from '../types/index.mjs';
-import { computeDocuments } from '../compute.mjs';
+} from '../../types/index.mjs';
+import { computeDocuments } from '../hydrate/index.mjs';
 
 import type { RepositoryFilters, WebPageElementFilters } from './filters.mjs';
 

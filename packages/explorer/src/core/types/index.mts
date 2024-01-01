@@ -7,7 +7,7 @@ import type {
 } from '@galactiks/contentlayer';
 
 import type { MetadataHeaders, Page } from './_schemas.mjs';
-import type { Render } from '../render.mjs';
+import type { ContentlayerDocumentWithRender, Render } from './render.mjs';
 
 export type Content = Page & {
   body: MDX & { render: Render };
@@ -23,6 +23,8 @@ export type {
   WebPageElement as ContentlayerWebPageElement,
 } from '@galactiks/contentlayer';
 export type * from './_schemas.mjs';
+export type * from './render.mjs';
+
 type ContentlayerTagPage = Omit<ContentlayerPage, 'type'> & { type: 'Tag' };
 export type ContentlayerWebPageDocument =
   | ContentlayerArticle
@@ -30,3 +32,15 @@ export type ContentlayerWebPageDocument =
   | ContentlayerPerson
   | ContentlayerPlace
   | ContentlayerTagPage;
+export type ContentlayerWebPageDocumentWithRender =
+  ContentlayerDocumentWithRender<ContentlayerWebPageDocument>;
+
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+type ContentlayerDocumentWithPath = WithRequired<
+  ContentlayerWebPageDocument,
+  'path'
+>;
+export type ContentlayerDocumentWithURL = WithRequired<
+  ContentlayerDocumentWithPath,
+  'url'
+>;

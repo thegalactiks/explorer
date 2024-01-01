@@ -1,5 +1,5 @@
 import type { BreadcrumbList, WithContext } from 'schema-dts';
-import type { Content } from '../../types/index.mjs';
+import type { Content } from '../../../types/index.mjs';
 
 export const getBreadcrumb = (
   document: Content

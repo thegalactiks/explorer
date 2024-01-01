@@ -1,11 +1,12 @@
-import type { Content } from '../types/index.mjs';
+import { getDefaultLanguage, getLanguages } from '@galactiks/config';
+
+import type { Content } from '../../types/index.mjs';
 import { homeIdentifier } from '../consts.mjs';
 import { documentByIdentifierSelector } from '../selectors.mjs';
 import { createIdentifierFromString } from '../utils.mjs';
 
 import type { RepositoryFilters } from './filters.mjs';
 import { getOrganizations, getPages } from './generated.mjs';
-import { getDefaultLanguage, getLanguages } from '@galactiks/config';
 
 export * from './generated.mjs';
 

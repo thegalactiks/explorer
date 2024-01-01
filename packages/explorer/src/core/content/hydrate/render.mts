@@ -1,17 +1,9 @@
-import type { MDX } from '@galactiks/contentlayer';
 import { getMDXComponent } from 'mdx-bundler/client/index.js';
 import * as React from 'react';
 import type {
   ContentlayerDocumentTypes,
-  ContentlayerWebPageDocument,
-} from './types/index.mjs';
-
-export type Render = () => { Content: React.FC };
-export type ContentlayerDocumentWithRender<T> = T & {
-  body: MDX & { render: Render };
-};
-export type ContentlayerWebPageDocumentWithRender =
-  ContentlayerDocumentWithRender<ContentlayerWebPageDocument>;
+  Render,
+} from '../../types/index.mjs';
 
 export const emptyRender: Render = () => ({ Content: () => null });
 
