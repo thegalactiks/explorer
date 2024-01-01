@@ -43,7 +43,7 @@
   "dependencies": {
     "@galactiks/config": "workspace:^",
     "@galactiks/explorer": "workspace:^",
-    "date-fns": "2.30.0",
+    "date-fns": "3.0.6",
     "debug": "4.3.4"
   },
   "peerDependencies": {
