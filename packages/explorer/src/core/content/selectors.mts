@@ -1,9 +1,9 @@
 import { MaxDepthLimitReachedError } from '../exceptions/index.mjs';
-import { pageDepthLimit } from './consts.mjs';
 import type {
   ContentlayerDocumentTypes,
   ContentlayerWebPageDocument,
-} from './types/index.mjs';
+} from '../types/index.mjs';
+import { pageDepthLimit } from './consts.mjs';
 
 export const isInLanguage = (
   d: Pick<ContentlayerWebPageDocument, 'inLanguage'>,

@@ -1,4 +1,4 @@
-import type { Content, MetadataHeaders } from '../../types/index.mjs';
+import type { Content, MetadataHeaders } from '../../../types/index.mjs';
 
 export const getArticle = (document: Content): MetadataHeaders['openGraph'] => {
   const headers = [

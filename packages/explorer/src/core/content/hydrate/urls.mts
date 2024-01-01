@@ -4,29 +4,20 @@ import { documentTypes } from '@galactiks/contentlayer';
 import { join } from 'path';
 import Debug from 'debug';
 
-import { homeIdentifier } from './consts.mjs';
+import { homeIdentifier } from '../consts.mjs';
 import {
   documentByIdentifierAndLanguageSelector,
   documentsByLanguageSelector,
   pageDepthSelector,
-} from './selectors.mjs';
-import type { ContentlayerWebPageDocumentWithRender } from './render.mjs';
+} from '../selectors.mjs';
 import type {
+  ContentlayerDocumentWithURL,
   ContentlayerWebPageDocument,
+  ContentlayerWebPageDocumentWithRender,
   ContentlayerWebsite,
-} from './types/index.mjs';
+} from '../../types/index.mjs';
 
 const debug = Debug('@galactiks/explorer:urls');
-
-type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-type ContentlayerDocumentWithPath = WithRequired<
-  ContentlayerWebPageDocument,
-  'path'
->;
-export type ContentlayerDocumentWithURL = WithRequired<
-  ContentlayerDocumentWithPath,
-  'url'
->;
 
 const _getPathWithoutTemplate = (
   document: ContentlayerWebPageDocument

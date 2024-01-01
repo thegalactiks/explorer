@@ -1,4 +1,4 @@
-import type { Content, MetadataHeaders } from '../index.mjs';
+import type { Content, MetadataHeaders } from '../../types/index.mjs';
 
 export const getTwitterCard = (
   document: Content

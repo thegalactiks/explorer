@@ -1,5 +1,5 @@
 import type { Article, WithContext } from 'schema-dts';
-import type { Content } from '../../types/index.mjs';
+import type { Content } from '../../../types/index.mjs';
 import { getPerson } from './person.mjs';
 
 export const getArticle = (document: Content): WithContext<Article> => ({

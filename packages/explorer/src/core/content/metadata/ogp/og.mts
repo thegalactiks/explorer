@@ -1,4 +1,4 @@
-import type { Content, MetadataHeaders } from '../../types/index.mjs';
+import type { Content, MetadataHeaders } from '../../../types/index.mjs';
 
 import { getArticle } from './article.mjs';
 import { getWebsite } from './website.mjs';
