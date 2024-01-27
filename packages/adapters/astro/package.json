@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/astro-integration",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Galactiks Astro integration",
   "author": "thegalactiks",
   "types": "./dist/index.d.ts",

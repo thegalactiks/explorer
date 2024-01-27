@@ -1,9 +1,6 @@
 import { getMDXComponent } from 'mdx-bundler/client/index.js';
 import * as React from 'react';
-import type {
-  ContentlayerDocumentTypes,
-  Render,
-} from '../../types/index.mjs';
+import type { ContentlayerDocumentTypes, Render } from '../../types/index.mjs';
 
 export const emptyRender: Render = () => ({ Content: () => null });
 

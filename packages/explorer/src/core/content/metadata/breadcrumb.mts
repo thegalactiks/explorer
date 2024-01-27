@@ -1,4 +1,7 @@
-import type { ContentlayerDocumentWithURL, ItemList } from '../../types/index.mjs';
+import type {
+  ContentlayerDocumentWithURL,
+  ItemList,
+} from '../../types/index.mjs';
 import { homeIdentifier, pageDepthLimit } from '../consts.mjs';
 import { documentByIdentifierAndLanguageSelector } from '../selectors.mjs';
 import { MaxDepthLimitReachedError } from '../../exceptions/index.mjs';

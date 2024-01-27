@@ -23,11 +23,10 @@ export const getPagesWithKeywordIdentifier = async (
   keywordIdentifier: string,
   filters?: RepositoryFilters
 ): Promise<Content[]> =>
-  (await getPages(filters)).filter(
-    (doc) =>
-      doc.keywords?.some(
-        (keyword) => createIdentifierFromString(keyword) === keywordIdentifier
-      )
+  (await getPages(filters)).filter((doc) =>
+    doc.keywords?.some(
+      (keyword) => createIdentifierFromString(keyword) === keywordIdentifier
+    )
   );
 export const getPageByIdentifier = async (
   identifier: string,

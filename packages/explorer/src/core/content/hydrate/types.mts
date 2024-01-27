@@ -1,5 +1,10 @@
 import type { GalactiksConfig } from '@galactiks/config';
-import type { Content, ContentlayerPerson, ContentlayerWebPageDocument, ContentlayerWebsite } from '../../types/index.mjs';
+import type {
+  Content,
+  ContentlayerPerson,
+  ContentlayerWebPageDocument,
+  ContentlayerWebsite,
+} from '../../types/index.mjs';
 
 export type ComputeDTO<T> = {
   config: GalactiksConfig;
@@ -8,4 +13,8 @@ export type ComputeDTO<T> = {
   people: ContentlayerPerson[];
 };
 
-export type ComputeHandler = (config: GalactiksConfig, websites: ContentlayerWebsite[], people: ContentlayerPerson[]) => (documents: ContentlayerWebPageDocument) => Promise<Content[]>
+export type ComputeHandler = (
+  config: GalactiksConfig,
+  websites: ContentlayerWebsite[],
+  people: ContentlayerPerson[]
+) => (documents: ContentlayerWebPageDocument) => Promise<Content[]>;

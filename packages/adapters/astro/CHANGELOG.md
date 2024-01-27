@@ -1,5 +1,15 @@
 # @galactiks/astro-integration
 
+## 0.2.13
+
+### Patch Changes
+
+- [`f8efe83`](https://github.com/thegalactiks/explorer/commit/f8efe83b0d724eeb239f3581c56ad1133282c3b0) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - upgrade packages and fix duplicated page bug
+
+- Updated dependencies [[`f8efe83`](https://github.com/thegalactiks/explorer/commit/f8efe83b0d724eeb239f3581c56ad1133282c3b0)]:
+  - @galactiks/config@0.2.9
+  - @galactiks/explorer@0.2.12
+
 ## 0.2.12
 
 ### Patch Changes
