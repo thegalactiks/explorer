@@ -1,7 +1,20 @@
 import type { GalactiksConfig } from '@galactiks/config';
-import type { Content, ContentlayerPerson, ContentlayerDocumentWithURL, ContentlayerWebPageDocumentWithRender, Person } from '../../types/index.mjs';
+import type {
+  Content,
+  ContentlayerPerson,
+  ContentlayerDocumentWithURL,
+  ContentlayerWebPageDocumentWithRender,
+  Person,
+} from '../../types/index.mjs';
 import { documentByTypeAndIdentifierAndLanguageSelector } from '../selectors.mjs';
-import { alternatesHeaderBuilder, breadcrumbBuilder, getBasicHeaders, getOpenGraphObjects, getStructuredDataSchemas, getTwitterCard } from '../metadata/index.mjs';
+import {
+  alternatesHeaderBuilder,
+  breadcrumbBuilder,
+  getBasicHeaders,
+  getOpenGraphObjects,
+  getStructuredDataSchemas,
+  getTwitterCard,
+} from '../metadata/index.mjs';
 
 export const computeMissingFields =
   (_: GalactiksConfig, people: ContentlayerPerson[]) =>

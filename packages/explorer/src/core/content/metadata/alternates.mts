@@ -1,5 +1,9 @@
 import { getDefaultLanguage } from '@galactiks/config';
-import type { Content, ContentlayerDocumentWithURL, MetadataHeaders } from '../../types/index.mjs';
+import type {
+  Content,
+  ContentlayerDocumentWithURL,
+  MetadataHeaders,
+} from '../../types/index.mjs';
 
 export const alternatesHeaderBuilder = (
   documents: ContentlayerDocumentWithURL[]

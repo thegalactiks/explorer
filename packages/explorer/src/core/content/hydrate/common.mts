@@ -1,4 +1,4 @@
-import type { ContentlayerWebPageDocument } from '../../types/index.mjs'
+import type { ContentlayerWebPageDocument } from '../../types/index.mjs';
 import { addBodyRender, emptyRender } from './render.mjs';
 
 export function createPage<T>(
