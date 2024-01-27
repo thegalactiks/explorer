@@ -1,5 +1,6 @@
 import type { Id } from '@galactiks/contentlayer';
 import { documentByIdentifierSelector, isInLanguage } from '../selectors.mjs';
+import { createIdentifierFromString } from '../utils.mjs';
 import type { ContentlayerWebPageDocument, ContentlayerDocumentWithRender, ContentlayerWebPageDocumentWithRender } from '../../types/index.mjs';
 
 import { createPage } from './common.mjs';
@@ -29,38 +30,38 @@ export const computeRemainingListingPages = () => async (
       inLanguage: _d.inLanguage,
     };
 
-    // If parent page does not exist, create it
-    if (
-      _d.isPartOf &&
-      acc.some(
-        (_a) => _a.identifier === _d.isPartOf && isInLanguage(_a, _d.inLanguage)
-      ) === false
-    ) {
-      let translationOfWork: Id | undefined = undefined;
-      if (_d.translationOfWork && _d.translationOfWork['@id']) {
-        const translationOfWorkDocument = getDocumentByIdentifier(
-          _d.translationOfWork['@id']
-        );
-        if (translationOfWorkDocument?.isPartOf) {
-          translationOfWork = {
-            type: 'Id',
-            '@id': translationOfWorkDocument.isPartOf,
-          };
-        }
-      }
+    if (_d.isPartOf) {
+      const _isPartOfIdentifier = createIdentifierFromString(_d.isPartOf);
 
-      acc = acc.concat(
-        createListingPage(_d.isPartOf, {
-          ...templateDocument,
-          translationOfWork,
-        })
-      );
+      // If parent page does not exist, create it
+      if (acc.some((_a) => _a.identifier === _isPartOfIdentifier && isInLanguage(_a, _d.inLanguage)) === false) {
+        let translationOfWork: Id | undefined = undefined;
+        if (_d.translationOfWork && _d.translationOfWork['@id']) {
+          const translationOfWorkDocument = getDocumentByIdentifier(
+            _d.translationOfWork['@id']
+          );
+          if (translationOfWorkDocument?.isPartOf) {
+            translationOfWork = {
+              type: 'Id',
+              '@id': translationOfWorkDocument.isPartOf,
+            };
+          }
+        }
+
+        acc = acc.concat(
+          createListingPage(_isPartOfIdentifier, {
+            ...templateDocument,
+            translationOfWork,
+          })
+        );
+      }
     }
 
     // Create all keywords pages not existing yet
     if (Array.isArray(_d.keywords)) {
       acc = acc.concat(
         _d.keywords
+          .map(createIdentifierFromString)
           .filter(
             (_k) =>
               _k &&
