@@ -31,11 +31,9 @@ export const getPagesPartOfRecursively = async (
   }
 
   return Promise.all(
-    pages.map(page => getPagesPartOfRecursively(page.identifier, filters))
-  ).then(
-    items => items.reduce((acc, item) => acc.concat(item), pages)
-  )
-}
+    pages.map((page) => getPagesPartOfRecursively(page.identifier, filters))
+  ).then((items) => items.reduce((acc, item) => acc.concat(item), pages));
+};
 
 export const getPagesWithKeywordIdentifier = async (
   keywordIdentifier: string,

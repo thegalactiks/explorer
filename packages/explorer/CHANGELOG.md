@@ -1,5 +1,11 @@
 # @galactiks/explorer
 
+## 0.2.13
+
+### Patch Changes
+
+- [`9232762`](https://github.com/thegalactiks/explorer/commit/9232762363d5666d2f8355c684eb9b323b3e114b) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix minor issues and add selector
+
 ## 0.2.12
 
 ### Patch Changes
