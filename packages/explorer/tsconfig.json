@@ -11,7 +11,7 @@
     "paths": {
       "@/*": ["./*"],
       "@content/*": ["./content/*"],
-      "@exceptions/*": ["./exceptions/*"],
-    },
-  },
+      "@exceptions/*": ["./exceptions/*"]
+    }
+  }
 }

@@ -1,5 +1,12 @@
 # @galactiks/astro-integration
 
+## 0.2.14
+
+### Patch Changes
+
+- Updated dependencies [[`9232762`](https://github.com/thegalactiks/explorer/commit/9232762363d5666d2f8355c684eb9b323b3e114b)]:
+  - @galactiks/explorer@0.2.13
+
 ## 0.2.13
 
 ### Patch Changes
