@@ -39,7 +39,7 @@ export const alternatesHeaderBuilder = (
       translations = selectDocumentsTranslationOfWorkByIdentifierOrURL(
         translationOfWorkId,
         translationOfWorkId
-      );
+      ).concat(originalWork);
       defaultTranslation = originalWork;
     } else {
       translations = selectDocumentsTranslationOfWorkByIdentifierOrURL(
