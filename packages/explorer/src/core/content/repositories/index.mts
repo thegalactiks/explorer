@@ -14,11 +14,29 @@ export const getRootPages = async (
   filters?: RepositoryFilters
 ): Promise<Content[]> =>
   (await getPages(filters)).filter((doc) => !doc.isPartOf);
+
 export const getPagesPartOf = async (
   slug: string,
   filters?: RepositoryFilters
 ): Promise<Content[]> =>
   (await getPages(filters)).filter((doc) => doc.isPartOf === slug);
+
+export const getPagesPartOfRecursively = async (
+  slug: string,
+  filters?: RepositoryFilters
+): Promise<Content[]> => {
+  const pages = await getPagesPartOf(slug, filters);
+  if (pages.length === 0) {
+    return pages;
+  }
+
+  return Promise.all(
+    pages.map(page => getPagesPartOfRecursively(page.identifier, filters))
+  ).then(
+    items => items.reduce((acc, item) => acc.concat(item), pages)
+  )
+}
+
 export const getPagesWithKeywordIdentifier = async (
   keywordIdentifier: string,
   filters?: RepositoryFilters
@@ -28,6 +46,7 @@ export const getPagesWithKeywordIdentifier = async (
       (keyword) => createIdentifierFromString(keyword) === keywordIdentifier
     )
   );
+
 export const getPageByIdentifier = async (
   identifier: string,
   filters?: RepositoryFilters
