@@ -8,8 +8,8 @@ import type {
 export const alternatesHeaderBuilder = (
   documents: ContentlayerDocumentWithURL[]
 ) => {
-  const selectPagesByIdentifier = (identifier: string) =>
-    documents.filter((_d) => _d.identifier === identifier);
+  const selectNonTranslatedPagesByIdentifier = (identifier: string) =>
+    documents.filter((_d) => !_d.translationOfWork?.['@id'] && _d.identifier === identifier);
   const selectDocumentsTranslationOfWorkByIdentifierOrURL = (
     identifier: string,
     url: string
@@ -21,45 +21,46 @@ export const alternatesHeaderBuilder = (
           translationOfWork?.['@id'] === url)
     );
 
-  return (document: Content): MetadataHeaders['alternates'] => {
-    let translations: Array<ContentlayerDocumentWithURL | Content> = [];
-    let defaultTranslation: ContentlayerDocumentWithURL | Content | undefined;
-    if (document.translationOfWork) {
-      const translationOfWorkId = document.translationOfWork['@id'];
-
-      const originalWork = documents.find(
-        (_d) =>
-          _d.identifier === translationOfWorkId ||
-          _d.url === translationOfWorkId
-      );
-      if (!originalWork) {
-        throw new Error(`no original work found for ${translationOfWorkId}`);
-      }
-
-      translations = selectDocumentsTranslationOfWorkByIdentifierOrURL(
-        translationOfWorkId,
-        translationOfWorkId
-      ).concat(originalWork);
-      defaultTranslation = originalWork;
-    } else {
-      translations = selectDocumentsTranslationOfWorkByIdentifierOrURL(
+  const getTranslations = (document: Content) => {
+    if (!document.translationOfWork) {
+      return selectDocumentsTranslationOfWorkByIdentifierOrURL(
         document.identifier,
         document.url
       );
     }
 
-    if (translations.length === 0) {
-      translations = selectPagesByIdentifier(document.identifier);
+    return selectDocumentsTranslationOfWorkByIdentifierOrURL(
+      document.translationOfWork['@id'],
+      document.translationOfWork['@id']
+    );
+  };
+
+  type Translations = Array<Content | ContentlayerDocumentWithURL>
+
+  const getDefaultTranslation = (document: Content, translations: Translations) => {
+    if (document.translationOfWork?.['@id']) {
+      const defaultPageFromTranslationOfWork = selectNonTranslatedPagesByIdentifier(document.translationOfWork['@id'])
+      if (defaultPageFromTranslationOfWork.length === 1) {
+        return defaultPageFromTranslationOfWork[0];
+      }
+
+      console.log(document.translationOfWork, defaultPageFromTranslationOfWork.length);
     }
 
-    if (!defaultTranslation) {
-      const configDefaultLanguage = getDefaultLanguage();
-      defaultTranslation =
-        translations.find((t) => t.inLanguage === configDefaultLanguage) ||
-        document;
+    const defaultPageFromDefaultLanguage = translations.filter((t) => t.inLanguage === getDefaultLanguage());
+    if (defaultPageFromDefaultLanguage.length > 0) {
+      return defaultPageFromDefaultLanguage[0];
     }
+
+    return document;
+  }
+
+  return (document: Content): MetadataHeaders['alternates'] => {
+    const translations: Translations = getTranslations(document);
+    const defaultTranslation = getDefaultTranslation(document, translations);
 
     return translations
+      .concat(defaultTranslation)
       .filter((_t) => _t.inLanguage)
       .map((_t) => ({ href: _t.url, hreflang: _t.inLanguage as string }))
       .concat({ href: defaultTranslation.url, hreflang: 'x-default' });
