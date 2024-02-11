@@ -44,17 +44,21 @@ export const createSameLanguagePages = (config: GalactiksConfig) => {
 
       acc = acc.concat(
         localesGroupedByLanguage[language]
-          .filter((locale) => locale !== _d.inLanguage) // Exclude current language
+          .filter((locale) => locale !== _d.inLanguage) // exclude current language
           .filter(
             (locale) =>
               selectPageByIdentifierAndInLanguage(_d.identifier, locale) ===
               undefined
-          ) // Exclude already existing locale
+          ) // exclude already existing locale
           .map((locale) =>
             createPage<
               ContentlayerDocumentWithRender<ContentlayerWebPageDocument>
             >(_d.identifier, {
               ..._d,
+              translationOfWork: _d.translationOfWork || {
+                type: 'Id',
+                '@id': _d.identifier,
+              },
               inLanguage: locale,
             })
           )
