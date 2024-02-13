@@ -15,14 +15,14 @@
     "url": "https://github.com/thegalactiks/explorer.git",
     "directory": "packages/adapters/astro"
   },
-  "main": "dist/index.mjs",
+  "main": "dist/index.js",
   "scripts": {
     "build": "run-s build:tsc build:copy-astro",
     "build:tsc": "tsc -p ./tsconfig.json",
     "build:copy-astro": "copyfiles -f src/components/*.astro dist/components"
   },
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/index.js",
     "./package.json": "./package.json",
     "./components/Head.astro": "./dist/components/Head.astro",
     "./components/BaseLayout.astro": "./dist/components/BaseLayout.astro",
@@ -70,6 +70,7 @@
     "npm-run-all2": "6.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vite": "5.1.1"
   }
 }

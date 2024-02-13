@@ -14,15 +14,15 @@
     "url": "https://github.com/thegalactiks/explorer.git",
     "directory": "packages/contentlayer"
   },
-  "main": "dist/index.mjs",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "build:ci": "tsc -p ./tsconfig.json"
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/index.mjs",
-    "./configs": "./dist/configs/index.mjs"
+    ".": "./dist/index.js",
+    "./configs": "./dist/configs/index.js"
   },
   "files": [
     "dist"
