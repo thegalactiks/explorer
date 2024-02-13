@@ -17,6 +17,9 @@ export const sitemapSerialize =
       return undefined;
     }
 
+    // TODO: move to new sitemap package
+    // Currently astro sitemap does not support more than some properties
+    // Create a deadly simple sitemap package (not only astro) which get galactiks content and create a sitemap from it
     return {
       url: page.url,
       lastmod: isValid(page.dateModified)
