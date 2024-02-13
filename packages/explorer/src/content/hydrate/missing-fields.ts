@@ -50,7 +50,7 @@ export const computeMissingFields =
     };
 
     return documents.map((document) => {
-      const dateCreated = new Date(document.dateCreated);
+      const dateCreated = document.dateCreated ? new Date(document.dateCreated) : new Date();
       const contentWithoutHeaders: Omit<Content, 'headers'> = {
         ...document,
         author: getAuthor(document.author, document.inLanguage),

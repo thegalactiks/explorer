@@ -106,21 +106,22 @@ export type Person = {
   identifier: string;
   image?: any | undefined;
   sameAs?: string | undefined;
+  author?: string | undefined;
+  headline?: string | undefined;
+  dateCreated?: IsoDateTimeString | undefined;
+  dateModified?: IsoDateTimeString | undefined;
+  datePublished?: IsoDateTimeString | undefined;
+  isPartOf?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
+  keywords?: string[] | undefined;
   additionalName?: string | undefined;
   email?: string | undefined;
   familyName?: string | undefined;
   givenName?: string | undefined;
   jobTitle?: string | undefined;
   telephone?: string | undefined;
-  isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  dateCreated: IsoDateTimeString;
-  dateModified?: IsoDateTimeString | undefined;
-  datePublished?: IsoDateTimeString | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
-  keywords?: string[] | undefined;
-  author?: string | undefined;
   /** MDX file body */
   body: MDX;
 };
@@ -168,9 +169,9 @@ export type WebPageElement = {
     | 'WPHeader'
     | 'WPSideBar'
     | undefined;
-  identifier: string;
   inLanguage?: string | undefined;
   name?: string | undefined;
+  identifier: string;
   itemListElement: ItemListElement[];
   /** MDX file body */
   body: MDX;
@@ -203,7 +204,6 @@ export type Website = {
 };
 
 /** Nested types */
-
 export type Id = {
   type: 'Id';
   '@id': string;
@@ -260,13 +260,13 @@ export type NestedTypeNames = 'Id' | 'ItemListElement' | 'PostalAddress';
 
 export type DataExports = {
   allDocuments: DocumentTypes[];
-  allArticles?: Article[];
-  allOrganizations?: Organization[];
-  allPages?: Page[];
-  allPeople?: Person[];
-  allPlaces?: Place[];
-  allWebsites?: Website[];
-  allWebPageElements?: WebPageElement[];
+  allArticles: Article[];
+  allOrganizations: Organization[];
+  allPages: Page[];
+  allPeople: Person[];
+  allPlaces: Place[];
+  allWebsites: Website[];
+  allWebPageElements: WebPageElement[];
 };
 
 export interface ContentlayerGenTypes {

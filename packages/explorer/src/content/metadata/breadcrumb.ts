@@ -1,4 +1,7 @@
-import type { ContentlayerDocumentWithURL, ItemList } from '../../types/index.js';
+import type {
+  ContentlayerDocumentWithURL,
+  ItemList,
+} from '../../types/index.js';
 import { MaxDepthLimitReachedError } from '../../exceptions/max-depth-limit-reached.error.js';
 
 import { homeIdentifier, pageDepthLimit } from '../consts.js';
