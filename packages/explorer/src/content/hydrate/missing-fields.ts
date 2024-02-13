@@ -50,16 +50,18 @@ export const computeMissingFields =
     };
 
     return documents.map((document) => {
-      const dateCreated = document.dateCreated ? new Date(document.dateCreated) : new Date();
+      const dateCreated = 'dateCreated' in document && document.dateCreated
+        ? new Date(document.dateCreated)
+        : new Date();
       const contentWithoutHeaders: Omit<Content, 'headers'> = {
         ...document,
-        author: getAuthor(document.author, document.inLanguage),
+        author: 'author' in document ? getAuthor(document.author, document.inLanguage) : undefined,
         breadcrumb: buildBreadcrumb(document),
         dateCreated,
-        dateModified: document.dateModified
+        dateModified: 'dateModified' in document && document.dateModified
           ? new Date(document.dateModified)
           : dateCreated,
-        datePublished: document.datePublished
+        datePublished: 'datePublished' in document && document.datePublished
           ? new Date(document.datePublished)
           : dateCreated,
       };

@@ -37,7 +37,8 @@ const galactiksConfigFileSchema = z.object({
       organizations: pagesObjectItemSchema,
       pages: pagesObjectItemSchema,
       people: pagesObjectItemSchema,
-      place: pagesObjectItemSchema,
+      products: pagesObjectItemSchema,
+      places: pagesObjectItemSchema,
       tags: pagesObjectItemSchema,
     })
     .optional(),
@@ -65,6 +66,10 @@ const defaultPages: GalactiksConfig['pages'] = {
     path: '/{+isPartOf}/{/identifier}/',
   },
 
+  organizations: {
+    path: '/organizations/{/identifier}/',
+  },
+
   pages: {
     path: '/{+isPartOf}{/identifier}/',
   },
@@ -73,8 +78,12 @@ const defaultPages: GalactiksConfig['pages'] = {
     path: '/authors/{/identifier}/',
   },
 
-  organizations: {
-    path: '/organizations/{/identifier}/',
+  products: {
+    path: '/products/{+isPartOf}/{/identifier}/',
+  },
+
+  places: {
+    path: '/places/{+isPartOf}/{/identifier}/',
   },
 
   tags: {

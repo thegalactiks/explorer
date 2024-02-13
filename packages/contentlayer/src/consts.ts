@@ -5,16 +5,19 @@ export enum pageDocumentTypes {
   Organization = 'organizations',
   Page = 'pages',
   Person = 'people',
-  Place = 'place',
+  Place = 'places',
+  Product = 'products',
   Tag = 'tags',
 }
 
 export enum documentTypes {
   Article = pageDocumentTypes.Article,
+  Offer = 'offer',
   Organization = pageDocumentTypes.Organization,
   Page = pageDocumentTypes.Page,
   Person = pageDocumentTypes.Person,
   Place = pageDocumentTypes.Place,
+  Product = pageDocumentTypes.Product,
   Tag = pageDocumentTypes.Tag,
   WebPageElement = 'webPageElements',
   Website = 'websites',
