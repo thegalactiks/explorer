@@ -43,8 +43,6 @@ export const alternatesHeaderBuilder = (
       if (defaultPageFromTranslationOfWork.length === 1) {
         return defaultPageFromTranslationOfWork[0];
       }
-
-      console.log(document.translationOfWork, defaultPageFromTranslationOfWork.length);
     }
 
     const defaultPageFromDefaultLanguage = translations.filter((t) => t.inLanguage === getDefaultLanguage());
