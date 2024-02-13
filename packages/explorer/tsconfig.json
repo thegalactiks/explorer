@@ -7,11 +7,6 @@
     "target": "ES2021",
     "module": "ES2022",
     "declarationDir": "./dist",
-    "outDir": "./dist",
-    "paths": {
-      "@/*": ["./*"],
-      "@content/*": ["./content/*"],
-      "@exceptions/*": ["./exceptions/*"]
-    }
+    "outDir": "./dist"
   }
 }
