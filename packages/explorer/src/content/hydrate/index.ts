@@ -1,4 +1,7 @@
-import type { Content, ContentlayerWebPageDocument } from '../../types/index.js';
+import type {
+  Content,
+  ContentlayerWebPageDocument,
+} from '../../types/index.js';
 import type { ComputeDTO } from './types.js';
 import { computeRemainingListingPages } from './listing-pages.js';
 import { computeDocumentsUrl } from './urls.js';

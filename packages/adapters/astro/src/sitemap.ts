@@ -6,7 +6,8 @@ import Debug from 'debug';
 const debug = Debug('@galactiks/astro-integration:sitemap');
 
 export const sitemapSerialize =
-  () => async (item: SitemapItem): Promise<SitemapItem | undefined> => {
+  () =>
+  async (item: SitemapItem): Promise<SitemapItem | undefined> => {
     debug('serializing item', item);
 
     const page = await getPageByURL(item.url);
