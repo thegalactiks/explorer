@@ -1,6 +1,7 @@
 import type {
   ContentlayerDocumentTypes,
   ContentlayerWebPageDocument,
+  CreativeWorkWebPageDocument,
 } from '../types/index.js';
 import { MaxDepthLimitReachedError } from '../exceptions/max-depth-limit-reached.error.js';
 import { pageDepthLimit } from './consts.js';
@@ -44,7 +45,7 @@ export const documentsByLanguageSelector =
   (inLanguage: string) =>
     documents.filter((_d) => isInLanguage(_d, inLanguage));
 export const documentsByAuthorSelector =
-  <T extends Pick<ContentlayerWebPageDocument, 'author'>>(documents: T[]) =>
+  <T extends Pick<CreativeWorkWebPageDocument, 'author'>>(documents: T[]) =>
   (author: string) =>
     documents.filter((_d) => _d.author === author);
 export const usedLanguagesInDocumentsSelector =
@@ -59,7 +60,7 @@ export const usedLanguagesInDocumentsSelector =
     );
 
 export const pageDepthSelector =
-  <T extends Pick<ContentlayerWebPageDocument, 'identifier' | 'isPartOf'>>(
+  <T extends Pick<CreativeWorkWebPageDocument, 'identifier' | 'isPartOf'>>(
     documents: T[]
   ) =>
   (document: T): number => {

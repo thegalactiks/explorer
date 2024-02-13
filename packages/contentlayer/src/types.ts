@@ -19,6 +19,9 @@ export type Article = {
   listingPage: boolean;
   slug?: string | undefined;
   path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -31,9 +34,6 @@ export type Article = {
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
   keywords?: string[] | undefined;
   /** MDX file body */
   body: MDX;
@@ -47,6 +47,9 @@ export type Organization = {
   listingPage: boolean;
   slug?: string | undefined;
   path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -72,6 +75,9 @@ export type Page = {
   listingPage: boolean;
   slug?: string | undefined;
   path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -84,9 +90,6 @@ export type Page = {
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
   keywords?: string[] | undefined;
   /** MDX file body */
   body: MDX;
@@ -100,6 +103,9 @@ export type Person = {
   listingPage: boolean;
   slug?: string | undefined;
   path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -112,9 +118,6 @@ export type Person = {
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
   keywords?: string[] | undefined;
   additionalName?: string | undefined;
   email?: string | undefined;
@@ -134,6 +137,9 @@ export type Place = {
   listingPage: boolean;
   slug?: string | undefined;
   path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -146,14 +152,46 @@ export type Place = {
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
   keywords?: string[] | undefined;
   address?: PostalAddress | undefined;
   latitude?: string | undefined;
   longitude?: string | undefined;
   telephone?: string | undefined;
+  /** MDX file body */
+  body: MDX;
+};
+
+export type Product = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'Product';
+  listingPage: boolean;
+  slug?: string | undefined;
+  path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
+  name: string;
+  description: string;
+  url?: string | undefined;
+  identifier: string;
+  image?: any | undefined;
+  sameAs?: string | undefined;
+  brand?: Id | undefined;
+  color?: string | undefined;
+  depth?: QuantitativeValue | undefined;
+  gtin?: string | undefined;
+  hasEnergyConsumptionDetails?: EnergyConsumptionDetails | undefined;
+  hasMeasurement?: QuantitativeValue | undefined;
+  height?: QuantitativeValue | undefined;
+  keywords?: string[] | undefined;
+  manufacturer?: Id | undefined;
+  model?: Id | undefined;
+  offers?: Offer[] | undefined;
+  sku?: string | undefined;
+  weight?: QuantitativeValue | undefined;
+  width?: QuantitativeValue | undefined;
   /** MDX file body */
   body: MDX;
 };
@@ -170,6 +208,8 @@ export type WebPageElement = {
     | 'WPSideBar'
     | undefined;
   inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name?: string | undefined;
   identifier: string;
   itemListElement: ItemListElement[];
@@ -182,6 +222,9 @@ export type Website = {
   _id: string;
   _raw: Local.RawDocumentData;
   type: 'Website';
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
   name: string;
   description: string;
   url?: string | undefined;
@@ -194,9 +237,6 @@ export type Website = {
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
-  inLanguage?: string | undefined;
-  translationOfWork?: Id | undefined;
-  workTranslation?: Id | undefined;
   keywords?: string[] | undefined;
   issn?: string | undefined;
   /** MDX file body */
@@ -204,6 +244,37 @@ export type Website = {
 };
 
 /** Nested types */
+export type EnergyConsumptionDetails = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'EnergyConsumptionDetails';
+  energyEfficiencyScaleMax?:
+    | 'EUEnergyEfficiencyCategoryA'
+    | 'EUEnergyEfficiencyCategoryA1Plus'
+    | 'EUEnergyEfficiencyCategoryA2Plus'
+    | 'EUEnergyEfficiencyCategoryA3Plus'
+    | 'EUEnergyEfficiencyCategoryB'
+    | 'EUEnergyEfficiencyCategoryC'
+    | 'EUEnergyEfficiencyCategoryD'
+    | 'EUEnergyEfficiencyCategoryE'
+    | 'EUEnergyEfficiencyCategoryF'
+    | 'EUEnergyEfficiencyCategoryG'
+    | undefined;
+  energyEfficiencyScaleMin?:
+    | 'EUEnergyEfficiencyCategoryA'
+    | 'EUEnergyEfficiencyCategoryA1Plus'
+    | 'EUEnergyEfficiencyCategoryA2Plus'
+    | 'EUEnergyEfficiencyCategoryA3Plus'
+    | 'EUEnergyEfficiencyCategoryB'
+    | 'EUEnergyEfficiencyCategoryC'
+    | 'EUEnergyEfficiencyCategoryD'
+    | 'EUEnergyEfficiencyCategoryE'
+    | 'EUEnergyEfficiencyCategoryF'
+    | 'EUEnergyEfficiencyCategoryG'
+    | undefined;
+};
+
 export type Id = {
   type: 'Id';
   '@id': string;
@@ -220,6 +291,29 @@ export type ItemListElement = {
   itemListElement?: ItemListElement[] | undefined;
 };
 
+export type Offer = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'Offer';
+  listingPage: boolean;
+  slug?: string | undefined;
+  path?: string | undefined;
+  inLanguage?: string | undefined;
+  translationOfWork?: Id | undefined;
+  workTranslation?: Id | undefined;
+  name: string;
+  description: string;
+  url?: string | undefined;
+  identifier: string;
+  image?: any | undefined;
+  sameAs?: string | undefined;
+  additionalProperty?: PropertyValue | undefined;
+  price: number;
+  priceCurrency: string;
+  seller?: Id | undefined;
+};
+
 export type PostalAddress = {
   /** File path relative to `contentDirPath` */
   _id: string;
@@ -233,6 +327,29 @@ export type PostalAddress = {
   streetAddress?: string | undefined;
 };
 
+export type PropertyValue = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'PropertyValue';
+  name: string;
+  value: string;
+  minValue?: number | undefined;
+  maxValue?: number | undefined;
+  unitCode?: string | undefined;
+  unitText?: string | undefined;
+};
+
+export type QuantitativeValue = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'QuantitativeValue';
+  maxValue?: number | undefined;
+  minValue?: number | undefined;
+  value: number;
+};
+
 /** Helper types */
 
 export type AllTypes = DocumentTypes | NestedTypes;
@@ -244,6 +361,7 @@ export type DocumentTypes =
   | Page
   | Person
   | Place
+  | Product
   | WebPageElement
   | Website;
 export type DocumentTypeNames =
@@ -252,11 +370,26 @@ export type DocumentTypeNames =
   | 'Page'
   | 'Person'
   | 'Place'
+  | 'Product'
   | 'WebPageElement'
   | 'Website';
 
-export type NestedTypes = Id | ItemListElement | PostalAddress;
-export type NestedTypeNames = 'Id' | 'ItemListElement' | 'PostalAddress';
+export type NestedTypes =
+  | EnergyConsumptionDetails
+  | Id
+  | ItemListElement
+  | Offer
+  | PostalAddress
+  | PropertyValue
+  | QuantitativeValue;
+export type NestedTypeNames =
+  | 'EnergyConsumptionDetails'
+  | 'Id'
+  | 'ItemListElement'
+  | 'Offer'
+  | 'PostalAddress'
+  | 'PropertyValue'
+  | 'QuantitativeValue';
 
 export type DataExports = {
   allDocuments: DocumentTypes[];
@@ -265,6 +398,7 @@ export type DataExports = {
   allPages: Page[];
   allPeople: Person[];
   allPlaces: Place[];
+  allProducts: Product[];
   allWebsites: Website[];
   allWebPageElements: WebPageElement[];
 };
@@ -290,12 +424,17 @@ export type DocumentTypeMap = {
   Page: Page;
   Person: Person;
   Place: Place;
+  Product: Product;
   WebPageElement: WebPageElement;
   Website: Website;
 };
 
 export type NestedTypeMap = {
+  EnergyConsumptionDetails: EnergyConsumptionDetails;
   Id: Id;
   ItemListElement: ItemListElement;
+  Offer: Offer;
   PostalAddress: PostalAddress;
+  PropertyValue: PropertyValue;
+  QuantitativeValue: QuantitativeValue;
 };

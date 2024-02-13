@@ -1,5 +1,5 @@
 import type { DocumentTypeDef } from '../consts.js';
-import { itemListFields } from './core.js';
+import { itemListFields, translationFields } from './core.js';
 
 export const ContentLayerWebPageElementFields: DocumentTypeDef = {
   name: 'WebPageElement',
@@ -9,7 +9,7 @@ export const ContentLayerWebPageElementFields: DocumentTypeDef = {
       options: ['SiteNavigationElement', 'WPFooter', 'WPHeader', 'WPSideBar'],
       required: false,
     }, // avoid collision with contentlayer type
-    inLanguage: { type: 'string', required: false },
+    ...translationFields, //
     ...itemListFields,
   },
 };

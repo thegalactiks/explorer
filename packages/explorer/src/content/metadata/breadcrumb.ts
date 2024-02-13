@@ -53,7 +53,7 @@ export const breadcrumbBuilder =
       }
 
       return recursiveBreadcrumbExploration(
-        page.isPartOf || homeIdentifier,
+        ('isPartOf' in page && page.isPartOf) || homeIdentifier,
         inLanguage,
         itemList
       );

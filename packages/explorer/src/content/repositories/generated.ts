@@ -54,11 +54,17 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
 
   const generated = await getGenerated();
   const publishedDocuments = new Array<ContentlayerWebPageDocument>()
-    .concat(generated.allPages || [])
     .concat(generated.allArticles || [])
+    .concat(generated.allOrganizations || [])
+    .concat(generated.allPages || [])
     .concat(generated.allPeople || [])
     .concat(generated.allPlaces || [])
-    .filter((_d) => !_d.datePublished || new Date(_d.datePublished) <= dateNow);
+    .concat(generated.allProducts || [])
+    .filter(
+      (_d) =>
+        !('datePublished' in _d) ||
+        (_d.datePublished && new Date(_d.datePublished) <= dateNow)
+    );
   _documents = await computeDocuments({
     config,
     websites: await getWebsites(),

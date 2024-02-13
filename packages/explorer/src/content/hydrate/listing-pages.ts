@@ -28,13 +28,13 @@ export const computeRemainingListingPages =
 
     return documents.reduce((acc, _d) => {
       const templateDocument: Partial<ContentlayerWebPageDocument> = {
-        dateCreated: _d.dateCreated,
-        datePublished: _d.datePublished,
-        dateModified: _d.dateModified,
+        dateCreated: 'dateCreated' in _d ? _d.dateCreated : undefined,
+        datePublished: 'datePublished' in _d ? _d.datePublished : undefined,
+        dateModified: 'dateModified' in _d ? _d.dateModified : undefined,
         inLanguage: _d.inLanguage,
       };
 
-      if (_d.isPartOf) {
+      if ('isPartOf' in _d && _d.isPartOf) {
         const _isPartOfIdentifier = createIdentifierFromString(_d.isPartOf);
 
         // If parent page does not exist, create it
@@ -50,7 +50,7 @@ export const computeRemainingListingPages =
             const translationOfWorkDocument = getDocumentByIdentifier(
               _d.translationOfWork['@id']
             );
-            if (translationOfWorkDocument?.isPartOf) {
+            if (translationOfWorkDocument && 'isPartOf' in translationOfWorkDocument && typeof translationOfWorkDocument.isPartOf === 'string') {
               translationOfWork = {
                 type: 'Id',
                 '@id': translationOfWorkDocument.isPartOf,
