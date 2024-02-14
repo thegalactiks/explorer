@@ -96,7 +96,11 @@ export const computeDocumentsUrl =
       }
 
       let isPartOfPath: string | undefined;
-      if ('isPartOf' in document && document.isPartOf && pathTemplate.indexOf('isPartOf')) {
+      if (
+        'isPartOf' in document &&
+        document.isPartOf &&
+        pathTemplate.indexOf('isPartOf')
+      ) {
         // The page has been created if missing
         const isPartOf = getDocumentByIdentifierAndLanguage(
           document.isPartOf,

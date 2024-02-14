@@ -40,7 +40,7 @@ export type ContentlayerWebPageDocument =
   | ContentlayerTagPage;
 export type CreativeWorkWebPageDocument =
   | ContentlayerArticle
-  | ContentlayerPage
+  | ContentlayerPage;
 export type ContentlayerWebPageDocumentWithRender =
   ContentlayerDocumentWithRender<ContentlayerWebPageDocument>;
 

@@ -94,17 +94,21 @@ export const getIndexPage = async (): Promise<Content | undefined> => {
 
 type ContentWithIsPartOf = Content & Required<Pick<Content, 'isPartOf'>>;
 
-export const getSerieWorks = async (content: ContentWithIsPartOf) => (
+export const getSerieWorks = async (content: ContentWithIsPartOf) =>
   (
     await getPagesPartOf(content.isPartOf, {
       type: content.type,
       inLanguage: content.inLanguage,
     })
-  ).filter(w => 'position' in w && typeof w.position === "number")
-    .sort((a, b) => (a.position as number) - (b.position as number)) as Array<Content & Required<Pick<Content, 'position'>>>
-);
+  )
+    .filter((w) => 'position' in w && typeof w.position === 'number')
+    .sort((a, b) => (a.position as number) - (b.position as number)) as Array<
+    Content & Required<Pick<Content, 'position'>>
+  >;
 
-export const getPreviousWorkSeries = async (content: Content): Promise<Content | undefined> => {
+export const getPreviousWorkSeries = async (
+  content: Content
+): Promise<Content | undefined> => {
   if (!(content.isPartOf && typeof content.position === 'number')) {
     return undefined;
   }
@@ -120,9 +124,11 @@ export const getPreviousWorkSeries = async (content: Content): Promise<Content |
   }
 
   return previousWork;
-}
+};
 
-export const getNextWorkSeries = async (content: Content): Promise<Content | undefined> => {
+export const getNextWorkSeries = async (
+  content: Content
+): Promise<Content | undefined> => {
   if (!(content.isPartOf && typeof content.position === 'number')) {
     return undefined;
   }
@@ -133,4 +139,4 @@ export const getNextWorkSeries = async (content: Content): Promise<Content | und
       return work;
     }
   }
-}
+};
