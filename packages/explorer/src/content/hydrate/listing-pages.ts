@@ -50,7 +50,11 @@ export const computeRemainingListingPages =
             const translationOfWorkDocument = getDocumentByIdentifier(
               _d.translationOfWork['@id']
             );
-            if (translationOfWorkDocument && 'isPartOf' in translationOfWorkDocument && typeof translationOfWorkDocument.isPartOf === 'string') {
+            if (
+              translationOfWorkDocument &&
+              'isPartOf' in translationOfWorkDocument &&
+              typeof translationOfWorkDocument.isPartOf === 'string'
+            ) {
               translationOfWork = {
                 type: 'Id',
                 '@id': translationOfWorkDocument.isPartOf,

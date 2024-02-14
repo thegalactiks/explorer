@@ -1,5 +1,17 @@
 # @galactiks/explorer
 
+## 0.3.0
+
+### Minor Changes
+
+- [`75fb783`](https://github.com/thegalactiks/explorer/commit/75fb783d9473fa5a9fbb8255cb2dcb4af17782cb) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - new types and rss feed support
+
+### Patch Changes
+
+- Updated dependencies [[`75fb783`](https://github.com/thegalactiks/explorer/commit/75fb783d9473fa5a9fbb8255cb2dcb4af17782cb)]:
+  - @galactiks/config@0.3.0
+  - @galactiks/contentlayer@0.2.0
+
 ## 0.2.13
 
 ### Patch Changes
