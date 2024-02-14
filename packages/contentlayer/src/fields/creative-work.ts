@@ -10,4 +10,5 @@ export const creativeWorkFields: FieldDefs = {
   datePublished: { type: 'date', required: false },
   isPartOf: { type: 'string', required: false },
   keywords: { type: 'list', required: false, of: { type: 'string' } },
+  position: { type: 'number', required: false },
 };
