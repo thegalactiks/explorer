@@ -39,7 +39,7 @@
   "dependencies": {
     "@galactiks/config": "workspace:^",
     "@galactiks/contentlayer": "workspace:^",
-    "@std-uritemplate/std-uritemplate": "0.0.50",
+    "@std-uritemplate/std-uritemplate": "0.0.53",
     "debug": "4.3.4",
     "esbuild": "0.20.0",
     "lodash.groupby": "4.6.0",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@types/lodash.groupby": "4.6.9",
-    "@types/react": "18.2.55",
+    "@types/react": "18.2.56",
     "schema-dts": "1.1.2"
   }
 }
