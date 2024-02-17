@@ -13,7 +13,7 @@ export function createPage<T>(
     type: 'Page',
     name: identifier,
     ...document,
-    body: document.body?.raw
+    body: document.body?.code
       ? addBodyRender(document.body)
       : {
           raw: '',
