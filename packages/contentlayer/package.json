@@ -22,8 +22,7 @@
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/index.js",
-    "./configs": "./dist/configs/index.js"
+    ".": "./dist/index.js"
   },
   "files": [
     "dist"

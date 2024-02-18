@@ -3,6 +3,7 @@ import {
   energyConsumptionDetails,
   galactiksFields,
   idDocumentType,
+  propertyValue,
   quantitativeValue,
 } from './core.js';
 import { thingsFields } from './things.js';
@@ -13,6 +14,7 @@ export const ContentLayerProductFields: DocumentTypeDef = {
   fields: {
     ...galactiksFields,
     ...thingsFields,
+    additionalProperty: { type: 'nested', of: propertyValue },
     brand: { type: 'nested', of: idDocumentType, required: false },
     color: { type: 'string', required: false },
     depth: { type: 'nested', of: quantitativeValue, required: false },
