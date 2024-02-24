@@ -3,6 +3,6 @@ import { ContentLayerArticleFields } from '../fields/article.js';
 
 export const ArticleDocumentType = defineDocumentType(() => ({
   ...ContentLayerArticleFields,
-  filePathPattern: 'articles/**/*.md?(x)',
+  filePathPattern: 'articles/**/!(index).md?(x)',
   contentType: 'mdx',
 }));

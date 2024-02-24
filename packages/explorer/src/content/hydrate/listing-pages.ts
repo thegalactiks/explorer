@@ -1,4 +1,5 @@
 import type { Id } from '@galactiks/contentlayer';
+import Debug from 'debug';
 
 import { documentByIdentifierSelector, isInLanguage } from '../selectors.js';
 import { createIdentifierFromString } from '../utils.js';
@@ -9,6 +10,8 @@ import type {
 } from '../../types/index.js';
 
 import { createPage } from './common.js';
+
+const debug = Debug('@galactiks/explorer:listing-pages');
 
 const createListingPage = (
   identifier: string,
@@ -46,6 +49,8 @@ export const computeRemainingListingPages =
               isInLanguage(_a, _d.inLanguage)
           ) === false
         ) {
+          debug('Creating parent page', _isPartOfIdentifier, acc.filter(_ => _.type === 'Page').map(_ => ({ type: _.type, identifier: _.identifier, inLanguage: _.inLanguage })));
+
           let translationOfWork: Id | undefined = undefined;
           if (_d.translationOfWork && _d.translationOfWork['@id']) {
             const translationOfWorkDocument = getDocumentByIdentifier(
@@ -78,21 +83,17 @@ export const computeRemainingListingPages =
           _d.keywords
             .map(createIdentifierFromString)
             .filter(
-              (_k) =>
-                _k &&
-                acc.some(
-                  (_a) =>
-                    _a.type === 'Tag' &&
-                    _a.identifier === _k &&
-                    isInLanguage(_a, _d.inLanguage)
-                ) === false
+              (_k) => acc.some(
+                (_a) => _a.type === 'Tag' && _a.identifier === _k && isInLanguage(_a, _d.inLanguage)
+              ) === false
             )
-            .map((_k) =>
-              createListingPage(_k, {
+            .map((_k) => {
+              debug('Creating keyword page', _k);
+              return createListingPage(_k, {
                 ...templateDocument,
                 type: 'Tag',
-              })
-            )
+              });
+            })
         );
       }
 
