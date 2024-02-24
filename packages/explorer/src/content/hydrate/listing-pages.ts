@@ -82,7 +82,9 @@ export const computeRemainingListingPages =
                 _k &&
                 acc.some(
                   (_a) =>
-                    _a.type === 'Tag' && _a.identifier === _k && isInLanguage(_a, _d.inLanguage)
+                    _a.type === 'Tag' &&
+                    _a.identifier === _k &&
+                    isInLanguage(_a, _d.inLanguage)
                 ) === false
             )
             .map((_k) =>
