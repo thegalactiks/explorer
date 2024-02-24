@@ -49,7 +49,17 @@ export const computeRemainingListingPages =
               isInLanguage(_a, _d.inLanguage)
           ) === false
         ) {
-          debug('Creating parent page', _isPartOfIdentifier, acc.filter(_ => _.type === 'Page').map(_ => ({ type: _.type, identifier: _.identifier, inLanguage: _.inLanguage })));
+          debug(
+            'Creating parent page',
+            _isPartOfIdentifier,
+            acc
+              .filter((_) => _.type === 'Page')
+              .map((_) => ({
+                type: _.type,
+                identifier: _.identifier,
+                inLanguage: _.inLanguage,
+              }))
+          );
 
           let translationOfWork: Id | undefined = undefined;
           if (_d.translationOfWork && _d.translationOfWork['@id']) {
@@ -83,9 +93,13 @@ export const computeRemainingListingPages =
           _d.keywords
             .map(createIdentifierFromString)
             .filter(
-              (_k) => acc.some(
-                (_a) => _a.type === 'Tag' && _a.identifier === _k && isInLanguage(_a, _d.inLanguage)
-              ) === false
+              (_k) =>
+                acc.some(
+                  (_a) =>
+                    _a.type === 'Tag' &&
+                    _a.identifier === _k &&
+                    isInLanguage(_a, _d.inLanguage)
+                ) === false
             )
             .map((_k) => {
               debug('Creating keyword page', _k);
