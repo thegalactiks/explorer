@@ -3,6 +3,6 @@ import { ContentLayerPlaceFields } from '../fields/place.js';
 
 export const PlaceDocumentType = defineDocumentType(() => ({
   ...ContentLayerPlaceFields,
-  filePathPattern: 'places/**/*.md?(x)',
+  filePathPattern: 'places/**/!(index).md?(x)',
   contentType: 'mdx',
 }));
