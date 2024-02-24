@@ -1,5 +1,4 @@
 ---
-"@galactiks/contentlayer-example": patch
 "@galactiks/contentlayer": patch
 "@galactiks/explorer": patch
 ---
