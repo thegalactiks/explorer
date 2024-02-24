@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/config",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Reading Galactiks configurations files and get config during website generation",
   "author": "thegalactiks",
   "type": "module",
