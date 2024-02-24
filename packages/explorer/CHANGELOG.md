@@ -1,5 +1,14 @@
 # @galactiks/explorer
 
+## 0.3.2
+
+### Patch Changes
+
+- [#169](https://github.com/thegalactiks/explorer/pull/169) [`7111a8e`](https://github.com/thegalactiks/explorer/commit/7111a8e0615cd4bc32758c0f82e4eb501a8f1a55) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - Index file should be considered as category listing page when the type is article
+
+- Updated dependencies [[`7111a8e`](https://github.com/thegalactiks/explorer/commit/7111a8e0615cd4bc32758c0f82e4eb501a8f1a55)]:
+  - @galactiks/contentlayer@0.2.2
+
 ## 0.3.1
 
 ### Patch Changes
