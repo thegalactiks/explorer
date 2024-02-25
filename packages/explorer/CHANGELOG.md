@@ -1,5 +1,14 @@
 # @galactiks/explorer
 
+## 0.3.3
+
+### Patch Changes
+
+- [#163](https://github.com/thegalactiks/explorer/pull/163) [`1cdba44`](https://github.com/thegalactiks/explorer/commit/1cdba446d70c6b9ecd5277c82e1b2e5d795426c5) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - feat: remove misimplemented properties and add product category
+
+- Updated dependencies [[`1cdba44`](https://github.com/thegalactiks/explorer/commit/1cdba446d70c6b9ecd5277c82e1b2e5d795426c5)]:
+  - @galactiks/contentlayer@0.2.3
+
 ## 0.3.2
 
 ### Patch Changes
