@@ -1,5 +1,11 @@
 # @galactiks/astro-integration
 
+## 0.3.4
+
+### Patch Changes
+
+- [#172](https://github.com/thegalactiks/explorer/pull/172) [`5d9ba57`](https://github.com/thegalactiks/explorer/commit/5d9ba578ae0e633db9ef9d0d2c3639f59296167a) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix(@galactiks/astro-integration): import files with module extension
+
 ## 0.3.3
 
 ### Patch Changes
