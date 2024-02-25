@@ -96,7 +96,15 @@ export const computeDocumentsUrl =
       }
 
       let isPartOfPath: string | undefined;
-      if (
+      if ('category' in document && document.category) {
+        const category = getDocumentByIdentifierAndLanguage(
+          document.category,
+          document.inLanguage
+        );
+        isPartOfPath =
+          (category && makePathRelative(_getPathWithoutTemplate(category))) ||
+          '';
+      } else if (
         'isPartOf' in document &&
         document.isPartOf &&
         pathTemplate.indexOf('isPartOf')

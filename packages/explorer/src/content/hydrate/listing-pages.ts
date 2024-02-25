@@ -25,6 +25,18 @@ const createListingPage = (
     }
   );
 
+const isPageExists = (
+  identifier: string,
+  inLanguage: string | undefined,
+  documents: ContentlayerWebPageDocumentWithRender[]
+) =>
+  documents.some(
+    (_d) =>
+      _d.type === 'Page' &&
+      _d.identifier === identifier &&
+      isInLanguage(_d, inLanguage)
+  );
+
 export const computeRemainingListingPages =
   () => async (documents: ContentlayerWebPageDocumentWithRender[]) => {
     const getDocumentByIdentifier = documentByIdentifierSelector(documents);
@@ -37,30 +49,16 @@ export const computeRemainingListingPages =
         inLanguage: _d.inLanguage,
       };
 
-      if ('isPartOf' in _d && _d.isPartOf) {
-        const _isPartOfIdentifier = createIdentifierFromString(_d.isPartOf);
+      const parent =
+        (_d.type === 'Product' && 'category' in _d && _d.category) ||
+        ('isPartOf' in _d && _d.isPartOf) ||
+        undefined;
+      if (parent) {
+        const parentIdentifier = createIdentifierFromString(parent);
 
         // If parent page does not exist, create it
-        if (
-          acc.some(
-            (_a) =>
-              _a.type === 'Page' &&
-              _a.identifier === _isPartOfIdentifier &&
-              isInLanguage(_a, _d.inLanguage)
-          ) === false
-        ) {
-          debug(
-            'Creating parent page',
-            _isPartOfIdentifier,
-            acc
-              .filter((_) => _.type === 'Page')
-              .map((_) => ({
-                type: _.type,
-                identifier: _.identifier,
-                inLanguage: _.inLanguage,
-              }))
-          );
-
+        if (isPageExists(parentIdentifier, _d.inLanguage, documents)) {
+          debug('Creating parent page', parent);
           let translationOfWork: Id | undefined = undefined;
           if (_d.translationOfWork && _d.translationOfWork['@id']) {
             const translationOfWorkDocument = getDocumentByIdentifier(
@@ -79,7 +77,7 @@ export const computeRemainingListingPages =
           }
 
           acc = acc.concat(
-            createListingPage(_isPartOfIdentifier, {
+            createListingPage(parentIdentifier, {
               ...templateDocument,
               translationOfWork,
             })

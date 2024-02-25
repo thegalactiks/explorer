@@ -35,6 +35,7 @@ export type Article = {
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
   keywords?: string[] | undefined;
+  position?: number | undefined;
   /** MDX file body */
   body: MDX;
 };
@@ -91,6 +92,7 @@ export type Page = {
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
   keywords?: string[] | undefined;
+  position?: number | undefined;
   /** MDX file body */
   body: MDX;
 };
@@ -119,6 +121,7 @@ export type Person = {
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
   keywords?: string[] | undefined;
+  position?: number | undefined;
   additionalName?: string | undefined;
   email?: string | undefined;
   familyName?: string | undefined;
@@ -153,6 +156,7 @@ export type Place = {
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
   keywords?: string[] | undefined;
+  position?: number | undefined;
   address?: PostalAddress | undefined;
   latitude?: string | undefined;
   longitude?: string | undefined;
@@ -178,6 +182,7 @@ export type Product = {
   identifier: string;
   image?: any | undefined;
   sameAs?: string | undefined;
+  category?: string | undefined;
   brand?: Id | undefined;
   color?: string | undefined;
   depth?: QuantitativeValue | undefined;
@@ -238,6 +243,7 @@ export type Website = {
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
   keywords?: string[] | undefined;
+  position?: number | undefined;
   issn?: string | undefined;
   /** MDX file body */
   body: MDX;
@@ -308,7 +314,6 @@ export type Offer = {
   identifier: string;
   image?: any | undefined;
   sameAs?: string | undefined;
-  additionalProperty?: PropertyValue | undefined;
   price: number;
   priceCurrency: string;
   seller?: Id | undefined;
@@ -325,19 +330,6 @@ export type PostalAddress = {
   postOfficeBoxNumber?: string | undefined;
   postalCode?: string | undefined;
   streetAddress?: string | undefined;
-};
-
-export type PropertyValue = {
-  /** File path relative to `contentDirPath` */
-  _id: string;
-  _raw: Local.RawDocumentData;
-  type: 'PropertyValue';
-  name: string;
-  value: string;
-  minValue?: number | undefined;
-  maxValue?: number | undefined;
-  unitCode?: string | undefined;
-  unitText?: string | undefined;
 };
 
 export type QuantitativeValue = {
@@ -380,7 +372,6 @@ export type NestedTypes =
   | ItemListElement
   | Offer
   | PostalAddress
-  | PropertyValue
   | QuantitativeValue;
 export type NestedTypeNames =
   | 'EnergyConsumptionDetails'
@@ -388,7 +379,6 @@ export type NestedTypeNames =
   | 'ItemListElement'
   | 'Offer'
   | 'PostalAddress'
-  | 'PropertyValue'
   | 'QuantitativeValue';
 
 export type DataExports = {
@@ -435,6 +425,5 @@ export type NestedTypeMap = {
   ItemListElement: ItemListElement;
   Offer: Offer;
   PostalAddress: PostalAddress;
-  PropertyValue: PropertyValue;
   QuantitativeValue: QuantitativeValue;
 };
