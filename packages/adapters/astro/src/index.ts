@@ -10,10 +10,10 @@ import {
 import { fileURLToPath } from 'node:url';
 import { join } from 'path';
 
-export { getI18nConfig } from './i18n';
-export { getStaticPaths, getIndexPage } from './pages';
-export { integrationsPreset } from './preset';
-export { getRSS } from './rss';
+export { getI18nConfig } from './i18n.js';
+export { getStaticPaths, getIndexPage } from './pages.js';
+export { integrationsPreset } from './preset.js';
+export { getRSS } from './rss.js';
 
 type GalactiksOptions = {
   content?: {

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { getDefaultLanguage, getLanguages } from '@galactiks/config';
 import robotsTxt from 'astro-robots-txt';
 
-import { sitemapSerialize } from './sitemap';
+import { sitemapSerialize } from './sitemap.js';
 
 export const integrationsPreset = (): AstroIntegration[] => {
   const defaultLanguage = getDefaultLanguage();
