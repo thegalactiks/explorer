@@ -7,7 +7,6 @@ export const ContentLayerPersonFields: DocumentTypeDef = {
   fields: {
     ...galactiksFields,
     ...creativeWorkFields,
-    dateCreated: { type: 'date', required: false },
     additionalName: { type: 'string', required: false },
     email: { type: 'string', required: false },
     familyName: { type: 'string', required: false },
