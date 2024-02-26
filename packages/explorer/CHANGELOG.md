@@ -1,5 +1,14 @@
 # @galactiks/explorer
 
+## 0.3.4
+
+### Patch Changes
+
+- [#176](https://github.com/thegalactiks/explorer/pull/176) [`9b9f136`](https://github.com/thegalactiks/explorer/commit/9b9f136351981e44c66491059ffc19e3149c347d) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - Fix listing page parent
+
+- Updated dependencies [[`c101ca6`](https://github.com/thegalactiks/explorer/commit/c101ca66e3915b0b4c91d1bc97017dcd190b8101)]:
+  - @galactiks/contentlayer@0.2.4
+
 ## 0.3.3
 
 ### Patch Changes
