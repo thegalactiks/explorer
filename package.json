@@ -18,6 +18,7 @@
   "scripts": {
     "release": "pnpm run build && changeset publish",
     "build": "turbo run build --filter=galactiks --filter=\"@galactiks/*\"",
+    "test": "turbo run test --filter=galactiks --filter=\"@galactiks/*\"",
     "build:ci": "turbo run build:ci --filter=galactiks",
     "format": "pnpm run format:code",
     "format:ci": "pnpm run format:imports && pnpm run format:code",

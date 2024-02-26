@@ -8,7 +8,7 @@ import type {
   ContentlayerOrganization,
 } from '../../types/index.js';
 
-import { computeDocuments } from '../hydrate/index.js';
+import { computeDocuments } from '../hydrate/hydrate.js';
 import type { RepositoryFilters, WebPageElementFilters } from './filters.js';
 
 let _generated: ContentlayerDataExports;
