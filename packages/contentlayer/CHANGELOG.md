@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.2.4
+
+### Patch Changes
+
+- [#174](https://github.com/thegalactiks/explorer/pull/174) [`c101ca6`](https://github.com/thegalactiks/explorer/commit/c101ca66e3915b0b4c91d1bc97017dcd190b8101) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - feat(@galactiks/contentlayer): export contentlayer fields
+
 ## 0.2.3
 
 ### Patch Changes
