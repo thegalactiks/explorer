@@ -1,0 +1,18 @@
+---
+import { type Content, getIndexPage } from "@galactiks/astro-integration";
+
+import PageLayout from "@layouts/PageLayout.astro";
+
+type Props = { page: Content };
+
+const page = await getIndexPage();
+const { Content } = page.body.render();
+---
+
+<PageLayout content={page}>
+  <div class="mx-auto mt-6 max-w-3xl">
+    <article class:list={["prose lg:prose-lg"]}>
+      <Content />
+    </article>
+  </div>
+</PageLayout>

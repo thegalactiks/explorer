@@ -1,0 +1,33 @@
+---
+import { getConfig, getDefaultLanguage } from '@galactiks/config';
+import { type Content, getWebPageFooter } from '@galactiks/explorer';
+
+const {
+  webManifest: { name },
+} = getConfig();
+
+type Props = { content: Content };
+const { content } = Astro.props;
+
+const footerElement = await getWebPageFooter({
+  inLanguage: content.inLanguage || getDefaultLanguage(),
+});
+---
+
+<footer>
+  {
+    typeof footerElement === 'object' &&
+      Array.isArray(footerElement.itemListElement) &&
+      footerElement.itemListElement.length > 0 && (
+        <ul role="presentation">
+          {footerElement.itemListElement.map(({ path, url, name }) => (
+            <li>
+              <a href={path || url}>{name}</a>
+            </li>
+          ))}
+        </ul>
+      )
+  }
+
+  <p>{name}</p>
+</footer>

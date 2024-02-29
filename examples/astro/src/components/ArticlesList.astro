@@ -1,0 +1,32 @@
+---
+import {
+  type Content,
+  getPagesPartOfRecursively,
+  getPagesWithKeywordIdentifier,
+} from '@galactiks/explorer';
+
+type Props = Content;
+
+const { name, identifier, inLanguage, type } = Astro.props;
+
+const inLanguages = inLanguage !== undefined ? [inLanguage] : undefined;
+const articles = await (type === 'Tag'
+  ? getPagesWithKeywordIdentifier(identifier, { inLanguages })
+  : getPagesPartOfRecursively(identifier, { inLanguages }));
+---
+
+<h1>{name}</h1>
+
+<div>
+  {
+    articles
+      .filter((page) => !page.listingPage)
+      .sort((a, b) =>
+        a.position && b.position
+          ? a.position - b.position
+          : b.datePublished.getMilliseconds() -
+            a.datePublished.getMilliseconds()
+      )
+      .map((article) => <a href={article.url}>{article.name}</a>)
+  }
+</div>

@@ -1,0 +1,23 @@
+---
+import type { Content } from '@galactiks/explorer';
+import BaseLayout from '@galactiks/astro-integration/components/BaseLayout.astro';
+
+import Footer from '@components/Footer.astro';
+import Navbar from '@components/Navbar.astro';
+
+type Props = { content: Content };
+
+const { content } = Astro.props;
+---
+
+<BaseLayout content={content}>
+  <Navbar inLanguage={content.inLanguage} />
+
+  <h1>{content.name}</h1>
+
+  <main>
+    <slot />
+  </main>
+
+  <Footer content={content} />
+</BaseLayout>
