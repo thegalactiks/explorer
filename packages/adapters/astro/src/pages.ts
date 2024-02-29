@@ -6,11 +6,11 @@ import {
 
 export async function getStaticPaths() {
   return (await getPages({ inLanguages: getLanguages() }))
-    .filter((_p) => _p.path && _p.path !== '/')
     .map((page) => ({
-      params: { path: page.path.slice(1) },
+      params: { path: page.path.endsWith('/') ? page.path.slice(0, -1) : page.path },
       props: { page },
-    }));
+    }))
+    .filter(page => page.params.path && page.params.path !== '/');
 }
 
 export function getIndexPage() {

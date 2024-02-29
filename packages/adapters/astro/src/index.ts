@@ -53,6 +53,13 @@ export default function createPlugin(
         updateConfig,
         addWatchFile,
       }) => {
+        let trailingSlash = config.trailingSlash;
+        if (trailingSlash === 'ignore') {
+          trailingSlash = config.build.format === 'directory' ? 'always' : 'never';
+        }
+
+        setConfig('trailingSlash', config.trailingSlash);
+
         assetsPath = join(fileURLToPath(config.srcDir), 'assets');
         galactiksConfig = setConfig('content.assets', assetsPath);
 
@@ -61,6 +68,7 @@ export default function createPlugin(
 
         updateConfig({
           site: galactiksConfig.webManifest.start_url,
+          trailingSlash,
           prefetch: true,
           vite: {
             resolve: {

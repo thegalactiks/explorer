@@ -51,7 +51,7 @@
     "@astrojs/partytown": "~2.0",
     "@astrojs/react": "~3.0",
     "@astrojs/rss": "~4.0",
-    "@astrojs/sitemap": "~3.1",
+    "@galactiks/sitemap": "^0.1.0",
     "astro": "~4.4",
     "astro-robots-txt": "~1.0"
   },
@@ -59,7 +59,7 @@
     "@astrojs/partytown": "2.0.4",
     "@astrojs/react": "3.0.10",
     "@astrojs/rss": "4.0.5",
-    "@astrojs/sitemap": "3.1.1",
+    "@galactiks/sitemap": "workspace:^",
     "@types/debug": "4.1.12",
     "@types/react": "18.2.58",
     "@types/react-dom": "18.2.19",
