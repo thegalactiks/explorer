@@ -11,6 +11,21 @@ import type {
 import type { MetadataHeaders, Page } from './_schemas';
 import type { ContentlayerDocumentWithRender, Render } from './render';
 
+type ContentlayerTagPage = Omit<ContentlayerPage, 'type'> & { type: 'Tag' };
+export type ContentlayerWebPageDocument =
+  | ContentlayerArticle
+  | ContentlayerOrganization
+  | ContentlayerPage
+  | ContentlayerPerson
+  | ContentlayerPlace
+  | ContentlayerProduct
+  | ContentlayerTagPage;
+export type CreativeWorkWebPageDocument =
+  | ContentlayerArticle
+  | ContentlayerPage;
+export type ContentlayerWebPageDocumentWithRender =
+  ContentlayerDocumentWithRender<ContentlayerWebPageDocument>;
+
 export type Content = Page & {
   body: MDX & { render: Render };
 } & MetadataHeaders;
@@ -28,21 +43,6 @@ export type {
 } from '@galactiks/contentlayer';
 export type * from './_schemas';
 export type * from './render';
-
-type ContentlayerTagPage = Omit<ContentlayerPage, 'type'> & { type: 'Tag' };
-export type ContentlayerWebPageDocument =
-  | ContentlayerArticle
-  | ContentlayerOrganization
-  | ContentlayerPage
-  | ContentlayerPerson
-  | ContentlayerPlace
-  | ContentlayerProduct
-  | ContentlayerTagPage;
-export type CreativeWorkWebPageDocument =
-  | ContentlayerArticle
-  | ContentlayerPage;
-export type ContentlayerWebPageDocumentWithRender =
-  ContentlayerDocumentWithRender<ContentlayerWebPageDocument>;
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 type ContentlayerDocumentWithPath = WithRequired<

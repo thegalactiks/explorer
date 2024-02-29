@@ -1,0 +1,68 @@
+---
+import {
+  type Content,
+  getPageByIdentifier,
+  getPreviousWorkSeries,
+  getNextWorkSeries,
+} from '@galactiks/explorer';
+import BaseLayout from '@galactiks/astro-integration/components/BaseLayout.astro';
+
+import Footer from '@components/Footer.astro';
+import Navbar from '@components/Navbar.astro';
+import Picture from '@components/Picture.astro';
+
+type Props = { content: Content };
+
+const { content } = Astro.props;
+const isPartOf =
+  content.isPartOf && (await getPageByIdentifier(content.isPartOf));
+
+const previousArticle = await getPreviousWorkSeries(content);
+const nextArticle = await getNextWorkSeries(content);
+---
+
+<BaseLayout content={content}>
+  <Navbar inLanguage={content.inLanguage} />
+
+  {isPartOf && <span>{isPartOf.name}</span>}
+
+  <h1>{content.name}</h1>
+
+  {
+    content.image && (
+      <Picture
+        src={content.image.contentUrl}
+        alt={content.image.description || content.name}
+        widths={[20, 50]}
+      />
+    )
+  }
+
+  <article id="article">
+    <slot />
+  </article>
+
+  {
+    content.author && (
+      <div>
+        {content.author.image && (
+          <Picture
+            src={content.author.image.contentUrl}
+            alt={content.author.name}
+            widths={[100, 200]}
+          />
+        )}
+        <h3>{content.author.name}</h3>
+        <p>{content.author.description}</p>
+      </div>
+    )
+  }
+</BaseLayout>
+
+<div class="my-4 grid grid-cols-2 gap-4">
+  {previousArticle && <a href={previousArticle.url}>Previous</a>}
+
+  {nextArticle && <a href={nextArticle.url}>Next</a>}
+</div>
+
+<Footer content={content} />
