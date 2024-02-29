@@ -1,0 +1,43 @@
+{
+  "name": "@galactiks/sitemap",
+  "version": "0.0.1",
+  "description": "A simple sitemap generator for Galactiks",
+  "author": "thegalactiks",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bugs": "https://github.com/thegalactiks/explorer/issues",
+  "homepage": "https://www.galactiks.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thegalactiks/explorer.git",
+    "directory": "packages/sitemap"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "build:ci": "tsc -p ./tsconfig.json"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "galactiks",
+    "sitemap",
+    "seo"
+  ],
+  "dependencies": {
+    "date-fns": "3.3.1",
+    "sitemap": "7.1.1"
+  },
+  "devDependencies": {
+    "@galactiks/explorer": "workspace:^"
+  }
+}

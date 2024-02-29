@@ -29,7 +29,7 @@ const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
   analytics: analyticsConfigSchema.optional(),
-  trailingSlash: z.enum(['always', 'never']).optional(),
+  trailingSlash: z.enum(['ignore', 'always', 'never']).optional(),
   pages: z
     .object({
       articles: pagesObjectItemSchema,
