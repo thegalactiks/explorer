@@ -5,10 +5,8 @@ import { join } from 'path';
 import { z } from 'zod';
 
 import { analyticsConfigSchema } from './analytics.js';
-import {
-  readWebManifestFromPath,
-  type WebManifest,
-} from './webmanifest.config.js';
+import { getDefaultConfig } from './default.js';
+import type { WebManifest } from './webmanifest.config.js';
 
 const localesSchema = z.object({
   default: z.string(),
@@ -31,6 +29,7 @@ const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
   analytics: analyticsConfigSchema.optional(),
+  trailingSlash: z.enum(['always', 'never']).optional(),
   pages: z
     .object({
       articles: pagesObjectItemSchema,
@@ -61,36 +60,6 @@ export type GalactiksConfig = WithRequired<
   webManifest: WebManifest;
 };
 
-const defaultPages: GalactiksConfig['pages'] = {
-  articles: {
-    path: '/{+isPartOf}/{/identifier}/',
-  },
-
-  organizations: {
-    path: '/organizations/{/identifier}/',
-  },
-
-  pages: {
-    path: '/{+isPartOf}{/identifier}/',
-  },
-
-  people: {
-    path: '/authors/{/identifier}/',
-  },
-
-  products: {
-    path: '/products/{+isPartOf}/{/identifier}/',
-  },
-
-  places: {
-    path: '/places/{+isPartOf}/{/identifier}/',
-  },
-
-  tags: {
-    path: '/tags/{/identifier}/',
-  },
-};
-
 let _config: GalactiksConfig;
 
 const readConfigFile = (path: string): GalactiksConfig => {
@@ -104,17 +73,7 @@ const readConfigFile = (path: string): GalactiksConfig => {
     JSON.parse(configFileContent)
   );
 
-  const defaultConfig = {
-    pages: defaultPages,
-    content: {
-      root: path,
-      generated: join(path, '.contentlayer/generated/index.mjs'),
-      assets: join(path, 'assets'),
-      public: join(path, 'public'),
-    },
-    webManifest: readWebManifestFromPath(path),
-  };
-  const config: GalactiksConfig = deepmerge(defaultConfig, configFile);
+  const config: GalactiksConfig = deepmerge(getDefaultConfig(path), configFile);
 
   return config;
 };
