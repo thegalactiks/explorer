@@ -32,6 +32,12 @@ const _getPathWithoutTemplate = (
 const makePathRelative = (path: string) =>
   path.substring(0, 1) === '/' ? path.substring(1) : path;
 
+const addMissingTrailingSlash = (path: string) =>
+  path.endsWith('/') ? path : `${path}/`;
+
+const removeTrailingSlash = (path: string) =>
+  path.endsWith('/') ? path.substring(0, path.length - 1) : path;
+
 export const computeDocumentsUrl =
   (websites: ContentlayerWebsite[]) =>
   async (documents: ContentlayerWebPageDocumentWithRender[]) => {
@@ -39,7 +45,7 @@ export const computeDocumentsUrl =
       documentByIdentifierAndLanguageSelector(documents);
     const getWebsitesByLanguage = documentsByLanguageSelector(websites);
 
-    const { locales, pages, webManifest } = getConfig();
+    const { trailingSlash, locales, pages, webManifest } = getConfig();
 
     const _getPagePathTemplate = (
       type: ContentlayerWebPageDocument['type'],
@@ -136,23 +142,27 @@ export const computeDocumentsUrl =
     const selectPageDepth = pageDepthSelector(documents);
     return documents
       .sort((_document) => selectPageDepth(_document))
-      .map((_document) => {
-        const path = _document.path || _computePath(_document);
-        let url: string | undefined = undefined;
-        if (path) {
-          url = _getDocumentUrl(_document, path);
+      .reduce((acc, _document) => {
+        let path = _computePath(_document);
+        if (!path) {
+          return acc;
+        }
+
+        if (trailingSlash === 'always') {
+          path = addMissingTrailingSlash(path);
+        } else if (trailingSlash === 'never') {
+          path = removeTrailingSlash(path);
         }
 
         const _computed = {
           ..._document,
-          url,
+          url: _getDocumentUrl(_document, path),
           path,
         } as ContentlayerWebPageDocumentWithRender &
           ContentlayerDocumentWithURL;
 
         debug('computing document url', _computed);
 
-        return _computed;
-      })
-      .filter((_document) => _document.path);
+        return [...acc, _computed];
+      }, [] as Array<ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender>);
   };
