@@ -6,5 +6,12 @@ import robotsTxt from 'astro-robots-txt';
 import sitemap from './plugins/sitemap.js';
 
 export const integrationsPreset = (): AstroIntegration[] => {
-  return [react(), partytown(), sitemap(), robotsTxt()];
+  return [
+    react(),
+    partytown(),
+    robotsTxt({
+      sitemapBaseFileName: 'sitemap-index',
+    }),
+    sitemap(),
+  ];
 };

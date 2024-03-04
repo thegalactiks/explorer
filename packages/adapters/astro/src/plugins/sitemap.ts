@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AstroConfig, AstroIntegration } from 'astro';
-import { getDefaultLanguage } from '@galactiks/config';
+import { getDefaultLanguage, getConfig } from '@galactiks/config';
 import { type Content, getPageByURL } from '@galactiks/explorer';
 import { generateSitemaps } from '@galactiks/sitemap';
 
@@ -25,6 +25,8 @@ const createPlugin = (): AstroIntegration => {
           );
           return;
         }
+
+        const { webManifest } = getConfig();
 
         let finalSiteUrl: URL;
         if (config.site) {
@@ -76,9 +78,6 @@ const createPlugin = (): AstroIntegration => {
         }, []);
 
         pageUrls = Array.from(new Set([...pageUrls, ...routeUrls]));
-        logger.info(`Generating sitemap for ${pageUrls.length} pages`);
-        logger.info(pageUrls.join('\n'));
-
         const contentPages = (
           await Promise.all(pageUrls.map(getPageByURL))
         ).filter((page) => page !== undefined) as Content[];
@@ -96,16 +95,9 @@ const createPlugin = (): AstroIntegration => {
           pages: contentPages,
           defaultLanguage: getDefaultLanguage(),
           publication: {
-            name: 'Galactiks',
+            name: webManifest.name,
           },
         });
-        // await simpleSitemapAndIndex({
-        //   hostname: finalSiteUrl.href,
-        //   destinationDir: destDir,
-        //   sourceData: urlData,
-        //   limit: entryLimit,
-        //   gzip: false,
-        // });
         logger.info(
           `\`${sitemapIndexOutput}\` created at \`${path.relative(process.cwd(), destDir)}\``
         );
