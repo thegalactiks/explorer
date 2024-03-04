@@ -36,14 +36,13 @@ const createPlugin = (): AstroIntegration => {
           return;
         }
 
-        let pageUrls = pages
-          .map((p) => {
-            if (p.pathname !== '' && !finalSiteUrl.pathname.endsWith('/'))
-              finalSiteUrl.pathname += '/';
-            if (p.pathname.startsWith('/')) p.pathname = p.pathname.slice(1);
-            const fullPath = finalSiteUrl.pathname + p.pathname;
-            return new URL(fullPath, finalSiteUrl).href;
-          });
+        let pageUrls = pages.map((p) => {
+          if (p.pathname !== '' && !finalSiteUrl.pathname.endsWith('/'))
+            finalSiteUrl.pathname += '/';
+          if (p.pathname.startsWith('/')) p.pathname = p.pathname.slice(1);
+          const fullPath = finalSiteUrl.pathname + p.pathname;
+          return new URL(fullPath, finalSiteUrl).href;
+        });
 
         const routeUrls = routes.reduce<string[]>((urls, r) => {
           if (r.type !== 'page') return urls;
@@ -55,14 +54,18 @@ const createPlugin = (): AstroIntegration => {
             // `finalSiteUrl` may end with a trailing slash
             // or not because of base paths.
             let fullPath = finalSiteUrl.pathname;
-            if (fullPath.endsWith('/')) fullPath += r.generate(r.pathname).substring(1);
+            if (fullPath.endsWith('/'))
+              fullPath += r.generate(r.pathname).substring(1);
             else fullPath += r.generate(r.pathname);
 
             const newUrl = new URL(fullPath, finalSiteUrl).href;
 
             if (config.trailingSlash === 'never') {
               urls.push(newUrl);
-            } else if (config.build.format === 'directory' && !newUrl.endsWith('/')) {
+            } else if (
+              config.build.format === 'directory' &&
+              !newUrl.endsWith('/')
+            ) {
               urls.push(newUrl + '/');
             } else {
               urls.push(newUrl);
@@ -77,12 +80,12 @@ const createPlugin = (): AstroIntegration => {
         logger.info(pageUrls.join('\n'));
 
         const contentPages = (
-          await Promise.all(
-            pageUrls.map(getPageByURL)
-          )
+          await Promise.all(pageUrls.map(getPageByURL))
         ).filter((page) => page !== undefined) as Content[];
         if (contentPages.length === 0) {
-          logger.warn(`No pages found!\n\`${sitemapIndexOutput}\` not created.`);
+          logger.warn(
+            `No pages found!\n\`${sitemapIndexOutput}\` not created.`
+          );
           return;
         }
 
@@ -103,7 +106,9 @@ const createPlugin = (): AstroIntegration => {
         //   limit: entryLimit,
         //   gzip: false,
         // });
-        logger.info(`\`${sitemapIndexOutput}\` created at \`${path.relative(process.cwd(), destDir)}\``);
+        logger.info(
+          `\`${sitemapIndexOutput}\` created at \`${path.relative(process.cwd(), destDir)}\``
+        );
       },
     },
   };

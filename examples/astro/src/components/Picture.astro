@@ -1,23 +1,23 @@
 ---
-import type { ComponentProps } from "astro/types";
-import { Picture as AstroPicture } from "astro:assets";
-import { join } from "path";
+import type { ComponentProps } from 'astro/types';
+import { Picture as AstroPicture } from 'astro:assets';
+import { join } from 'path';
 
 type Props = ComponentProps<typeof AstroPicture> & {
   src: string;
 };
 
-const prefix = "/src/assets";
+const prefix = '/src/assets';
 
 const {
   src,
-  formats = ["avif", "webp"],
-  quality = "mid",
+  formats = ['avif', 'webp'],
+  quality = 'mid',
   widths = [200, 450, 900, 1250],
   ...props
 } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{webp,jpeg,jpg,png,svg,gif,avif}"
+  '/src/assets/**/*.{webp,jpeg,jpg,png,svg,gif,avif}'
 );
 const srcPath = join(prefix, src.replace(/^\/assets\//, ''));
 if (!images[srcPath]) {

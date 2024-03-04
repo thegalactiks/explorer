@@ -1,18 +1,18 @@
 ---
-import type { Content } from "@galactiks/explorer";
+import type { Content } from '@galactiks/explorer';
 
-import ArticleList from "@components/ArticlesList.astro";
-import ArticleLayout from "@layouts/ArticleLayout.astro";
-import PageLayout from "@layouts/PageLayout.astro";
+import ArticleList from '@components/ArticlesList.astro';
+import ArticleLayout from '@layouts/ArticleLayout.astro';
+import PageLayout from '@layouts/PageLayout.astro';
 
-export { getStaticPaths } from "@galactiks/astro-integration";
+export { getStaticPaths } from '@galactiks/astro-integration';
 
 type Props = { page: Content };
 
 const { page } = Astro.props;
 const { Content } = page.body.render();
 
-const Layout = page.type === "Article" ? ArticleLayout : PageLayout;
+const Layout = page.type === 'Article' ? ArticleLayout : PageLayout;
 ---
 
 <Layout content={page}>

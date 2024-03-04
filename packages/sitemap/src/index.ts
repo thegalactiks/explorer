@@ -15,7 +15,7 @@ function createSitemap(hostname: string, type: string, items: SitemapItem[]) {
       video: false,
     },
   });
-  items.forEach(item => stream.write(item));
+  items.forEach((item) => stream.write(item));
   stream.end();
 
   return stream;
@@ -27,23 +27,35 @@ type GenerateSitemapsOptions = SerializeOptions & {
   hostname: string;
 };
 
-export async function generateSitemaps({ destinationDir, hostname, pages, defaultLanguage, publication }: GenerateSitemapsOptions) {
+export async function generateSitemaps({
+  destinationDir,
+  hostname,
+  pages,
+  defaultLanguage,
+  publication,
+}: GenerateSitemapsOptions) {
   const serialize = sitemapSerialize({ defaultLanguage, publication });
 
-  const sitemapsItems = pages.reduce((acc, page) => {
-    const { type } = page;
-    if (!acc[type]) {
-      acc[type] = [];
-    }
+  const sitemapsItems = pages.reduce(
+    (acc, page) => {
+      const { type } = page;
+      if (!acc[type]) {
+        acc[type] = [];
+      }
 
-    acc[type].push(serialize(page));
-    return acc;
-  }, {} as Record<string, SitemapItem[]>);
+      acc[type].push(serialize(page));
+      return acc;
+    },
+    {} as Record<string, SitemapItem[]>
+  );
 
-  const sitemaps = Object.entries(sitemapsItems).reduce((acc, [type, items]) => {
-    acc[type] = createSitemap(hostname, type, items);
-    return acc;
-  }, {} as Record<string, SitemapStream>);
+  const sitemaps = Object.entries(sitemapsItems).reduce(
+    (acc, [type, items]) => {
+      acc[type] = createSitemap(hostname, type, items);
+      return acc;
+    },
+    {} as Record<string, SitemapStream>
+  );
 
   // Generate index sitemap
   const indexSitemap = new SitemapStream({
@@ -61,6 +73,8 @@ export async function generateSitemaps({ destinationDir, hostname, pages, defaul
     indexSitemap.write({ url: sitemapPath });
     stream.pipe(createWriteStream(join(destinationDir, sitemapPath)));
   });
-  indexSitemap.pipe(createWriteStream(join(destinationDir, `sitemap-index.xml`)));
-  return streamToPromise(indexSitemap).then(data => data.toString());
+  indexSitemap.pipe(
+    createWriteStream(join(destinationDir, `sitemap-index.xml`))
+  );
+  return streamToPromise(indexSitemap).then((data) => data.toString());
 }

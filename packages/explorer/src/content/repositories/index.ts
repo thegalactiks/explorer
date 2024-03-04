@@ -103,8 +103,8 @@ export const getSerieWorks = async (content: ContentWithIsPartOf) =>
   )
     .filter((w) => 'position' in w && typeof w.position === 'number')
     .sort((a, b) => (a.position as number) - (b.position as number)) as Array<
-      Content & Required<Pick<Content, 'position'>>
-    >;
+    Content & Required<Pick<Content, 'position'>>
+  >;
 
 export const getPreviousWorkSeries = async (
   content: Content
