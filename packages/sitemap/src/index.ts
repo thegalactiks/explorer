@@ -1,5 +1,5 @@
 import type { Content } from '@galactiks/explorer';
-import { type SitemapItem, SitemapStream, streamToPromise } from 'sitemap';
+import { type SitemapItem, SitemapStream, streamToPromise, SitemapIndexStream } from 'sitemap';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 
@@ -58,19 +58,11 @@ export async function generateSitemaps({
   );
 
   // Generate index sitemap
-  const indexSitemap = new SitemapStream({
-    hostname,
-    xmlns: {
-      news: true,
-      xhtml: true,
-      image: false,
-      video: false,
-    },
-  });
+  const indexSitemap = new SitemapIndexStream();
   Object.entries(sitemaps).forEach(([type, stream]) => {
     const sitemapPath = `/sitemap-${type.toLowerCase()}.xml`;
 
-    indexSitemap.write({ url: sitemapPath });
+    indexSitemap.write({ url: new URL(sitemapPath, hostname).toString() });
     stream.pipe(createWriteStream(join(destinationDir, sitemapPath)));
   });
   indexSitemap.pipe(
