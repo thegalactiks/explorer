@@ -1,5 +1,16 @@
 # @galactiks/astro-integration
 
+## 0.3.7
+
+### Patch Changes
+
+- [#181](https://github.com/thegalactiks/explorer/pull/181) [`cec2f5f`](https://github.com/thegalactiks/explorer/commit/cec2f5f342f79360d52f22648fa09fd147d130dc) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix symlinks cleanup
+
+- [#180](https://github.com/thegalactiks/explorer/pull/180) [`94a8818`](https://github.com/thegalactiks/explorer/commit/94a8818e963284e9e7bc4500bbd429c7efff0d4f) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix sitemap index and robots.txt files
+
+- Updated dependencies [[`94a8818`](https://github.com/thegalactiks/explorer/commit/94a8818e963284e9e7bc4500bbd429c7efff0d4f)]:
+  - @galactiks/sitemap@0.1.1
+
 ## 0.3.6
 
 ### Patch Changes
