@@ -14,7 +14,9 @@ export const getStructuredDataSchemas = (document: Content) => {
       break;
 
     case 'Product':
-      schemas = schemas.concat(getProduct(document as unknown as ContentlayerProduct));
+      schemas = schemas.concat(
+        getProduct(document as unknown as ContentlayerProduct)
+      );
       break;
   }
 

@@ -142,27 +142,32 @@ export const computeDocumentsUrl =
     const selectPageDepth = pageDepthSelector(documents);
     return documents
       .sort((_document) => selectPageDepth(_document))
-      .reduce((acc, _document) => {
-        let path = _computePath(_document);
-        if (!path) {
-          return acc;
-        }
+      .reduce(
+        (acc, _document) => {
+          let path = _computePath(_document);
+          if (!path) {
+            return acc;
+          }
 
-        if (trailingSlash === 'always') {
-          path = addMissingTrailingSlash(path);
-        } else if (trailingSlash === 'never') {
-          path = removeTrailingSlash(path);
-        }
+          if (trailingSlash === 'always') {
+            path = addMissingTrailingSlash(path);
+          } else if (trailingSlash === 'never') {
+            path = removeTrailingSlash(path);
+          }
 
-        const _computed = {
-          ..._document,
-          url: _getDocumentUrl(_document, path),
-          path,
-        } as ContentlayerWebPageDocumentWithRender &
-          ContentlayerDocumentWithURL;
+          const _computed = {
+            ..._document,
+            url: _getDocumentUrl(_document, path),
+            path,
+          } as ContentlayerWebPageDocumentWithRender &
+            ContentlayerDocumentWithURL;
 
-        debug('computing document url', _computed);
+          debug('computing document url', _computed);
 
-        return [...acc, _computed];
-      }, [] as Array<ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender>);
+          return [...acc, _computed];
+        },
+        [] as Array<
+          ContentlayerDocumentWithURL & ContentlayerWebPageDocumentWithRender
+        >
+      );
   };

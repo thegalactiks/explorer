@@ -55,7 +55,8 @@ export default function createPlugin(
       }) => {
         let trailingSlash = config.trailingSlash;
         if (trailingSlash === 'ignore') {
-          trailingSlash = config.build.format === 'directory' ? 'always' : 'never';
+          trailingSlash =
+            config.build.format === 'directory' ? 'always' : 'never';
         }
 
         setConfig('trailingSlash', config.trailingSlash);
