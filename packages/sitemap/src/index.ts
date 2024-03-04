@@ -1,5 +1,10 @@
 import type { Content } from '@galactiks/explorer';
-import { type SitemapItem, SitemapStream, streamToPromise, SitemapIndexStream } from 'sitemap';
+import {
+  type SitemapItem,
+  SitemapStream,
+  streamToPromise,
+  SitemapIndexStream,
+} from 'sitemap';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 
