@@ -78,6 +78,9 @@ export default function createPlugin(
           },
         });
 
+        removeDirSymbolicLinks(assetsPath);
+        removeDirSymbolicLinks(publicPath);
+
         symlinkDir(galactiksConfigContentAssets, assetsPath);
         symlinkDir(galactiksConfigContentAssets, publicPath);
         symlinkDir(galactiksConfigContentPublic, publicPath);
