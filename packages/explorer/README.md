@@ -1,5 +1,7 @@
 # @galactiks/explorer
 
+[![npm](https://img.shields.io/npm/v/@galactiks/explorer)](https://www.npmjs.com/package/@galactiks/explorer)
+
 Explorer package ensure content model consistence, explore content built with ContentLayer and create dynamically missing pages and fields for SEO purposes.
 
 ## Installation

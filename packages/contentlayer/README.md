@@ -1,5 +1,7 @@
 # @galactiks/contentlayer
 
+[![npm](https://img.shields.io/npm/v/@galactiks/contentlayer)](https://www.npmjs.com/package/@galactiks/contentlayer)
+
 Contentlayer document types and typings based on [Galactiks](https://www.galactiks.com) content models.
 
 ## Installation

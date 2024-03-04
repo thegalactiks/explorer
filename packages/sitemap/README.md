@@ -1,20 +1,22 @@
-# @galactiks/config
+# @galactiks/sitemap
 
-This package allows reading [Galactiks](https://www.galactiks.com) configurations files and get config during website generation.
+[![npm](https://img.shields.io/npm/v/@galactiks/sitemap)](https://www.npmjs.com/package/@galactiks/sitemap)
+
+A simple and easy-to-use sitemap generator for [Galactiks](https://www.galactiks.com).
 
 ## Installation
 
-Install the `@galactiks/config` package using your preferred package manager:
+Install the `@galactiks/sitemap` package using your preferred package manager:
 
 ```sh
 # npm
-npm i @galactiks/config
+npm i @galactiks/sitemap
 
 # yarn
-yarn add @galactiks/config
+yarn add @galactiks/sitemap
 
 # pnpm
-pnpm i @galactiks/config
+pnpm i @galactiks/sitemap
 ```
 
 If you run into any issues, [feel free to report them to us on GitHub](https://github.com/thegalactiks/explorer/issues).

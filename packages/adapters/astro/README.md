@@ -1,5 +1,7 @@
 # @galactiks/astro-integration
 
+[![npm](https://img.shields.io/npm/v/@galactiks/astro-integration)](https://www.npmjs.com/package/@galactiks/astro-integration)
+
 This Astro integration enables creating [Astro framework](https://astro.build) websites using content from [Galactiks](https://www.galactiks.com).
 
 ## Installation

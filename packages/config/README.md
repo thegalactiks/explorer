@@ -1,5 +1,7 @@
 # @galactiks/config
 
+[![npm](https://img.shields.io/npm/v/@galactiks/config)](https://www.npmjs.com/package/@galactiks/config)
+
 This package allows reading [Galactiks](https://www.galactiks.com) configurations files and get config during website generation.
 
 ## Installation
