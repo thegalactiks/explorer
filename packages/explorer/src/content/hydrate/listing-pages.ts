@@ -1,3 +1,4 @@
+import { isPageEnabled } from '@galactiks/config';
 import type { Id } from '@galactiks/contentlayer';
 import Debug from 'debug';
 
@@ -86,7 +87,7 @@ export const computeRemainingListingPages =
       }
 
       // Create all keywords pages not existing yet
-      if (Array.isArray(_d.keywords)) {
+      if (isPageEnabled('tags') && Array.isArray(_d.keywords)) {
         acc = acc.concat(
           _d.keywords
             .map(createIdentifierFromString)

@@ -3,5 +3,12 @@
   "locales": {
     "default": "en",
     "available": ["en"]
+  },
+  "pages": {
+    "articles": {
+      "path": "/a/{identifier}/"
+    },
+
+    "tags": false
   }
 }
