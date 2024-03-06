@@ -1,10 +1,5 @@
 import type { Content } from '@galactiks/explorer';
-import {
-  type SitemapItem,
-  SitemapStream,
-  streamToPromise,
-  SitemapIndexStream,
-} from 'sitemap';
+import { type SitemapItem, SitemapStream, SitemapIndexStream } from 'sitemap';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 
@@ -63,15 +58,28 @@ export async function generateSitemaps({
   );
 
   // Generate index sitemap
-  const indexSitemap = new SitemapIndexStream();
-  Object.entries(sitemaps).forEach(([type, stream]) => {
+  const indexStream = new SitemapIndexStream();
+  const streams = Object.entries(sitemaps).map(([type, stream]) => {
     const sitemapPath = `/sitemap-${type.toLowerCase()}.xml`;
 
-    indexSitemap.write({ url: new URL(sitemapPath, hostname).toString() });
-    stream.pipe(createWriteStream(join(destinationDir, sitemapPath)));
+    indexStream.write({ url: new URL(sitemapPath, hostname).toString() });
+    return stream.pipe(createWriteStream(join(destinationDir, sitemapPath)));
   });
-  indexSitemap.pipe(
-    createWriteStream(join(destinationDir, `sitemap-index.xml`))
+  indexStream.end();
+
+  streams.push(
+    indexStream.pipe(
+      createWriteStream(join(destinationDir, `sitemap-index.xml`))
+    )
   );
-  return streamToPromise(indexSitemap).then((data) => data.toString());
+
+  await Promise.all(
+    streams.map(
+      (stream) =>
+        new Promise((resolve, reject) => {
+          stream.on('finish', resolve);
+          stream.on('error', reject);
+        })
+    )
+  );
 }
