@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.3.3
+
+### Patch Changes
+
+- [#184](https://github.com/thegalactiks/explorer/pull/184) [`227555e`](https://github.com/thegalactiks/explorer/commit/227555e1178e047c7331b0726eab61811e4edad1) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - prevent dissabled pages to be generated
+
 ## 0.3.2
 
 ### Patch Changes
