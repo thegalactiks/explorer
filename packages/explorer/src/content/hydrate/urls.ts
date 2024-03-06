@@ -38,6 +38,43 @@ const addMissingTrailingSlash = (path: string) =>
 const removeTrailingSlash = (path: string) =>
   path.endsWith('/') ? path.substring(0, path.length - 1) : path;
 
+const getPageTemplateByType = (type: ContentlayerWebPageDocument['type']) => {
+  const { pages } = getConfig();
+
+  const page = pages[documentTypes[type]] || pages[documentTypes.Page];
+  if (!page) {
+    return undefined;
+  }
+
+  return page;
+};
+
+const getPagePathTemplate = (
+  type: ContentlayerWebPageDocument['type'],
+  inLanguage?: string
+) => {
+  const page = getPageTemplateByType(type);
+  if (!page) {
+    throw new Error(`No page template found for type ${type}`);
+  }
+
+  if (typeof page.path === 'string') {
+    return page.path;
+  }
+
+  const { locales } = getConfig();
+  const pageLocale = page.path.find(
+    ({ locale }) => locale === inLanguage || locale === locales?.default
+  );
+  if (!pageLocale) {
+    throw new Error(
+      `No page template found for type ${type} and language ${inLanguage}`
+    );
+  }
+
+  return pageLocale.path;
+};
+
 export const computeDocumentsUrl =
   (websites: ContentlayerWebsite[]) =>
   async (documents: ContentlayerWebPageDocumentWithRender[]) => {
@@ -45,25 +82,7 @@ export const computeDocumentsUrl =
       documentByIdentifierAndLanguageSelector(documents);
     const getWebsitesByLanguage = documentsByLanguageSelector(websites);
 
-    const { trailingSlash, locales, pages, webManifest } = getConfig();
-
-    const _getPagePathTemplate = (
-      type: ContentlayerWebPageDocument['type'],
-      inLanguage?: string
-    ) => {
-      const page = pages[documentTypes[type]] || pages[documentTypes.Page];
-      if (!page) {
-        return undefined;
-      }
-
-      if (typeof page.path === 'string') {
-        return page.path;
-      }
-
-      return page.path.find(
-        ({ locale }) => locale === inLanguage || locale === locales?.default
-      )?.path;
-    };
+    const { trailingSlash, webManifest } = getConfig();
 
     const _getDocumentUrl = (
       document: ContentlayerWebPageDocument,
@@ -93,13 +112,10 @@ export const computeDocumentsUrl =
         return join('/', document.path);
       }
 
-      const pathTemplate = _getPagePathTemplate(
+      const pathTemplate = getPagePathTemplate(
         document.type,
         document.inLanguage
       );
-      if (!pathTemplate) {
-        return undefined;
-      }
 
       let isPartOfPath: string | undefined;
       if ('category' in document && document.category) {
@@ -141,6 +157,7 @@ export const computeDocumentsUrl =
 
     const selectPageDepth = pageDepthSelector(documents);
     return documents
+      .filter((document) => getPageTemplateByType(document.type) !== undefined)
       .sort((_document) => selectPageDepth(_document))
       .reduce(
         (acc, _document) => {

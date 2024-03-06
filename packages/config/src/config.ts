@@ -110,3 +110,11 @@ export function getLanguages(): string[] {
     ? locales.available || [locales.default]
     : [];
 }
+
+export function isPageEnabled(type: keyof GalactiksConfig['pages']): boolean {
+  return Boolean(getConfig().pages[type]);
+}
+
+export function isPageDisabled(type: keyof GalactiksConfig['pages']): boolean {
+  return !isPageEnabled(type);
+}
