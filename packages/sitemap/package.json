@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/sitemap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple sitemap generator for Galactiks",
   "author": "thegalactiks",
   "type": "module",

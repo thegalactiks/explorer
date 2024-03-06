@@ -1,5 +1,11 @@
 # @galactiks/sitemap
 
+## 0.1.2
+
+### Patch Changes
+
+- [#183](https://github.com/thegalactiks/explorer/pull/183) [`72fae48`](https://github.com/thegalactiks/explorer/commit/72fae48b415d24d5caf6e6783637d62220f72635) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix missing sitemapindex closing tag
+
 ## 0.1.1
 
 ### Patch Changes
