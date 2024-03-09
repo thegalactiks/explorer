@@ -61,15 +61,15 @@
     "@astrojs/rss": "4.0.5",
     "@galactiks/sitemap": "workspace:^",
     "@types/debug": "4.1.12",
-    "@types/react": "18.2.61",
-    "@types/react-dom": "18.2.19",
-    "astro": "4.4.9",
+    "@types/react": "18.2.64",
+    "@types/react-dom": "18.2.21",
+    "astro": "4.4.15",
     "astro-robots-txt": "1.0.0",
     "copyfiles": "2.4.1",
     "npm-run-all2": "6.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.3.3",
-    "vite": "5.1.4"
+    "typescript": "5.4.2",
+    "vite": "5.1.5"
   }
 }
