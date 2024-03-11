@@ -14,6 +14,22 @@ import { createPage } from './common.js';
 
 const debug = Debug('@galactiks/explorer:listing-pages');
 
+const getParentByType = (
+  document: ContentlayerWebPageDocumentWithRender
+): string | undefined => {
+  switch (document.type) {
+    case 'Product':
+      return document.category;
+    case 'Place':
+      return document.containedInPlace;
+    case 'Article':
+    case 'Page':
+      return document.isPartOf;
+    default:
+      return undefined;
+  }
+};
+
 const createListingPage = (
   identifier: string,
   document: Partial<ContentlayerWebPageDocument> = {}
@@ -50,10 +66,7 @@ export const computeRemainingListingPages =
         inLanguage: _d.inLanguage,
       };
 
-      const parent =
-        (_d.type === 'Product' && 'category' in _d && _d.category) ||
-        ('isPartOf' in _d && _d.isPartOf) ||
-        undefined;
+      const parent = getParentByType(_d);
       if (parent) {
         const parentIdentifier = createIdentifierFromString(parent);
 
