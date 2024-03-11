@@ -160,6 +160,7 @@ export type Place = {
   address?: PostalAddress | undefined;
   latitude?: string | undefined;
   longitude?: string | undefined;
+  containedInPlace?: string | undefined;
   telephone?: string | undefined;
   /** MDX file body */
   body: MDX;

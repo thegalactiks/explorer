@@ -2,6 +2,7 @@ import type { Thing, WithContext } from 'schema-dts';
 
 import type { Content, ContentlayerProduct } from '../../../types/index.js';
 import { getArticle } from './article.js';
+import { getPlace } from './place.js';
 import { getProduct } from './product.js';
 import { getBreadcrumb } from './breadcrumb.js';
 
@@ -17,6 +18,10 @@ export const getStructuredDataSchemas = (document: Content) => {
       schemas = schemas.concat(
         getProduct(document as unknown as ContentlayerProduct)
       );
+      break;
+
+    case 'Place':
+      schemas = schemas.concat(getPlace(document));
       break;
   }
 
