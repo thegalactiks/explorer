@@ -1,5 +1,11 @@
 # @galactiks/sitemap
 
+## 0.1.3
+
+### Patch Changes
+
+- [#189](https://github.com/thegalactiks/explorer/pull/189) [`79b4f5d`](https://github.com/thegalactiks/explorer/commit/79b4f5d6975f8fb281f881fe390f0ae04775a4d8) Thanks [@renovate](https://github.com/apps/renovate)! - update dependencies
+
 ## 0.1.2
 
 ### Patch Changes

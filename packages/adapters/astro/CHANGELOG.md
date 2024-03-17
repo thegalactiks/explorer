@@ -1,5 +1,15 @@
 # @galactiks/astro-integration
 
+## 0.3.9
+
+### Patch Changes
+
+- [#189](https://github.com/thegalactiks/explorer/pull/189) [`79b4f5d`](https://github.com/thegalactiks/explorer/commit/79b4f5d6975f8fb281f881fe390f0ae04775a4d8) Thanks [@renovate](https://github.com/apps/renovate)! - update dependencies
+
+- Updated dependencies [[`79b4f5d`](https://github.com/thegalactiks/explorer/commit/79b4f5d6975f8fb281f881fe390f0ae04775a4d8)]:
+  - @galactiks/explorer@0.3.7
+  - @galactiks/sitemap@0.1.3
+
 ## 0.3.8
 
 ### Patch Changes
