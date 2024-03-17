@@ -34,7 +34,7 @@
     "seo"
   ],
   "dependencies": {
-    "date-fns": "3.3.1",
+    "date-fns": "3.5.0",
     "sitemap": "7.1.1"
   },
   "devDependencies": {

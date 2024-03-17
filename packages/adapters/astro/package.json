@@ -44,32 +44,32 @@
   "dependencies": {
     "@galactiks/config": "workspace:^",
     "@galactiks/explorer": "workspace:^",
-    "date-fns": "3.3.1",
+    "date-fns": "3.5.0",
     "debug": "4.3.4"
   },
   "peerDependencies": {
-    "@astrojs/partytown": "~2.0",
-    "@astrojs/react": "~3.0",
+    "@astrojs/partytown": "^2.0",
+    "@astrojs/react": "^3.0",
     "@astrojs/rss": "~4.0",
     "@galactiks/sitemap": "^0.1.2",
-    "astro": "~4.4",
+    "astro": "^4.0",
     "astro-robots-txt": "~1.0"
   },
   "devDependencies": {
     "@astrojs/partytown": "2.0.4",
-    "@astrojs/react": "3.0.10",
+    "@astrojs/react": "3.1.0",
     "@astrojs/rss": "4.0.5",
     "@galactiks/sitemap": "workspace:^",
     "@types/debug": "4.1.12",
-    "@types/react": "18.2.64",
-    "@types/react-dom": "18.2.21",
-    "astro": "4.4.15",
+    "@types/react": "18.2.66",
+    "@types/react-dom": "18.2.22",
+    "astro": "4.5.5",
     "astro-robots-txt": "1.0.0",
     "copyfiles": "2.4.1",
     "npm-run-all2": "6.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.4.2",
-    "vite": "5.1.5"
+    "vite": "5.1.6"
   }
 }
