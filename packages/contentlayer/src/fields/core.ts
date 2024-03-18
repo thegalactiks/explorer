@@ -70,6 +70,8 @@ export const quantitativeValue = defineNestedType(() => ({
     maxValue: { type: 'number', required: false },
     minValue: { type: 'number', required: false },
     value: { type: 'number', required: true },
+    unitCode: { type: 'string', required: false },
+    unitText: { type: 'string', required: false },
   },
 }));
 
