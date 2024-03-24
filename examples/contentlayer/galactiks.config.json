@@ -2,13 +2,30 @@
   "template": "",
   "locales": {
     "default": "en",
-    "available": ["en"]
+    "available": [
+      "en",
+      "fr"
+    ]
   },
   "pages": {
     "articles": {
-      "path": "/a/{identifier}/"
+      "path": "/{+inLanguage}/a/{identifier}/"
     },
-
+    "organizations": {
+      "path": "/{+inLanguage}/organizations/{/identifier}/"
+    },
+    "pages": {
+      "path": "/{+inLanguage}/{+isPartOf}/{/identifier}/"
+    },
+    "people": {
+      "path": "/{+inLanguage}/authors/{/identifier}/"
+    },
+    "places": {
+      "path": "/{+inLanguage}/places/{/identifier}/"
+    },
+    "products": {
+      "path": "/{+inLanguage}/products/{/identifier}/"
+    },
     "tags": false
   }
 }
