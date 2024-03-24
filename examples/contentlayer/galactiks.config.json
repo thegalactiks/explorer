@@ -2,10 +2,7 @@
   "template": "",
   "locales": {
     "default": "en",
-    "available": [
-      "en",
-      "fr"
-    ]
+    "available": ["en", "fr"]
   },
   "pages": {
     "articles": {

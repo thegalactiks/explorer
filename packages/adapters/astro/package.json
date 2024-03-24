@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/astro-integration",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Galactiks Astro integration",
   "author": "thegalactiks",
   "type": "module",

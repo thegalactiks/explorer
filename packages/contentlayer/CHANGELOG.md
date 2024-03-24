@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.2.6
+
+### Patch Changes
+
+- [#193](https://github.com/thegalactiks/explorer/pull/193) [`424d6ee`](https://github.com/thegalactiks/explorer/commit/424d6ee309e02830a26d949d7c71226beda2e906) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - add unit contentlayer fields
+
 ## 0.2.5
 
 ### Patch Changes
