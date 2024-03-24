@@ -1,5 +1,14 @@
 # @galactiks/explorer
 
+## 0.3.8
+
+### Patch Changes
+
+- [#195](https://github.com/thegalactiks/explorer/pull/195) [`886ea35`](https://github.com/thegalactiks/explorer/commit/886ea35bfb54564768a09f3763b704fe50d05c50) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix duplicated listing pages
+
+- Updated dependencies [[`424d6ee`](https://github.com/thegalactiks/explorer/commit/424d6ee309e02830a26d949d7c71226beda2e906)]:
+  - @galactiks/contentlayer@0.2.6
+
 ## 0.3.7
 
 ### Patch Changes
