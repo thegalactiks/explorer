@@ -71,7 +71,7 @@ export const computeRemainingListingPages =
         const parentIdentifier = createIdentifierFromString(parent);
 
         // If parent page does not exist, create it
-        if (!isPageExists(parentIdentifier, _d.inLanguage, documents)) {
+        if (!isPageExists(parentIdentifier, _d.inLanguage, acc)) {
           debug('Creating parent page', parent);
           let translationOfWork: Id | undefined = undefined;
           if (_d.translationOfWork && _d.translationOfWork['@id']) {
