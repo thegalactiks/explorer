@@ -57,19 +57,19 @@
   },
   "devDependencies": {
     "@astrojs/partytown": "2.0.4",
-    "@astrojs/react": "3.1.0",
+    "@astrojs/react": "3.1.1",
     "@astrojs/rss": "4.0.5",
     "@galactiks/sitemap": "workspace:^",
     "@types/debug": "4.1.12",
-    "@types/react": "18.2.69",
-    "@types/react-dom": "18.2.22",
-    "astro": "4.5.9",
+    "@types/react": "18.2.74",
+    "@types/react-dom": "18.2.24",
+    "astro": "4.5.15",
     "astro-robots-txt": "1.0.0",
     "copyfiles": "2.4.1",
     "npm-run-all2": "6.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.4.3",
-    "vite": "5.2.6"
+    "vite": "5.2.8"
   }
 }
