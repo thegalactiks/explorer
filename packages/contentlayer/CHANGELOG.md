@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.2.7
+
+### Patch Changes
+
+- [`65236a5`](https://github.com/thegalactiks/explorer/commit/65236a57b6cd03f9c5869b940d16bf114a448109) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - bump packages and related content
+
 ## 0.2.6
 
 ### Patch Changes
