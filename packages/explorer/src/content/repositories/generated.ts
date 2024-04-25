@@ -18,10 +18,10 @@ const dateNow = new Date();
 
 const documentsByLanguagesSelector =
   <T extends Pick<ContentlayerWebPageDocument, 'inLanguage'>>(documents: T[]) =>
-  (inLanguages: string[]) =>
-    documents.filter(
-      (_d) => !_d.inLanguage || inLanguages.indexOf(_d.inLanguage) !== -1
-    );
+    (inLanguages: string[]) =>
+      documents.filter(
+        (_d) => !_d.inLanguage || inLanguages.indexOf(_d.inLanguage) !== -1
+      );
 
 const getGenerated = async (): Promise<ContentlayerDataExports> => {
   if (!_generated) {
@@ -64,6 +64,12 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
       (_d) =>
         !('datePublished' in _d) ||
         (_d.datePublished && new Date(_d.datePublished) <= dateNow)
+    )
+    .sort(
+      (a, b) =>
+        (('datePublished' in b) && b.datePublished && ('datePublished' in a) && a.datePublished)
+          ? new Date(b.datePublished).getTime() - new Date(a.datePublished).getTime()
+          : 0
     );
   _documents = await computeDocuments({
     config,
