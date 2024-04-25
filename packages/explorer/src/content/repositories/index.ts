@@ -36,7 +36,7 @@ export const getPagesPartOfRecursively = async (
 };
 
 export const getSamePartOfPages = async (
-  content: Content,
+  content: Content
 ): Promise<Content[]> => {
   if (!content.isPartOf) {
     return [];
@@ -46,10 +46,8 @@ export const getSamePartOfPages = async (
     inLanguage: content.inLanguage,
     type: content.type,
   });
-  return relatedPages.filter(
-    (doc) => doc.identifier !== content.identifier
-  );
-}
+  return relatedPages.filter((doc) => doc.identifier !== content.identifier);
+};
 
 export const getRelatedPages = async (
   content: Content,
@@ -62,13 +60,14 @@ export const getRelatedPages = async (
   const excludeIdentifiers = exclude.map((doc) => doc.identifier);
   return pages
     .filter(
-      (doc) => doc.identifier !== content.identifier && !excludeIdentifiers.includes(doc.identifier)
+      (doc) =>
+        doc.identifier !== content.identifier &&
+        !excludeIdentifiers.includes(doc.identifier)
     )
     .map((doc) => {
       const commonKeywords = Array.isArray(doc.keywords)
-        ? doc.keywords.filter((keyword) =>
-          content.keywords?.includes(keyword)
-        ).length
+        ? doc.keywords.filter((keyword) => content.keywords?.includes(keyword))
+            .length
         : 0;
 
       return { doc, commonKeywords };
@@ -145,8 +144,8 @@ export const getSerieWorks = async (content: ContentWithIsPartOf) =>
   )
     .filter((w) => 'position' in w && typeof w.position === 'number')
     .sort((a, b) => (a.position as number) - (b.position as number)) as Array<
-      Content & Required<Pick<Content, 'position'>>
-    >;
+    Content & Required<Pick<Content, 'position'>>
+  >;
 
 export const getPreviousWorkSeries = async (
   content: Content
