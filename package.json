@@ -43,7 +43,7 @@
     "organize-imports-cli": "0.10.0",
     "prettier": "3.2.5",
     "prettier-plugin-astro": "0.13.0",
-    "turbo": "1.13.2",
+    "turbo": "1.13.3",
     "typescript": "5.4.5"
   },
   "lint-staged": {
