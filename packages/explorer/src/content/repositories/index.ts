@@ -55,6 +55,10 @@ export const getRelatedPages = async (
   content: Content,
   exclude: Content[] = []
 ): Promise<Content[]> => {
+  if (!content.keywords) {
+    return [];
+  }
+
   const pages = await getPages({
     inLanguage: content.inLanguage,
     type: content.type,
@@ -73,7 +77,8 @@ export const getRelatedPages = async (
 
       return { doc, commonKeywords };
     })
-    .sort((a, b) => b.commonKeywords - a.commonKeywords)
+    .filter(({ commonKeywords }) => commonKeywords > 0)
+    .sort((a, b) => a.commonKeywords - b.commonKeywords)
     .map(({ doc }) => doc);
 };
 
