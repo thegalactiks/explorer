@@ -54,7 +54,8 @@ export const breadcrumbBuilder =
 
       return recursiveBreadcrumbExploration(
         ('category' in page && page.category) || // Product
-        ('isPartOf' in page && page.isPartOf) || homeIdentifier,
+          ('isPartOf' in page && page.isPartOf) ||
+          homeIdentifier,
         inLanguage,
         itemList
       );

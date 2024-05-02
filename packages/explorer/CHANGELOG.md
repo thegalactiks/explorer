@@ -1,5 +1,11 @@
 # @galactiks/explorer
 
+## 0.3.10
+
+### Patch Changes
+
+- [#205](https://github.com/thegalactiks/explorer/pull/205) [`7bf29f7`](https://github.com/thegalactiks/explorer/commit/7bf29f752c5b60fcb2a9b27039bc00cdfe8b67dc) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - add product category in breadcrumb
+
 ## 0.3.9
 
 ### Patch Changes
