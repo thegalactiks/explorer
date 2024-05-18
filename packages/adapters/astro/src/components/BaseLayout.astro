@@ -1,5 +1,6 @@
 ---
 import Head from './Head.astro';
+import { getDefaultLanguage } from '@galactiks/config';
 import type { Content } from '@galactiks/explorer';
 
 type Props = {
@@ -16,7 +17,7 @@ if (Array.isArray(content.headers?.openGraph)) {
 ---
 
 <!doctype html>
-<html lang={content?.inLanguage} prefix={prefix}>
+<html lang={content?.inLanguage || getDefaultLanguage()} prefix={prefix}>
   <Head content={content}>
     <slot name="head" />
   </Head>
