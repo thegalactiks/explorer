@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/astro-integration",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "Galactiks Astro integration",
   "author": "thegalactiks",
   "type": "module",
@@ -51,7 +51,7 @@
     "@astrojs/partytown": "^2.0",
     "@astrojs/react": "^3.0",
     "@astrojs/rss": "~4.0",
-    "@galactiks/sitemap": "^0.1.4",
+    "@galactiks/sitemap": "^0.1.5",
     "astro": "^4.0",
     "astro-robots-txt": "~1.0"
   },
