@@ -1,5 +1,11 @@
 # @galactiks/sitemap
 
+## 0.1.5
+
+### Patch Changes
+
+- [`75fb330`](https://github.com/thegalactiks/explorer/commit/75fb330fcfdcc091c8d94937c42cecf2c8e370ba) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - update packages and small improvements
+
 ## 0.1.4
 
 ### Patch Changes
