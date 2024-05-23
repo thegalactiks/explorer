@@ -1,5 +1,14 @@
 # @galactiks/explorer
 
+## 0.3.12
+
+### Patch Changes
+
+- [#212](https://github.com/thegalactiks/explorer/pull/212) [`062de07`](https://github.com/thegalactiks/explorer/commit/062de07a80e5987e3efc0afcef16f7a2a8277094) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - enrich offer and product schema
+
+- Updated dependencies [[`32c4724`](https://github.com/thegalactiks/explorer/commit/32c4724eac48f18828a309b47ea4986fc4ebb96f), [`062de07`](https://github.com/thegalactiks/explorer/commit/062de07a80e5987e3efc0afcef16f7a2a8277094)]:
+  - @galactiks/contentlayer@0.2.9
+
 ## 0.3.11
 
 ### Patch Changes
