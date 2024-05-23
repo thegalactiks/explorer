@@ -332,16 +332,16 @@ export type Offer = {
   seller?: Id | undefined;
   priceValidUntil?: IsoDateTimeString | undefined;
   availability?:
-    | 'BackOrder'
-    | 'Discontinued'
-    | 'InStock'
-    | 'InStoreOnly'
-    | 'LimitedAvailability'
-    | 'OnlineOnly'
-    | 'OutOfStock'
-    | 'PreOrder'
-    | 'PreSale'
-    | 'SoldOut'
+    | 'https://schema.org/BackOrder'
+    | 'https://schema.org/Discontinued'
+    | 'https://schema.org/InStock'
+    | 'https://schema.org/InStoreOnly'
+    | 'https://schema.org/LimitedAvailability'
+    | 'https://schema.org/OnlineOnly'
+    | 'https://schema.org/OutOfStock'
+    | 'https://schema.org/PreOrder'
+    | 'https://schema.org/PreSale'
+    | 'https://schema.org/SoldOut'
     | undefined;
 };
 
