@@ -116,7 +116,7 @@ export type Person = {
   sameAs?: string | undefined;
   author?: string | undefined;
   headline?: string | undefined;
-  dateCreated?: IsoDateTimeString | undefined;
+  dateCreated: IsoDateTimeString;
   dateModified?: IsoDateTimeString | undefined;
   datePublished?: IsoDateTimeString | undefined;
   isPartOf?: string | undefined;
@@ -185,6 +185,8 @@ export type Product = {
   sameAs?: string | undefined;
   category?: string | undefined;
   brand?: Id | undefined;
+  aggregateRating?: AggregateRating | undefined;
+  review?: Review[] | undefined;
   color?: string | undefined;
   depth?: QuantitativeValue | undefined;
   gtin?: string | undefined;
@@ -251,6 +253,15 @@ export type Website = {
 };
 
 /** Nested types */
+export type AggregateRating = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'AggregateRating';
+  ratingValue: number;
+  reviewCount: number;
+};
+
 export type EnergyConsumptionDetails = {
   /** File path relative to `contentDirPath` */
   _id: string;
@@ -283,6 +294,7 @@ export type EnergyConsumptionDetails = {
 };
 
 export type Id = {
+  /** File path relative to `contentDirPath` */
   type: 'Id';
   '@id': string;
 };
@@ -318,6 +330,19 @@ export type Offer = {
   price: number;
   priceCurrency: string;
   seller?: Id | undefined;
+  priceValidUntil?: IsoDateTimeString | undefined;
+  availability?:
+    | 'BackOrder'
+    | 'Discontinued'
+    | 'InStock'
+    | 'InStoreOnly'
+    | 'LimitedAvailability'
+    | 'OnlineOnly'
+    | 'OutOfStock'
+    | 'PreOrder'
+    | 'PreSale'
+    | 'SoldOut'
+    | undefined;
 };
 
 export type PostalAddress = {
@@ -341,6 +366,30 @@ export type QuantitativeValue = {
   maxValue?: number | undefined;
   minValue?: number | undefined;
   value: number;
+  unitCode?: string | undefined;
+  unitText?: string | undefined;
+};
+
+export type Rating = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'Rating';
+  ratingValue: number;
+  bestRating: number;
+  worstRating: number;
+};
+
+export type Review = {
+  /** File path relative to `contentDirPath` */
+  _id: string;
+  _raw: Local.RawDocumentData;
+  type: 'Review';
+  name?: string | undefined;
+  author?: string | undefined;
+  datePublished?: IsoDateTimeString | undefined;
+  reviewBody: string;
+  reviewRating: Rating;
 };
 
 /** Helper types */
@@ -368,19 +417,25 @@ export type DocumentTypeNames =
   | 'Website';
 
 export type NestedTypes =
+  | AggregateRating
   | EnergyConsumptionDetails
   | Id
   | ItemListElement
   | Offer
   | PostalAddress
-  | QuantitativeValue;
+  | QuantitativeValue
+  | Rating
+  | Review;
 export type NestedTypeNames =
+  | 'AggregateRating'
   | 'EnergyConsumptionDetails'
   | 'Id'
   | 'ItemListElement'
   | 'Offer'
   | 'PostalAddress'
-  | 'QuantitativeValue';
+  | 'QuantitativeValue'
+  | 'Rating'
+  | 'Review';
 
 export type DataExports = {
   allDocuments: DocumentTypes[];
@@ -421,10 +476,13 @@ export type DocumentTypeMap = {
 };
 
 export type NestedTypeMap = {
+  AggregateRating: AggregateRating;
   EnergyConsumptionDetails: EnergyConsumptionDetails;
   Id: Id;
   ItemListElement: ItemListElement;
   Offer: Offer;
   PostalAddress: PostalAddress;
   QuantitativeValue: QuantitativeValue;
+  Rating: Rating;
+  Review: Review;
 };
