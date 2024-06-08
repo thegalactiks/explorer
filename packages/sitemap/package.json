@@ -35,7 +35,7 @@
   ],
   "dependencies": {
     "date-fns": "3.6.0",
-    "sitemap": "7.1.2"
+    "sitemap": "8.0.0"
   },
   "devDependencies": {
     "@galactiks/explorer": "workspace:^"
