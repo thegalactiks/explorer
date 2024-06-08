@@ -1,6 +1,6 @@
 {
   "name": "@galactiks/explorer",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "Ensure Galactiks content model consistence, explore content built with ContentLayer and create dynamically missing pages and fields for SEO purposes",
   "author": "thegalactiks",
   "type": "module",
