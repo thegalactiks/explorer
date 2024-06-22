@@ -30,6 +30,9 @@ const galactiksConfigFileSchema = z.object({
   template: z.string(),
   analytics: analyticsConfigSchema.optional(),
   trailingSlash: z.enum(['ignore', 'always', 'never']).optional(),
+  pagination: z.object({
+    pageSize: z.number().optional().default(10),
+  }).optional(),
   pages: z
     .object({
       articles: pagesObjectItemSchema,
