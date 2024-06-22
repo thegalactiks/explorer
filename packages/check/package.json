@@ -1,0 +1,37 @@
+{
+  "name": "@galactiks/check",
+  "version": "0.0.1",
+  "description": "Galactiks content check",
+  "author": "galactiks",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bugs": "https://github.com/thegalactiks/explorer/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thegalactiks/explorer.git",
+    "directory": "packages/check"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "build:ci": "tsc -p ./tsconfig.json"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "galactiks",
+    "check"
+  ],
+  "dependencies": {
+    "zod": "3.22.4"
+  }
+}
