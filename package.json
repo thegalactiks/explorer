@@ -17,9 +17,9 @@
   "packageManager": "pnpm@9.5.0",
   "scripts": {
     "release": "pnpm run build && changeset publish",
-    "build": "turbo run build --filter=galactiks --filter=\"@galactiks/*\" --filter=\"!@galactiks/astro-example\"",
-    "test": "turbo run test --filter=galactiks --filter=\"@galactiks/*\"",
-    "build:ci": "turbo run build:ci --filter=galactiks",
+    "build": "turbo run build --filter=\"@galactiks/*\"",
+    "test": "turbo run test --filter=\"@galactiks/*\"",
+    "build:ci": "turbo run build:ci --filter=\"@galactiks/*\"",
     "format": "pnpm run format:code",
     "format:ci": "pnpm run format:imports && pnpm run format:code",
     "format:code": "prettier -w \"**/*\" --ignore-unknown --cache",
@@ -43,7 +43,7 @@
     "organize-imports-cli": "0.10.0",
     "prettier": "3.3.3",
     "prettier-plugin-astro": "0.14.0",
-    "turbo": "1.13.4",
+    "turbo": "2.0.6",
     "typescript": "5.5.3"
   },
   "lint-staged": {
