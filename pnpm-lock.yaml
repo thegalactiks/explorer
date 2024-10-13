@@ -146,8 +146,8 @@ importers:
         specifier: workspace:^
         version: link:../contentlayer
       '@std-uritemplate/std-uritemplate':
-        specifier: 1.0.6
-        version: 1.0.6
+        specifier: 2.0.0
+        version: 2.0.0
       debug:
         specifier: 4.3.7
         version: 4.3.7
@@ -2001,8 +2001,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@std-uritemplate/std-uritemplate@1.0.6':
-    resolution: {integrity: sha512-+S9kAqK60nZZyvhvesoXut6NB9qB80VTpNsdiOeHmE0FAMOEsJy9/dakDL3xMp3kNRFvviw0mX9WPSuasvSxCQ==}
+  '@std-uritemplate/std-uritemplate@2.0.0':
+    resolution: {integrity: sha512-InaOxl1k6QEvqVjv2He57aGuk2yEd0FnH03BZWNvocsHUvidWS3X/GSS428qjwt/KYsDoGdNlesdv5Y4r1WsoA==}
 
   '@ts-morph/common@0.16.0':
     resolution: {integrity: sha512-SgJpzkTgZKLKqQniCjLaE3c2L2sdL7UShvmTmPBejAKd2OKV/yfMpQ2IWpAuA+VY5wy7PkSUaEObIqEK6afFuw==}
@@ -7286,7 +7286,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@std-uritemplate/std-uritemplate@1.0.6': {}
+  '@std-uritemplate/std-uritemplate@2.0.0': {}
 
   '@ts-morph/common@0.16.0':
     dependencies:
