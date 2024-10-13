@@ -15,28 +15,24 @@ export { getStaticPaths, getIndexPage } from './pages.js';
 export { integrationsPreset } from './preset.js';
 export { getRSS } from './rss.js';
 
-type GalactiksOptions = {
-  content?: {
-    path?: string;
-  };
-};
+type GalactiksOptions = object | undefined;
 
-const symlinkDir = (path: string, targetPath: string) =>
+const symlinkDir = (targetPath: string, path: string) =>
   readdirSync(path)
-    .map((filename) => [join(path, filename), join(targetPath, filename)])
-    .filter(([, path]) => !existsSync(path))
+    .filter((filename) => !filename.startsWith('.'))
+    .map((filename) => [join(targetPath, filename), join(path, filename)])
+    .filter(([target]) => !existsSync(target))
     .forEach(([target, path]) => symlinkSync(target, path));
 
 const removeDirSymbolicLinks = (path: string) =>
   readdirSync(path)
     .map((filename) => join(path, filename))
-    .filter((file) => lstatSync(file).isSymbolicLink())
+    .filter((file) => lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink())
     .forEach((file) => unlinkSync(file));
 
-export default function createPlugin(
-  options: GalactiksOptions
-): AstroIntegration {
-  let galactiksConfig = getConfig(options?.content?.path);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function createPlugin(_: GalactiksOptions): AstroIntegration {
+  let galactiksConfig = getConfig();
 
   const galactiksConfigContentAssets = galactiksConfig.content.assets;
   const galactiksConfigContentPublic = galactiksConfig.content.public;
@@ -78,12 +74,8 @@ export default function createPlugin(
           },
         });
 
-        removeDirSymbolicLinks(assetsPath);
-        removeDirSymbolicLinks(publicPath);
-
-        symlinkDir(galactiksConfigContentAssets, assetsPath);
-        symlinkDir(galactiksConfigContentAssets, publicPath);
-        symlinkDir(galactiksConfigContentPublic, publicPath);
+        symlinkDir(assetsPath, galactiksConfigContentAssets);
+        symlinkDir(publicPath, galactiksConfigContentPublic);
 
         if (command === 'dev') {
           addWatchFile(galactiksConfig.content.generated);

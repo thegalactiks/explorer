@@ -3,14 +3,26 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["**/*"],
-      "outputs": ["dist/**/*"],
+      "inputs": ["packages/**/*"],
+      "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
     "build:ci": {
       "dependsOn": ["^build:ci"],
       "inputs": ["**/*"],
-      "outputs": ["dist/**/*"],
+      "outputs": ["dist/**"],
+      "outputLogs": "new-only"
+    },
+    "contentlayer-example#build": {
+      "dependsOn": ["@galactiks/contentlayer#build"],
+      "inputs": ["**/*"],
+      "outputs": [".contentlayer/**"],
+      "outputLogs": "new-only"
+    },
+    "astro-example:build": {
+      "dependsOn": ["build", "contentlayer-example#build"],
+      "inputs": ["**/*"],
+      "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
     "dev": {
