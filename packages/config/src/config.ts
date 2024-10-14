@@ -83,17 +83,20 @@ export function getConfig(path?: string): GalactiksConfig {
     return _config;
   }
 
-  if (!path && process.env.CONTENT_PATH) {
-    path = process.env.CONTENT_PATH;
-  } else if (!path) {
-    path = process.cwd();
+  if (!path) {
+    path = process.env.GALACTIKS_PATH || process.env.CONTENT_PATH || process.cwd();
   }
   _config = readConfigFile(path);
 
   return _config;
 }
 
-export function setConfig(key: string, value: unknown): GalactiksConfig {
+export function setConfig(key: string | GalactiksConfig, value: unknown): GalactiksConfig {
+  if (typeof key === 'object') {
+    _config = deepmerge(getConfig(), key);
+    return _config;
+  }
+
   _config = set(getConfig(), key, value);
 
   return _config;

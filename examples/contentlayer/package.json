@@ -1,5 +1,5 @@
 {
-  "name": "@galactiks/contentlayer-example",
+  "name": "contentlayer-example",
   "version": "0.0.0",
   "description": "Contentlayer repository example.",
   "private": "true",
@@ -8,13 +8,13 @@
     "lint": "eslint . --ext mdx --cache"
   },
   "dependencies": {
-    "@galactiks/contentlayer": "workspace:^",
+    "@galactiks/contentlayer": "../../packages/contentlayer",
     "contentlayer": "0.3.4"
   },
   "devDependencies": {
     "eslint": "8.56.0",
     "eslint-plugin-mdx": "3.1.5",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }
