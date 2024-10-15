@@ -1,5 +1,11 @@
 # @galactiks/astro-integration
 
+## 0.3.17
+
+### Patch Changes
+
+- [#237](https://github.com/thegalactiks/explorer/pull/237) [`036543f`](https://github.com/thegalactiks/explorer/commit/036543f86818b99db3bbd40c9c54d6481b8d5497) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - fix assets symlinks
+
 ## 0.3.16
 
 ### Patch Changes
