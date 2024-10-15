@@ -1,19 +1,10 @@
 import type { DocumentTypeDef } from '../consts.js';
-import { galactiksFields, idDocumentType } from './core.js';
+import {
+  availabilityEnumeration,
+  galactiksFields,
+  idDocumentType,
+} from './core.js';
 import { thingsFields } from './things.js';
-
-const availabilityEnumeration = [
-  'https://schema.org/BackOrder',
-  'https://schema.org/Discontinued',
-  'https://schema.org/InStock',
-  'https://schema.org/InStoreOnly',
-  'https://schema.org/LimitedAvailability',
-  'https://schema.org/OnlineOnly',
-  'https://schema.org/OutOfStock',
-  'https://schema.org/PreOrder',
-  'https://schema.org/PreSale',
-  'https://schema.org/SoldOut',
-];
 
 export const ContentLayerOfferFields: DocumentTypeDef = {
   name: 'Offer',

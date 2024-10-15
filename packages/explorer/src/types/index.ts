@@ -6,6 +6,7 @@ import type {
   Person as ContentlayerPerson,
   Place as ContentlayerPlace,
   Product as ContentlayerProduct,
+  SoftwareApplication as ContentlayerSoftwareApplication,
 } from '@galactiks/contentlayer';
 
 import type { MetadataHeaders, Page } from './_schemas';
@@ -19,6 +20,7 @@ export type ContentlayerWebPageDocument =
   | ContentlayerPerson
   | ContentlayerPlace
   | ContentlayerProduct
+  | ContentlayerSoftwareApplication
   | ContentlayerTagPage;
 export type CreativeWorkWebPageDocument =
   | ContentlayerArticle
@@ -33,11 +35,14 @@ export type Content = Page & {
 export type {
   DocumentTypes as ContentlayerDocumentTypes,
   DataExports as ContentlayerDataExports,
+  Offer as ContentlayerOffer,
   Organization as ContentlayerOrganization,
   Page as ContentlayerPage,
   Person as ContentlayerPerson,
   Place as ContentlayerPlace,
   Product as ContentlayerProduct,
+  Review as ContentlayerReview,
+  SoftwareApplication as ContentlayerSoftwareApplication,
   Website as ContentlayerWebsite,
   WebPageElement as ContentlayerWebPageElement,
 } from '@galactiks/contentlayer';

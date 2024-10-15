@@ -7,6 +7,7 @@ export enum pageDocumentTypes {
   Person = 'people',
   Place = 'places',
   Product = 'products',
+  SoftwareApplication = 'softwareApplications',
   Tag = 'tags',
 }
 
@@ -18,6 +19,7 @@ export enum documentTypes {
   Person = pageDocumentTypes.Person,
   Place = pageDocumentTypes.Place,
   Product = pageDocumentTypes.Product,
+  SoftwareApplication = pageDocumentTypes.SoftwareApplication,
   Tag = pageDocumentTypes.Tag,
   WebPageElement = 'webPageElements',
   Website = 'websites',

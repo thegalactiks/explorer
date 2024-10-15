@@ -37,6 +37,7 @@ const galactiksConfigFileSchema = z.object({
       pages: pagesObjectItemSchema,
       people: pagesObjectItemSchema,
       products: pagesObjectItemSchema,
+      softwareApplications: pagesObjectItemSchema,
       places: pagesObjectItemSchema,
       tags: pagesObjectItemSchema,
     })
@@ -84,14 +85,18 @@ export function getConfig(path?: string): GalactiksConfig {
   }
 
   if (!path) {
-    path = process.env.GALACTIKS_PATH || process.env.CONTENT_PATH || process.cwd();
+    path =
+      process.env.GALACTIKS_PATH || process.env.CONTENT_PATH || process.cwd();
   }
   _config = readConfigFile(path);
 
   return _config;
 }
 
-export function setConfig(key: string | GalactiksConfig, value: unknown): GalactiksConfig {
+export function setConfig(
+  key: string | GalactiksConfig,
+  value: unknown
+): GalactiksConfig {
   if (typeof key === 'object') {
     _config = deepmerge(getConfig(), key);
     return _config;

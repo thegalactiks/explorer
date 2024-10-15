@@ -23,6 +23,9 @@
     "products": {
       "path": "/{+inLanguage}/products/{/identifier}/"
     },
+    "softwareApplications": {
+      "path": "/{+inLanguage}/software/{/identifier}/"
+    },
     "tags": false
   }
 }

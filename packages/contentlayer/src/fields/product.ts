@@ -1,6 +1,7 @@
 import { defineNestedType } from 'contentlayer/source-files';
 import type { DocumentTypeDef } from '../consts.js';
 import {
+  aggregateRating,
   energyConsumptionDetails,
   galactiksFields,
   idDocumentType,
@@ -8,14 +9,6 @@ import {
 } from './core.js';
 import { thingsFields } from './things.js';
 import { ContentLayerOfferFields } from './offer.js';
-
-const aggregateRating = defineNestedType(() => ({
-  name: 'AggregateRating',
-  fields: {
-    ratingValue: { type: 'number', required: true },
-    reviewCount: { type: 'number', required: true },
-  },
-}));
 
 const review = defineNestedType(() => ({
   name: 'Review',

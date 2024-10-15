@@ -64,6 +64,19 @@ export const postalAddress = defineNestedType(() => ({
   },
 }));
 
+export const availabilityEnumeration = [
+  'https://schema.org/BackOrder',
+  'https://schema.org/Discontinued',
+  'https://schema.org/InStock',
+  'https://schema.org/InStoreOnly',
+  'https://schema.org/LimitedAvailability',
+  'https://schema.org/OnlineOnly',
+  'https://schema.org/OutOfStock',
+  'https://schema.org/PreOrder',
+  'https://schema.org/PreSale',
+  'https://schema.org/SoldOut',
+];
+
 export const quantitativeValue = defineNestedType(() => ({
   name: 'QuantitativeValue',
   fields: {
@@ -112,5 +125,13 @@ export const propertyValue = defineNestedType(() => ({
     maxValue: { type: 'number', required: false },
     unitCode: { type: 'string', required: false },
     unitText: { type: 'string', required: false },
+  },
+}));
+
+export const aggregateRating = defineNestedType(() => ({
+  name: 'AggregateRating',
+  fields: {
+    ratingValue: { type: 'number', required: true },
+    reviewCount: { type: 'number', required: true },
   },
 }));

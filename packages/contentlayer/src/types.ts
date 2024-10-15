@@ -204,6 +204,44 @@ export type Product = {
   body: MDX;
 };
 
+export type SoftwareApplication = {
+  /** File path relative to `contentDirPath` */
+  _id: string
+  _raw: Local.RawDocumentData
+  type: 'SoftwareApplication'
+  listingPage: boolean
+  slug?: string | undefined
+  path?: string | undefined
+  inLanguage?: string | undefined
+  translationOfWork?: Id | undefined
+  workTranslation?: Id | undefined
+  name: string
+  description: string
+  url?: string | undefined
+  identifier: string
+  image?: any | undefined
+  sameAs?: string | undefined
+  author?: string | undefined
+  headline?: string | undefined
+  dateCreated: IsoDateTimeString
+  dateModified?: IsoDateTimeString | undefined
+  datePublished?: IsoDateTimeString | undefined
+  isPartOf?: string | undefined
+  keywords?: string[] | undefined
+  position?: number | undefined
+  applicationCategory?: string | undefined
+  applicationSubCategory?: string | undefined
+  downloadUrl?: string | undefined
+  featureList?: string[] | undefined
+  installUrl?: string | undefined
+  releaseNotes?: string[] | undefined
+  screenshot?: ImageFieldData | undefined
+  aggregateRating?: AggregateRating | undefined
+  offers?: Offer[] | undefined
+  /** MDX file body */
+  body: MDX
+};
+
 export type WebPageElement = {
   /** File path relative to `contentDirPath` */
   _id: string;
@@ -404,6 +442,7 @@ export type DocumentTypes =
   | Person
   | Place
   | Product
+  | SoftwareApplication
   | WebPageElement
   | Website;
 export type DocumentTypeNames =
@@ -413,6 +452,7 @@ export type DocumentTypeNames =
   | 'Person'
   | 'Place'
   | 'Product'
+  | 'SoftwareApplication'
   | 'WebPageElement'
   | 'Website';
 
@@ -445,6 +485,7 @@ export type DataExports = {
   allPeople: Person[];
   allPlaces: Place[];
   allProducts: Product[];
+  allSoftwareApplications: SoftwareApplication[];
   allWebsites: Website[];
   allWebPageElements: WebPageElement[];
 };
@@ -471,6 +512,7 @@ export type DocumentTypeMap = {
   Person: Person;
   Place: Place;
   Product: Product;
+  SoftwareApplication: SoftwareApplication;
   WebPageElement: WebPageElement;
   Website: Website;
 };

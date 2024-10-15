@@ -27,7 +27,9 @@ const symlinkDir = (targetPath: string, path: string) =>
 const removeDirSymbolicLinks = (path: string) =>
   readdirSync(path)
     .map((filename) => join(path, filename))
-    .filter((file) => lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink())
+    .filter((file) =>
+      lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink()
+    )
     .forEach((file) => unlinkSync(file));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
