@@ -24,6 +24,10 @@ export const getDefaultConfig = (path: string) => ({
       path: '/products/{+isPartOf}/{/identifier}/',
     },
 
+    softwareApplications: {
+      path: '/software/{+isPartOf}/{/identifier}/',
+    },
+
     places: {
       path: '/places/{+isPartOf}/{/identifier}/',
     },

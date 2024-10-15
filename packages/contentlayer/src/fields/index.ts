@@ -7,6 +7,7 @@ export * from './organization.js';
 export * from './person.js';
 export * from './place.js';
 export * from './product.js';
+export * from './software-application.js';
 export * from './webpage-element.js';
 export * from './website.js';
 export * from './page.js';

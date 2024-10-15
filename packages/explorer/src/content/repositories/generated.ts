@@ -60,6 +60,7 @@ const getWebPageDocuments = async (): Promise<Content[]> => {
     .concat(generated.allPeople || [])
     .concat(generated.allPlaces || [])
     .concat(generated.allProducts || [])
+    .concat(generated.allSoftwareApplications || [])
     .filter(
       (_d) =>
         !('datePublished' in _d) ||

@@ -1,13 +1,12 @@
-import type { Product, WithContext } from 'schema-dts';
-import type { ContentlayerProduct } from '../../../types/index.js';
+import type { SoftwareApplication, WithContext } from 'schema-dts';
+import type { ContentlayerSoftwareApplication } from '../../../types/index.js';
 import { getOffer } from './offer.js';
-import { getReview } from './review.js';
 
-export const getProduct = (
-  document: ContentlayerProduct
-): WithContext<Product> => ({
+export const getSoftwareApplication = (
+  document: ContentlayerSoftwareApplication
+): WithContext<SoftwareApplication> => ({
   '@context': 'https://schema.org',
-  '@type': 'Product',
+  '@type': 'SoftwareApplication',
   name: document.name,
   description: document.description,
   aggregateRating: document.aggregateRating && {
@@ -15,7 +14,6 @@ export const getProduct = (
     ratingValue: document.aggregateRating.ratingValue,
     reviewCount: document.aggregateRating.reviewCount,
   },
-  review: Array.isArray(document.review) ? document.review.map(getReview) : [],
   image: document.image?.contentUrl && [document.image?.contentUrl],
   offers: Array.isArray(document.offers) ? document.offers.map(getOffer) : [],
 });
