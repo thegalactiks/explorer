@@ -1,5 +1,11 @@
 # @galactiks/contentlayer
 
+## 0.3.0
+
+### Minor Changes
+
+- [`a7bdd5e`](https://github.com/thegalactiks/explorer/commit/a7bdd5e35e7c1286d3254cfbbfef9d3c5b4ecde0) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - software app type
+
 ## 0.2.10
 
 ### Patch Changes

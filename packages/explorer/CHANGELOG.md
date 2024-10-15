@@ -1,5 +1,17 @@
 # @galactiks/explorer
 
+## 0.4.0
+
+### Minor Changes
+
+- [`a7bdd5e`](https://github.com/thegalactiks/explorer/commit/a7bdd5e35e7c1286d3254cfbbfef9d3c5b4ecde0) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - software app type
+
+### Patch Changes
+
+- Updated dependencies [[`a7bdd5e`](https://github.com/thegalactiks/explorer/commit/a7bdd5e35e7c1286d3254cfbbfef9d3c5b4ecde0)]:
+  - @galactiks/contentlayer@0.3.0
+  - @galactiks/config@0.4.0
+
 ## 0.3.13
 
 ### Patch Changes
