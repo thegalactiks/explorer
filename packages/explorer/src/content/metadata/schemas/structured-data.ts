@@ -1,6 +1,10 @@
 import type { Thing, WithContext } from 'schema-dts';
 
-import type { Content, ContentlayerProduct, ContentlayerSoftwareApplication } from '../../../types/index.js';
+import type {
+  Content,
+  ContentlayerProduct,
+  ContentlayerSoftwareApplication,
+} from '../../../types/index.js';
 import { getArticle } from './article.js';
 import { getPlace } from './place.js';
 import { getProduct } from './product.js';
@@ -23,7 +27,9 @@ export const getStructuredDataSchemas = (document: Content) => {
 
     case 'SoftwareApplication':
       schemas = schemas.concat(
-        getSoftwareApplication(document as unknown as ContentlayerSoftwareApplication)
+        getSoftwareApplication(
+          document as unknown as ContentlayerSoftwareApplication
+        )
       );
       break;
 
