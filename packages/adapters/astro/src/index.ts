@@ -22,7 +22,7 @@ const symlinkDir = (targetPath: string, path: string) =>
     .filter((filename) => !filename.startsWith('.'))
     .map((filename) => [join(targetPath, filename), join(path, filename)])
     .filter(([target]) => !existsSync(target))
-    .forEach(([target, path]) => symlinkSync(target, path));
+    .forEach(([target, path]) => symlinkSync(path, target));
 
 const removeDirSymbolicLinks = (path: string) =>
   readdirSync(path)
@@ -75,6 +75,9 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
             },
           },
         });
+
+        removeDirSymbolicLinks(assetsPath);
+        removeDirSymbolicLinks(publicPath);
 
         symlinkDir(assetsPath, galactiksConfigContentAssets);
         symlinkDir(publicPath, galactiksConfigContentPublic);
