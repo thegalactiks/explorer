@@ -14,7 +14,9 @@ describe('getFacebookObjects', () => {
 
   it('should return an array with fb:app_id if facebook appId is present', () => {
     const mockAppId = '1234567890';
-    (getConfig as jest.Mock).mockReturnValue({ facebook: { appId: mockAppId } });
+    (getConfig as jest.Mock).mockReturnValue({
+      facebook: { appId: mockAppId },
+    });
 
     const result = getFacebookObjects();
 

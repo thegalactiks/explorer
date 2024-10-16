@@ -6,7 +6,11 @@ import { z } from 'zod';
 
 import { analyticsConfigSchema } from './analytics.js';
 import { getDefaultConfig } from './default.js';
-import { facebookConfigSchema, openGraphConfigSchema, twitterConfigSchema } from './socials.js';
+import {
+  facebookConfigSchema,
+  openGraphConfigSchema,
+  twitterConfigSchema,
+} from './socials.js';
 import type { WebManifest } from './webmanifest.config.js';
 
 const localesSchema = z.object({

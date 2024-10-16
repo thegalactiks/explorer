@@ -1,5 +1,11 @@
 # @galactiks/config
 
+## 0.5.0
+
+### Minor Changes
+
+- [`6a8ef6b`](https://github.com/thegalactiks/explorer/commit/6a8ef6b593a8a9b5f2f8ecf27b2de805520b1e56) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - add socials configurations
+
 ## 0.4.0
 
 ### Minor Changes
