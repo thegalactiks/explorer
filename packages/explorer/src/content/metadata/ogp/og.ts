@@ -4,13 +4,15 @@ import type { Content, MetadataHeaders } from '../../../types/index.js';
 import { getArticle } from './article.js';
 import { getWebsite } from './website.js';
 
-const getOpenGraphByType = (document: Content): MetadataHeaders['openGraph'] => {
+const getOpenGraphByType = (
+  document: Content
+): MetadataHeaders['openGraph'] => {
   if (document.type === 'Article') {
     return getArticle(document);
   }
 
   return getWebsite(document);
-}
+};
 
 export const getOpenGraphObjects = (
   document: Content

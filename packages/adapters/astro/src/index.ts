@@ -29,7 +29,7 @@ const symlinkDir = (targetPath: string, path: string) => {
     .map((filename) => [join(targetPath, filename), join(path, filename)])
     .filter(([target]) => !existsSync(target))
     .forEach(([target, path]) => symlinkSync(path, target));
-}
+};
 
 const removeDirSymbolicLinks = (path: string) => {
   if (!existsSync(path)) {
@@ -42,7 +42,7 @@ const removeDirSymbolicLinks = (path: string) => {
       lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink()
     )
     .forEach((file) => unlinkSync(file));
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function createPlugin(_: GalactiksOptions): AstroIntegration {
@@ -79,7 +79,7 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
         galactiksConfig = setConfig('content.public', publicPath);
 
         publicAssetsPath = join(publicPath, 'assets');
-        mkdirSync(publicAssetsPath, { recursive: true })
+        mkdirSync(publicAssetsPath, { recursive: true });
 
         updateConfig({
           site: galactiksConfig.webManifest.start_url,
