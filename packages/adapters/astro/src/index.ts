@@ -3,10 +3,12 @@ import type { AstroIntegration } from 'astro';
 import {
   existsSync,
   lstatSync,
+  mkdirSync,
   readdirSync,
+  rmdirSync,
   symlinkSync,
   unlinkSync,
-} from 'fs';
+} from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'path';
 
@@ -17,20 +19,30 @@ export { getRSS } from './rss.js';
 
 type GalactiksOptions = object | undefined;
 
-const symlinkDir = (targetPath: string, path: string) =>
+const symlinkDir = (targetPath: string, path: string) => {
+  if (!existsSync(targetPath)) {
+    mkdirSync(path, { recursive: true });
+  }
+
   readdirSync(path)
     .filter((filename) => !filename.startsWith('.'))
     .map((filename) => [join(targetPath, filename), join(path, filename)])
     .filter(([target]) => !existsSync(target))
     .forEach(([target, path]) => symlinkSync(path, target));
+}
 
-const removeDirSymbolicLinks = (path: string) =>
+const removeDirSymbolicLinks = (path: string) => {
+  if (!existsSync(path)) {
+    return;
+  }
+
   readdirSync(path)
     .map((filename) => join(path, filename))
     .filter((file) =>
       lstatSync(file, { throwIfNoEntry: false })?.isSymbolicLink()
     )
     .forEach((file) => unlinkSync(file));
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function createPlugin(_: GalactiksOptions): AstroIntegration {
@@ -41,6 +53,7 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
   let assetsPath: string;
   let publicPath: string;
+  let publicAssetsPath: string;
 
   return {
     name: '@galactiks/astro-integration',
@@ -65,6 +78,9 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
         publicPath = fileURLToPath(config.publicDir);
         galactiksConfig = setConfig('content.public', publicPath);
 
+        publicAssetsPath = join(publicPath, 'assets');
+        mkdirSync(publicAssetsPath, { recursive: true })
+
         updateConfig({
           site: galactiksConfig.webManifest.start_url,
           trailingSlash,
@@ -78,9 +94,11 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
         removeDirSymbolicLinks(assetsPath);
         removeDirSymbolicLinks(publicPath);
+        removeDirSymbolicLinks(publicAssetsPath);
 
         symlinkDir(assetsPath, galactiksConfigContentAssets);
         symlinkDir(publicPath, galactiksConfigContentPublic);
+        symlinkDir(publicAssetsPath, galactiksConfigContentAssets);
 
         if (command === 'dev') {
           addWatchFile(galactiksConfig.content.generated);
@@ -91,6 +109,7 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
       'astro:build:done': () => {
         removeDirSymbolicLinks(assetsPath);
+        rmdirSync(publicAssetsPath, { recursive: true });
         removeDirSymbolicLinks(publicPath);
       },
     },
