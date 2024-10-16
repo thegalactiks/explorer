@@ -1,7 +1,14 @@
+import { getConfig } from '@galactiks/config';
 import { Content } from '../../types/index.js';
 import { getBasicHeaders } from './headers';
 
+jest.mock('@galactiks/config');
+
 describe('getBasicHeaders', () => {
+  beforeAll(() => {
+    (getConfig as jest.Mock).mockReturnValue({});
+  });
+
   it('should return correct basic headers', () => {
     const entry = {
       name: 'Test Document',

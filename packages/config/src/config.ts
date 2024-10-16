@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 import { analyticsConfigSchema } from './analytics.js';
 import { getDefaultConfig } from './default.js';
+import { facebookConfigSchema, openGraphConfigSchema, twitterConfigSchema } from './socials.js';
 import type { WebManifest } from './webmanifest.config.js';
 
 const localesSchema = z.object({
@@ -29,6 +30,9 @@ const galactiksConfigFileSchema = z.object({
   locales: localesSchema.optional(),
   template: z.string(),
   analytics: analyticsConfigSchema.optional(),
+  openGraph: openGraphConfigSchema.optional(),
+  facebook: facebookConfigSchema.optional(),
+  twitter: twitterConfigSchema.optional(),
   trailingSlash: z.enum(['ignore', 'always', 'never']).optional(),
   pages: z
     .object({
