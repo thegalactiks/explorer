@@ -24,6 +24,14 @@ const metadataHeaders = z
         })
       )
       .optional(),
+    facebook: z
+      .array(
+        z.object({
+          property: z.string(),
+          content: z.string(),
+        })
+      )
+      .optional(),
     twitterCard: z
       .array(
         z.object({

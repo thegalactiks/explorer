@@ -31,6 +31,11 @@ const { analytics } = getConfig();
     ))
   }
   {
+    content.headers?.facebook?.map(({ property, content, ...props }) => (
+      <meta property={property} content={content} {...props} />
+    ))
+  }
+  {
     content.headers?.twitterCard?.map(({ name, content, ...props }) => (
       <meta name={name} content={content} {...props} />
     ))

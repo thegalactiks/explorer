@@ -4,6 +4,17 @@
     "default": "en",
     "available": ["en", "fr"]
   },
+  "openGraph": {
+    "siteName": "Galactiks"
+  },
+  "facebook": {
+    "appId": "123456789"
+  },
+  "twitter": {
+    "handle": "@galactiks",
+    "site": "@galactiks",
+    "cardType": "summary_large_image"
+  },
   "pages": {
     "articles": {
       "path": "/{+inLanguage}/a/{identifier}/"

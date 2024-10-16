@@ -29,6 +29,7 @@
       "cache": false
     },
     "test": {
+      "dependsOn": ["^build"],
       "outputLogs": "new-only"
     }
   }

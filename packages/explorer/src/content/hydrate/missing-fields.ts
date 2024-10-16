@@ -13,6 +13,7 @@ import { breadcrumbBuilder } from '../metadata/breadcrumb.js';
 import { getBasicHeaders } from '../metadata/headers.js';
 import { getTwitterCard } from '../metadata/twitter.js';
 import { getOpenGraphObjects } from '../metadata/ogp/og.js';
+import { getFacebookObjects } from '../metadata/facebook.js';
 import { getStructuredDataSchemas } from '../metadata/schemas/structured-data.js';
 
 export const computeMissingFields =
@@ -81,6 +82,7 @@ export const computeMissingFields =
             contentWithoutHeaders
           ),
           openGraph: getOpenGraphObjects(contentWithoutHeaders),
+          facebook: getFacebookObjects(),
           twitterCard: getTwitterCard(contentWithoutHeaders),
         },
       };
