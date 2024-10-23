@@ -5,7 +5,6 @@ import {
   lstatSync,
   mkdirSync,
   readdirSync,
-  rmdirSync,
   symlinkSync,
   unlinkSync,
 } from 'node:fs';
@@ -53,7 +52,6 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
   let assetsPath: string;
   let publicPath: string;
-  let publicAssetsPath: string;
 
   return {
     name: '@galactiks/astro-integration',
@@ -76,10 +74,8 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
         galactiksConfig = setConfig('content.assets', assetsPath);
 
         publicPath = fileURLToPath(config.publicDir);
+        mkdirSync(publicPath, { recursive: true })
         galactiksConfig = setConfig('content.public', publicPath);
-
-        publicAssetsPath = join(publicPath, 'assets');
-        mkdirSync(publicAssetsPath, { recursive: true });
 
         updateConfig({
           site: galactiksConfig.webManifest.start_url,
@@ -94,11 +90,10 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
         removeDirSymbolicLinks(assetsPath);
         removeDirSymbolicLinks(publicPath);
-        removeDirSymbolicLinks(publicAssetsPath);
 
         symlinkDir(assetsPath, galactiksConfigContentAssets);
         symlinkDir(publicPath, galactiksConfigContentPublic);
-        symlinkDir(publicAssetsPath, galactiksConfigContentAssets);
+        symlinkDir(publicPath, galactiksConfigContentAssets);
 
         if (command === 'dev') {
           addWatchFile(galactiksConfig.content.generated);
@@ -109,7 +104,6 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
 
       'astro:build:done': () => {
         removeDirSymbolicLinks(assetsPath);
-        rmdirSync(publicAssetsPath, { recursive: true });
         removeDirSymbolicLinks(publicPath);
       },
     },
