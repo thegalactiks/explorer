@@ -1,5 +1,11 @@
 # @galactiks/astro-integration
 
+## 0.3.19
+
+### Patch Changes
+
+- [#243](https://github.com/thegalactiks/explorer/pull/243) [`21a46b2`](https://github.com/thegalactiks/explorer/commit/21a46b2a7f57ef90cc3d887a71d41110a4993570) Thanks [@emmanuelgautier](https://github.com/emmanuelgautier)! - remove useless assets dir during build
+
 ## 0.3.18
 
 ### Patch Changes

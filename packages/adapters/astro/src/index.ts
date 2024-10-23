@@ -74,7 +74,7 @@ export default function createPlugin(_: GalactiksOptions): AstroIntegration {
         galactiksConfig = setConfig('content.assets', assetsPath);
 
         publicPath = fileURLToPath(config.publicDir);
-        mkdirSync(publicPath, { recursive: true })
+        mkdirSync(publicPath, { recursive: true });
         galactiksConfig = setConfig('content.public', publicPath);
 
         updateConfig({
