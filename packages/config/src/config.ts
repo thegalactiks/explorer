@@ -38,6 +38,11 @@ const galactiksConfigFileSchema = z.object({
   facebook: facebookConfigSchema.optional(),
   twitter: twitterConfigSchema.optional(),
   trailingSlash: z.enum(['ignore', 'always', 'never']).optional(),
+  pagination: z.object({
+    pageSize: z.number().optional().default(10),
+  }).default({
+    pageSize: 10,
+  }),
   pages: z
     .object({
       articles: pagesObjectItemSchema,

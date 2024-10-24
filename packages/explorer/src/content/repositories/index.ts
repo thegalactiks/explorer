@@ -6,28 +6,30 @@ import { documentByIdentifierSelector } from '../selectors.js';
 import { createIdentifierFromString } from '../utils.js';
 
 import type { RepositoryFilters } from './filters.js';
-import { getOrganizations, getPages } from './generated.js';
+import { type ContentResult, getOrganizations, getPages, type Pagination } from './generated.js';
 
 export * from './generated.js';
 
 export const getRootPages = async (
   filters?: RepositoryFilters
-): Promise<Content[]> =>
-  (await getPages(filters)).filter((doc) => !doc.isPartOf);
+): Promise<ContentResult> =>
+  getPages({ ...filters, isPartOf: undefined });
 
 export const getPagesPartOf = async (
   slug: string,
-  filters?: RepositoryFilters
-): Promise<Content[]> =>
-  (await getPages(filters)).filter((doc) => doc.isPartOf === slug);
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
+): Promise<ContentResult> =>
+  getPages({ ...filters, isPartOf: slug }, pagination);
 
 export const getPagesPartOfRecursively = async (
   slug: string,
-  filters?: RepositoryFilters
-): Promise<Content[]> => {
-  const pages = await getPagesPartOf(slug, filters);
-  if (pages.length === 0) {
-    return pages;
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
+): Promise<ContentResult> => {
+  const pagesResult = await getPagesPartOf(slug, filters);
+  if (pagesResult.pagination?.total === 0) {
+    return pagesResult;
   }
 
   return Promise.all(
@@ -36,8 +38,10 @@ export const getPagesPartOfRecursively = async (
 };
 
 export const getSamePartOfPages = async (
-  content: Content
-): Promise<Content[]> => {
+  content: Content,
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
+): Promise<ContentResult> => {
   if (!content.isPartOf) {
     return [];
   }
@@ -45,14 +49,17 @@ export const getSamePartOfPages = async (
   const relatedPages = await getPagesPartOf(content.isPartOf, {
     inLanguage: content.inLanguage,
     type: content.type,
+    ...filters,
   });
   return relatedPages.filter((doc) => doc.identifier !== content.identifier);
 };
 
 export const getRelatedPages = async (
   content: Content,
-  exclude: Content[] = []
-): Promise<Content[]> => {
+  exclude: Content[] = [],
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
+): Promise<ContentResult> => {
   if (!content.keywords) {
     return [];
   }
@@ -60,6 +67,7 @@ export const getRelatedPages = async (
   const pages = await getPages({
     inLanguage: content.inLanguage,
     type: content.type,
+    ...filters,
   });
   const excludeIdentifiers = exclude.map((doc) => doc.identifier);
   return pages
@@ -71,7 +79,7 @@ export const getRelatedPages = async (
     .map((doc) => {
       const commonKeywords = Array.isArray(doc.keywords)
         ? doc.keywords.filter((keyword) => content.keywords?.includes(keyword))
-            .length
+          .length
         : 0;
 
       return { doc, commonKeywords };
@@ -83,8 +91,9 @@ export const getRelatedPages = async (
 
 export const getPagesWithKeywordIdentifier = async (
   keywordIdentifier: string,
-  filters?: RepositoryFilters
-): Promise<Content[]> =>
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
+): Promise<ContentResult> =>
   (await getPages(filters)).filter((doc) =>
     doc.keywords?.some(
       (keyword) => createIdentifierFromString(keyword) === keywordIdentifier
@@ -93,7 +102,7 @@ export const getPagesWithKeywordIdentifier = async (
 
 export const getPageByIdentifier = async (
   identifier: string,
-  filters?: RepositoryFilters
+  filters?: RepositoryFilters,
 ) => documentByIdentifierSelector(await getPages(filters))(identifier);
 
 export const getPageByURL = async (url: string) =>
@@ -101,7 +110,8 @@ export const getPageByURL = async (url: string) =>
 
 export const getTagPageByKeyword = async (
   keyword: string,
-  filters?: RepositoryFilters
+  filters?: RepositoryFilters,
+  pagination?: Pagination,
 ) =>
   (await getPages(filters)).filter(
     (doc) =>
@@ -140,17 +150,18 @@ export const getIndexPage = async (): Promise<Content | undefined> => {
 
 type ContentWithIsPartOf = Content & Required<Pick<Content, 'isPartOf'>>;
 
-export const getSerieWorks = async (content: ContentWithIsPartOf) =>
-  (
-    await getPagesPartOf(content.isPartOf, {
-      type: content.type,
-      inLanguage: content.inLanguage,
-    })
-  )
+export const getSerieWorks = async (content: ContentWithIsPartOf) => {
+  const serieWorksResult = await getPagesPartOf(content.isPartOf, {
+    type: content.type,
+    inLanguage: content.inLanguage,
+  })
+
+  return serieWorksResult.elements
     .filter((w) => 'position' in w && typeof w.position === 'number')
     .sort((a, b) => (a.position as number) - (b.position as number)) as Array<
-    Content & Required<Pick<Content, 'position'>>
-  >;
+      Content & Required<Pick<Content, 'position'>>
+    >;
+}
 
 export const getPreviousWorkSeries = async (
   content: Content
