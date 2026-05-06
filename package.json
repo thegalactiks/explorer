@@ -14,7 +14,7 @@
     "node": ">=18.0.0",
     "pnpm": ">=8.4.0"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@10.33.4",
   "scripts": {
     "release": "pnpm run build && changeset publish",
     "build": "turbo run build --filter=\"@galactiks/*\"",
