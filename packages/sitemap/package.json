@@ -34,8 +34,8 @@
     "seo"
   ],
   "dependencies": {
-    "date-fns": "4.1.0",
-    "sitemap": "8.0.0"
+    "date-fns": "4.4.0",
+    "sitemap": "8.0.3"
   },
   "devDependencies": {
     "@galactiks/explorer": "workspace:^"
